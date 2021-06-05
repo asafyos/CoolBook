@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,10 +10,13 @@ namespace CoolBook.Models
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Must enter title"), StringLength(40)]
         public String Title { get; set; }
 
+        [StringLength(1000)]
         public String Body { get; set; }
 
+        [Required, Range(0,5)]
         public int Rate { get; set; }
 
         public int UserId { get; set; }
