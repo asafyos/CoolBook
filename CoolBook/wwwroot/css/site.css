@@ -24,6 +24,21 @@ a.navbar-brand {
     word-break: break-all;
 }
 
+.cb-cart {
+    margin-left: auto;
+    margin-right: 1em;
+}
+
+.cb-logo {
+    width: 2em;
+    height: 2em;
+    margin-right: 1em
+}
+
+.cb-colored-nav .cb-logo {
+    filter: contrast(0.1) brightness(2);
+}
+
 /* Provide sufficient contrast against white background */
 a {
     color: #0366d6;

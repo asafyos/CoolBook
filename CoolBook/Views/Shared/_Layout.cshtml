@@ -13,13 +13,17 @@
     @await RenderSectionAsync("Styles", required: false)
 </head>
 
-@{var colored = (bool)ViewData["colored"];}
+@{var colored = (bool)(ViewData["colored"] ?? false);}
 @{var textColor = colored ? "text-light" : "text-dark";}
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light .sticky-top @(colored?"cb-colored-nav":"bg-white border-bottom box-shadow")">
             <div class="container">
-                <a class="navbar-brand @textColor" asp-area="" asp-controller="Home" asp-action="Index">CoolBook</a>
+                <a asp-controller="Home" asp-action="Index"><img class="cb-logo" src="~/book.png" /></a>
+                <a class=" navbar-brand @textColor" asp-area="" asp-controller="Home" asp-action="Index">
+                    CoolBook
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -27,11 +31,34 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link @textColor" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link @textColor" asp-controller="Home" asp-action="Index">
+                                Home
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @textColor" asp-area="" asp-controller="Home"
-                               asp-action="Privacy">Privacy</a>
+                            <a class="nav-link @textColor" asp-controller="Books" asp-action="Index">
+                                Books
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @textColor" asp-controller="Authors" asp-action="Index">
+                                Authors
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @textColor" asp-controller="Reviews" asp-action="Index">
+                                Reviews
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @textColor" asp-controller="Home" asp-action="About">
+                                About us
+                            </a>
+                        </li>
+                        <li class="nav-item cb-cart">
+                            <a class="nav-link @textColor" asp-controller="Users" asp-action="Cart">
+                                <i class="bi bi-bag"></i>
+                            </a>
                         </li>
                         @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
                         {
