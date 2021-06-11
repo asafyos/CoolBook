@@ -21,16 +21,13 @@ namespace CoolBook.Models
         [Required(ErrorMessage = "Must enter user name"), StringLength(20), Display(Name = "User Name")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Must enter full name"), StringLength(40), Display(Name = "Full Name")]
-        public string FullName { get; set; }
-
         [Required(ErrorMessage = "Must enter email"), DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Must enter password"), DataType(DataType.Password)]
         public string Password { get; set; }
 
-        public Gender Gender { get; set; }
+        public UserInfo UserInfo { get; set; }
 
         public UserRole Role { get; set; } = UserRole.Client;
     }
