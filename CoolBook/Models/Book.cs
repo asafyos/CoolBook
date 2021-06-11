@@ -18,14 +18,14 @@ namespace CoolBook.Models
 
 
         [Required, DataType(DataType.Currency), Range(0, 1000)]
-        public Double Price { get; set; }
+        public double Price { get; set; }
 
         [Display(Name = "Publish Date")]
         public DateTime PublishDate { get; set; }
 
 
         [DataType(DataType.ImageUrl), Display(Name = "Image Url")]
-        public String ImageUrl { get; set; }
+        public string ImageUrl { get; set; }
 
         public List<Category> Categories { get; set; }
 

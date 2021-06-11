@@ -11,10 +11,10 @@ namespace CoolBook.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Must enter category name"), StringLength(40)]
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         [DataType(DataType.ImageUrl), Display(Name = "Image Url")]
-        public String ImageUrl { get; set; }
+        public string ImageUrl { get; set; }
 
         public List<Book> Books { get; set; }
     }
