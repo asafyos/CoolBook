@@ -11,10 +11,10 @@ namespace CoolBook.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Must enter title"), StringLength(40)]
-        public String Title { get; set; }
+        public string Title { get; set; }
 
         [StringLength(1000)]
-        public String Body { get; set; }
+        public string Body { get; set; }
 
         [Required, Range(0,5)]
         public int Rate { get; set; }
