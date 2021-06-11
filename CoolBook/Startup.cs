@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CoolBook.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CoolBook
 {
@@ -29,6 +30,12 @@ namespace CoolBook
 
             services.AddDbContext<CoolBookContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("CoolBookContext")));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = "/Users/Login";
+                options.AccessDeniedPath = "/Users/AccessDenied";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +57,8 @@ namespace CoolBook
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
