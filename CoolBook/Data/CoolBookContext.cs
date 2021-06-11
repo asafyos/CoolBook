@@ -15,5 +15,13 @@ namespace CoolBook.Data
         }
 
         public DbSet<CoolBook.Models.Book> Book { get; set; }
+
+        public DbSet<CoolBook.Models.Author> Author { get; set; }
+
+        public DbSet<CoolBook.Models.Category> Category { get; set; }
+
+        public DbSet<CoolBook.Models.Review> Review { get; set; }
+
+        public DbSet<CoolBook.Models.User> User { get; set; }
     }
 }
