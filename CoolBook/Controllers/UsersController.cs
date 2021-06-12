@@ -1,12 +1,14 @@
-﻿using System;
+﻿using CoolBook.Data;
+using CoolBook.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using CoolBook.Data;
-using CoolBook.Models;
 
 namespace CoolBook.Controllers
 {
@@ -145,9 +147,100 @@ namespace CoolBook.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register([Bind("UserName,Password,FullName,Email,Gender")] User user)
+        {
+            if (!ModelState.IsValid)
+            {
+                //TODO: handle error
+                return null;
+            }
+
+            var result = await _context.User.FirstOrDefaultAsync(u => u.UserName == user.UserName);
+
+            if (result != null)
+            {
+                //TODO: handle error
+                return null;
+            }
+
+            _context.Add(user);
+            await _context.SaveChangesAsync();
+
+            await Signin(user);
+
+            return RedirectToAction(nameof(Index), "Home");
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login([Bind("UserName,Password")] User user, [FromQuery] string redirect)
+        {
+            if (!ModelState.IsValid)
+            {
+                //show error
+                return null;
+            }
+
+            var result = from u in _context.User
+                         where u.UserName == user.UserName
+                            && u.Password == user.Password
+                         select u;
+
+            if (result.Count() == 0)
+            {
+                //show error
+                return null;
+            }
+
+            await Signin(result.First());
+
+            if (redirect != null)
+            {
+                return Redirect(redirect);
+            }
+
+            return RedirectToAction(nameof(Index), "Home");
+        }
+
+        public async Task<IActionResult> Logout([FromQuery] string redirect)
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            if (redirect != null)
+            {
+                return Redirect(redirect);
+            }
+
+            return RedirectToAction(nameof(Index), "Home");
+        }
+
         private bool UserExists(int id)
         {
             return _context.User.Any(e => e.Id == id);
+        }
+
+        private async Task Signin(User account)
+        {
+            var claims = new List<Claim> {
+                new Claim(ClaimTypes.Name, account.UserName),
+                new Claim(ClaimTypes.Role, account.Role.ToString())
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var authProperties = new AuthenticationProperties
+            {
+                ExpiresUtc = DateTimeOffset.UtcNow.AddHours(24)
+            };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties
+            );
         }
     }
 }
