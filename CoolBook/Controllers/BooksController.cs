@@ -22,7 +22,9 @@ namespace CoolBook.Controllers
         // GET: Books
         public async Task<IActionResult> Index()
         {
-            var coolBookContext = _context.Book.Include(b => b.Author);
+            var coolBookContext = _context.Book.Include(b => b.Author)
+                .Include(a => a.Categories)
+                .Include(b => b.Reviews);
             return View(await coolBookContext.ToListAsync());
         }
 
@@ -52,7 +54,20 @@ namespace CoolBook.Controllers
         {
             ViewData["authors"] = new SelectList(_context.Author, "Id", "Name");
             ViewData["categories"] = new SelectList(_context.Category, "Id", "Name");
-            
+
+            return View();
+        }
+
+        // GET: Books/Create
+        public async Task<IActionResult> Search()
+        {
+            ViewData["authors"] = new SelectList(_context.Author, "Id", "Name");
+            ViewData["categories"] = new SelectList(_context.Category, "Id", "Name");
+
+            ViewData["books"] = _context.Book.Include(b => b.Author)
+                .Include(a => a.Categories)
+                .Include(b => b.Reviews);
+
             return View();
         }
 
@@ -61,7 +76,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,AuthorId,Price,PublishDate,ImageUrl, Categories")] Book book, List<int>? categories)
+        public async Task<IActionResult> Create([Bind("Id,Name,AuthorId,Price,PublishDate,ImageUrl,Categories")] Book book, List<int>? categories)
         {
             if (ModelState.IsValid)
             {

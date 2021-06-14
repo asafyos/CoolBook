@@ -5,6 +5,7 @@ for details on configuring this project to bundle and minify static web assets. 
 :root {
     --cb-primary: #de2454;
     --cb-primary-dark: #b41b43;
+    --cb-primary-darker: #851432;
     --cb-secondary: #573ba3;
     --cb-secondary-dark: #2b0f42;
 }
@@ -60,11 +61,25 @@ a {
         border-color: var(--cb-primary-dark);
     }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
+    .btn-primary:not(:disabled):not(.disabled):active {
+        color: #fff;
+        background-color: var(--cb-primary-darker);
+        border-color: var(--cb-primary-dark);
+    }
+
+    .btn-primary:focus {
+        box-shadow: 0 0 0 0.2rem #de245466;
+    }
+
+    .btn-primary:not(:disabled):not(.disabled):active:focus {
+        box-shadow: 0 0 0 0.2rem #de245499;
+    }
+
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: #fff;
+        background-color: #1b6ec2;
+        border-color: #1861ac;
+    }
 
 /* Sticky footer styles
 -------------------------------------------------- */

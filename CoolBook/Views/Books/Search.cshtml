@@ -1,0 +1,85 @@
+﻿@model CoolBook.Models.Book
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+@section Styles {
+    <link href="@Url.Content("~/css/Books/Search.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="container">
+    <h1>Search</h1>
+</div>
+
+<div class="cb-search-container">
+    <div>
+        @*<a class="btn btn-primary" data-toggle="collapse" href="#searchFilter" role="button" aria-expanded="false" aria-controls="searchFilter">
+                Filter...
+            </a>
+
+            <div class="collapse" id="searchFilter">*@
+        <div class="card card-body">
+            <div class="form-group">
+                <label asp-for="AuthorId" class="control-label">Author</label>
+                <select multiple="multiple" asp-for="AuthorId" class="form-control" asp-items="ViewBag.authors"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Categories" class="control-label"></label>
+                <select asp-for="Categories" class="form-control" asp-items="ViewBag.categories"></select>
+            </div>
+            @*</div>*@
+        </div>
+    </div>
+    <div>
+        <h4>Book</h4>
+        <hr />
+        <div class="cb-book-list">
+            <div class="card">
+                <img class="card-img-top" src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/action-thriller-book-cover-design-template-3675ae3e3ac7ee095fc793ab61b812cc_screen.jpg?ts=1588152105" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title cb-book-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+                </div>
+            </div>
+        </div>
+        @*<dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Author)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Author.Name)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Price)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.PublishDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.PublishDate)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ImageUrl)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ImageUrl)
+                </dd>
+            </dl>*@
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
