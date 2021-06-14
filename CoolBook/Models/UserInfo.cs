@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoolBook.Models
 {
@@ -16,7 +13,10 @@ namespace CoolBook.Models
         [Required(ErrorMessage = "Must enter full name"), StringLength(40), Display(Name = "Full Name")]
         public string FullName { get; set; }
 
-        [Required(ErrorMessage = "Must enter date of birth"), Display(Name = "Birth Date")]
+        [Required]
+        public Gender Gender { get; set; }
+
+        [Required(ErrorMessage = "Must enter date of birth"), Display(Name = "Birth Date"), DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
         [Required(ErrorMessage = "Must enter Address")]

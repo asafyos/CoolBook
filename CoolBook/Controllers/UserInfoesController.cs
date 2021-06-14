@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CoolBook.Data;
+using CoolBook.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using CoolBook.Data;
-using CoolBook.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CoolBook.Controllers
 {
@@ -57,7 +55,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,FullName,BirthDate,Address,PhoneNumber")] UserInfo userInfo)
+        public async Task<IActionResult> Create([Bind("Id,UserId,FullName,Gender,BirthDate,Address,PhoneNumber")] UserInfo userInfo)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +80,7 @@ namespace CoolBook.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "UserName", userInfo.UserId);
+            ViewData["UserId"] = new SelectList(_context.User.Where(u => u.Id == id), "Id", "UserName", userInfo.UserId);
             return View(userInfo);
         }
 
@@ -91,7 +89,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,FullName,BirthDate,Address,PhoneNumber")] UserInfo userInfo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,FullName,Gender,BirthDate,Address,PhoneNumber")] UserInfo userInfo)
         {
             if (id != userInfo.Id)
             {
@@ -118,7 +116,6 @@ namespace CoolBook.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "UserName", userInfo.UserId);
             return View(userInfo);
         }
 
