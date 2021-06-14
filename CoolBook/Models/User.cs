@@ -18,7 +18,7 @@ namespace CoolBook.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Must enter user name"), StringLength(20), Display(Name = "User Name")]
+        [Required(ErrorMessage = "Must enter user name"), StringLength(20), Display(Name = "Username")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Must enter full name"), StringLength(40), Display(Name = "Full Name")]

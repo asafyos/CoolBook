@@ -147,6 +147,18 @@ namespace CoolBook.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: Users/Login
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        // GET: Users/Register
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("UserName,Password,FullName,Email,Gender")] User user)

@@ -13,4 +13,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\Home\Index.css" />
+  </ItemGroup>
+
 </Project>
