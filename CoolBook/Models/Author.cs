@@ -11,13 +11,13 @@ namespace CoolBook.Models
         [Required(ErrorMessage = "Must enter author name"), StringLength(40)]
         public string Name { get; set; }
 
-        [Required, Display(Name = "Birth Date")]
+        [Required, Display(Name = "Birth Date"), DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
         [Required]
         public Gender Gender { get; set; }
 
-        [Required]
+        [StringLength(40)]
         public string Country { get; set; }
         
         public List<Book> Books { get; set; }

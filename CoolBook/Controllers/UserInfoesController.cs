@@ -1,31 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CoolBook.Data;
+using CoolBook.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using CoolBook.Data;
-using CoolBook.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CoolBook.Controllers
 {
-    public class CategoriesController : Controller
+    public class UserInfoesController : Controller
     {
         private readonly CoolBookContext _context;
 
-        public CategoriesController(CoolBookContext context)
+        public UserInfoesController(CoolBookContext context)
         {
             _context = context;
         }
 
-        // GET: Categories
+        // GET: UserInfoes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Category.ToListAsync());
+            var coolBookContext = _context.UserInfo.Include(u => u.User);
+            return View(await coolBookContext.ToListAsync());
         }
 
-        // GET: Categories/Details/5
+        // GET: UserInfoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,40 +32,42 @@ namespace CoolBook.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category
-                .Include(c => c.Books)
+            var userInfo = await _context.UserInfo
+                .Include(u => u.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (userInfo == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(userInfo);
         }
 
-        // GET: Categories/Create
+        // GET: UserInfoes/Create
         public IActionResult Create()
         {
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "UserName");
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: UserInfoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,ImageUrl")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,UserId,FullName,Gender,BirthDate,Address,PhoneNumber")] UserInfo userInfo)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
+                _context.Add(userInfo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "UserName", userInfo.UserId);
+            return View(userInfo);
         }
 
-        // GET: Categories/Edit/5
+        // GET: UserInfoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,22 +75,23 @@ namespace CoolBook.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category.FindAsync(id);
-            if (category == null)
+            var userInfo = await _context.UserInfo.FindAsync(id);
+            if (userInfo == null)
             {
                 return NotFound();
             }
-            return View(category);
+            ViewData["UserId"] = new SelectList(_context.User.Where(u => u.Id == id), "Id", "UserName", userInfo.UserId);
+            return View(userInfo);
         }
 
-        // POST: Categories/Edit/5
+        // POST: UserInfoes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ImageUrl")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,FullName,Gender,BirthDate,Address,PhoneNumber")] UserInfo userInfo)
         {
-            if (id != category.Id)
+            if (id != userInfo.Id)
             {
                 return NotFound();
             }
@@ -98,12 +100,12 @@ namespace CoolBook.Controllers
             {
                 try
                 {
-                    _context.Update(category);
+                    _context.Update(userInfo);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+                    if (!UserInfoExists(userInfo.Id))
                     {
                         return NotFound();
                     }
@@ -114,10 +116,10 @@ namespace CoolBook.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(userInfo);
         }
 
-        // GET: Categories/Delete/5
+        // GET: UserInfoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,30 +127,31 @@ namespace CoolBook.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category
+            var userInfo = await _context.UserInfo
+                .Include(u => u.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (userInfo == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(userInfo);
         }
 
-        // POST: Categories/Delete/5
+        // POST: UserInfoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Category.FindAsync(id);
-            _context.Category.Remove(category);
+            var userInfo = await _context.UserInfo.FindAsync(id);
+            _context.UserInfo.Remove(userInfo);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool UserInfoExists(int id)
         {
-            return _context.Category.Any(e => e.Id == id);
+            return _context.UserInfo.Any(e => e.Id == id);
         }
     }
 }

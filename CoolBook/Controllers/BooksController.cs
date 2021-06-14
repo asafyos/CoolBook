@@ -36,6 +36,8 @@ namespace CoolBook.Controllers
 
             var book = await _context.Book
                 .Include(b => b.Author)
+                .Include(a => a.Categories)
+                .Include(b => b.Reviews)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (book == null)
             {
@@ -48,7 +50,9 @@ namespace CoolBook.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
-            ViewData["AuthorId"] = new SelectList(_context.Author, "Id", "Country");
+            ViewData["authors"] = new SelectList(_context.Author, "Id", "Name");
+            ViewData["categories"] = new SelectList(_context.Category, "Id", "Name");
+            
             return View();
         }
 
@@ -57,15 +61,17 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,AuthorId,Price,PublishDate,ImageUrl")] Book book)
+        public async Task<IActionResult> Create([Bind("Id,Name,AuthorId,Price,PublishDate,ImageUrl, Categories")] Book book, List<int>? categories)
         {
             if (ModelState.IsValid)
             {
+                // Update the categories that this book is in
+                UpdateCategories(book, categories);
+
                 _context.Add(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorId"] = new SelectList(_context.Author, "Id", "Country", book.AuthorId);
             return View(book);
         }
 
@@ -77,12 +83,14 @@ namespace CoolBook.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Book.FindAsync(id);
+            var book = await _context.Book.Include(b => b.Categories)
+                                          .FirstOrDefaultAsync(m => m.Id == id);
             if (book == null)
             {
                 return NotFound();
             }
-            ViewData["AuthorId"] = new SelectList(_context.Author, "Id", "Country", book.AuthorId);
+            ViewData["AuthorId"] = new SelectList(_context.Author, "Id", "Name", book.AuthorId);
+            ViewData["Categories"] = new SelectList(_context.Category, "Id", "Name", book.Categories);
             return View(book);
         }
 
@@ -91,7 +99,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AuthorId,Price,PublishDate,ImageUrl")] Book book)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AuthorId,Price,PublishDate,ImageUrl")] Book book, List<int>? categories)
         {
             if (id != book.Id)
             {
@@ -102,6 +110,7 @@ namespace CoolBook.Controllers
             {
                 try
                 {
+                    UpdateCategories(book, categories);
                     _context.Update(book);
                     await _context.SaveChangesAsync();
                 }
@@ -118,7 +127,6 @@ namespace CoolBook.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorId"] = new SelectList(_context.Author, "Id", "Country", book.AuthorId);
             return View(book);
         }
 
@@ -155,6 +163,26 @@ namespace CoolBook.Controllers
         private bool BookExists(int id)
         {
             return _context.Book.Any(e => e.Id == id);
+        }
+
+        public void UpdateCategories(Book book, List<int>? categories)
+        {
+            if (categories == null)
+                return;
+
+            // Make the matching between categories and books, delete previous
+            foreach (var CategoryId in categories)
+            {
+                var category = _context.Category.Find(CategoryId);
+                if (category.Books == null)
+                    category.Books = new List<Book>();
+
+                if (book.Categories == null)
+                    book.Categories = new List<Category>();
+
+                category.Books.Add(book);
+                book.Categories.Add(category);
+            }
         }
     }
 }
