@@ -34,6 +34,7 @@ namespace CoolBook.Controllers
             }
 
             var category = await _context.Category
+                .Include(c => c.Books)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
