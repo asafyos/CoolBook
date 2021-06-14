@@ -13,6 +13,9 @@ namespace CoolBook.Models
         [StringLength(1000)]
         public string Body { get; set; }
 
+        [Required, DataType(DataType.Date)]
+        public DateTime Date { get; set; }
+
         [Required, Range(0, 5)]
         public int Rate { get; set; }
 
