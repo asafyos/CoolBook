@@ -4,14 +4,16 @@ using CoolBook.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CoolBook.Migrations
 {
     [DbContext(typeof(CoolBookContext))]
-    partial class CoolBookContextModelSnapshot : ModelSnapshot
+    [Migration("20210614121604_Split User & fixes")]
+    partial class SplitUserfixes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
