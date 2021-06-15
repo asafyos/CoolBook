@@ -11,7 +11,7 @@ namespace CoolBook.Models
         public int Id { get; set; }
         
         [Required(ErrorMessage = "Must enter book name"), StringLength(100)]
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         public int AuthorId { get; set; }
         public Author Author { get; set; }
@@ -20,7 +20,7 @@ namespace CoolBook.Models
         [Required, DataType(DataType.Currency), Range(0, 1000)]
         public double Price { get; set; }
 
-        [Display(Name = "Publish Date")]
+        [Display(Name = "Publish Date"), DataType(DataType.Date)]
         public DateTime PublishDate { get; set; }
 
 

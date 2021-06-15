@@ -49,8 +49,8 @@ namespace CoolBook.Controllers
         // GET: Reviews/Create
         public IActionResult Create()
         {
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Id");
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "Email");
+            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Name");
+            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "UserName");
             return View();
         }
 
@@ -67,8 +67,8 @@ namespace CoolBook.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Id", review.BookId);
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "Email", review.UserId);
+            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Name", review.BookId);
+            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "UserName", review.UserId);
             return View(review);
         }
 
@@ -85,8 +85,8 @@ namespace CoolBook.Controllers
             {
                 return NotFound();
             }
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Id", review.BookId);
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "Email", review.UserId);
+            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Name", review.BookId);
+            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "UserName", review.UserId);
             return View(review);
         }
 
@@ -122,8 +122,8 @@ namespace CoolBook.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Id", review.BookId);
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "Email", review.UserId);
+            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Name", review.BookId);
+            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "UserName", review.UserId);
             return View(review);
         }
 

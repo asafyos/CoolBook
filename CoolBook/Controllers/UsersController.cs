@@ -56,7 +56,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserName,FullName,Email,Password,Gender,Role")] User user)
+        public async Task<IActionResult> Create([Bind("Id,UserName,Email,Password,Role")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,FullName,Email,Password,Gender,Role")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,Email,Password,Role")] User user)
         {
             if (id != user.Id)
             {
@@ -145,6 +145,18 @@ namespace CoolBook.Controllers
             _context.User.Remove(user);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Users/Login
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        // GET: Users/Register
+        public IActionResult Register()
+        {
+            return View();
         }
 
         [HttpPost]
