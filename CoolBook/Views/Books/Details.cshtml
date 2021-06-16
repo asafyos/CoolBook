@@ -35,10 +35,10 @@
             @Html.DisplayFor(model => model.PublishDate)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
+            Image:
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
+            <img src="@Html.DisplayFor(model => model.ImageUrl)" alt="Book Image" style="height:150px;width:150px" />
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Categories)
@@ -57,13 +57,43 @@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Reviews)
         </dt>
-        <dd class="col-sm-10">
+
+        <div style="margin: 10px">
+            @using (Html.BeginForm("Add", "Reviews", FormMethod.Post))
+            {
+            <div class="input-group">
+                @Html.Hidden("BookId", Model.Id)
+                <input type="text" name="Title" class="form-control" placeholder="Title">
+                <textarea name="Body" class="form-control" aria-label="With textarea"></textarea>
+                <span>Product Rating:</span>
+                <input type="range" name="Rate" class="form-range" min="0" max="5" id="rateRange">
+                <input  type="submit" value="Add Review" class="btn btn-default" style='margin-top:1%' />
+                <br />
+            </div>
+            }
+        </div>
+
+<dd class="col-sm-10">
             <div class="list-group">
                 @if (Model.Reviews != null && Model.Reviews.Any())
                 {
                     foreach (var review in Model.Reviews)
                     {
-                        <div class="col-sm-5" style="width: 100%"> @review.Title, @review.Body</div>
+                        <div class="col-sm-5" style="width: 100%">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="col-sm-8">@review.Title </h4>
+                                    <div class="col-sm-4">
+                                        <strong>@review.User.UserName</strong>
+                                        <strong>Rating : @review.Rate</strong>
+                                        <span class="text-muted">@review.Date</span>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    @review.Body
+                                </div>
+                            </div>
+                        </div>
                     }
                 }
             </div>

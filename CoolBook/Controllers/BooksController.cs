@@ -40,6 +40,7 @@ namespace CoolBook.Controllers
                 .Include(b => b.Author)
                 .Include(a => a.Categories)
                 .Include(b => b.Reviews)
+                .ThenInclude(r => r.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (book == null)
             {

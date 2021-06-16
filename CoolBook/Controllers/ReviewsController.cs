@@ -46,30 +46,25 @@ namespace CoolBook.Controllers
             return View(review);
         }
 
-        // GET: Reviews/Create
-        public IActionResult Create()
-        {
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Name");
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "UserName");
-            return View();
-        }
-
         // POST: Reviews/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Body,Rate,UserId,BookId")] Review review)
+        public async Task<IActionResult> Add([Bind("Title,Body,Rate,BookId")] Review review)
         {
+            // insert from session
+            // review.UserId = HttpContext.Session.GetString("ConnectedUserId") ??
+            //string.Empty;
+            review.UserId = 1;
+
             if (ModelState.IsValid)
             {
                 _context.Add(review);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Name", review.BookId);
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "UserName", review.UserId);
-            return View(review);
+
+            return RedirectToAction("Details", "Books", new { id = review.BookId });
         }
 
         // GET: Reviews/Edit/5
