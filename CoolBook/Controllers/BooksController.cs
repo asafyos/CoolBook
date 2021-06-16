@@ -92,8 +92,6 @@ namespace CoolBook.Controllers
             });
 
             return Json(results);
-
-            //return Json(new List<Book>()); //TODO
         }
 
         // POST: Books/Create
