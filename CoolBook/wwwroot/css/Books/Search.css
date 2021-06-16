@@ -17,25 +17,37 @@
     }
 }
 
-.cb-book-list {
+#cb-book-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, 15rem);
     justify-content: center;
     gap: 1.5em;
 }
 
-    .cb-book-list > div > div {
-        height: 15em;
-        margin-top: -12em;
-        background: linear-gradient( 0deg, white 33%, transparent 90%);
-        padding-top: 5rem;
+    #cb-book-list > a {
+        transition-duration: 0.2s;
+        cursor: pointer;
+        color: black;
+        text-decoration: none;
     }
 
-    .cb-book-list > div > img {
-        height: 22em;
-        object-fit: cover;
-        object-position: center;
-    }
+        #cb-book-list > a:hover {
+            transform: scale(1.05);
+            transition-duration: 0.2s;
+        }
+
+        #cb-book-list > a > div {
+            height: 13em;
+            margin-top: -12em;
+            background: linear-gradient( 0deg, white 20%, transparent 66%);
+            padding-top: 7em;
+        }
+
+        #cb-book-list > a > img {
+            height: 22em;
+            object-fit: cover;
+            object-position: center;
+        }
 
 .cb-book-title {
     text-shadow: 0 0 3px white, 0 0 4px white, 0 0 5px white, 0 0 5px white;

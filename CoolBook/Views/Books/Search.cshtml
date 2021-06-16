@@ -15,11 +15,16 @@
 <div class="cb-search-container">
     <div>
         @*<a class="btn btn-primary" data-toggle="collapse" href="#searchFilter" role="button" aria-expanded="false" aria-controls="searchFilter">
-                Filter...
-            </a>
+            Filter...
+        </a>
 
-            <div class="collapse" id="searchFilter">*@
+        <div class="collapse" id="searchFilter">*@
+
         <div class="card card-body">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input id="Name" class="form-control" />
+            </div>
             <div class="form-group">
                 <label asp-for="AuthorId" class="control-label">Author</label>
                 <select multiple="multiple" asp-for="AuthorId" class="form-control" asp-items="ViewBag.authors"></select>
@@ -35,15 +40,8 @@
     <div>
         <h4>Book</h4>
         <hr />
-        <div class="cb-book-list">
-            <div class="card">
-                <img class="card-img-top" src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/action-thriller-book-cover-design-template-3675ae3e3ac7ee095fc793ab61b812cc_screen.jpg?ts=1588152105" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title cb-book-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
-                </div>
-            </div>
+        <div id="cb-book-list">
+
         </div>
         @*<dl class="row">
                 <dt class="col-sm-2">
@@ -83,3 +81,18 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+@section Scripts {
+    <script src="~/js/search.js"></script>
+
+    <script type="text/html" id="cb-card-template">
+        <a class="card" href="/Books/Details/{id}">
+            <img class="card-img-top" src="{image}" alt="{title}">
+            <div class="card-body">
+                <h5 class="card-title cb-book-title">{title}</h5>
+                <p class="card-text">{desc}</p>
+                @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+            </div>
+        </a>
+    </script>
+}

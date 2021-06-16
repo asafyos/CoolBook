@@ -58,8 +58,7 @@ namespace CoolBook.Controllers
             return View();
         }
 
-        // GET: Books/Create
-        public async Task<IActionResult> Search()
+        public IActionResult Search()
         {
             ViewData["authors"] = new SelectList(_context.Author, "Id", "Name");
             ViewData["categories"] = new SelectList(_context.Category, "Id", "Name");
@@ -69,6 +68,32 @@ namespace CoolBook.Controllers
                 .Include(b => b.Reviews);
 
             return View();
+        }
+
+        public IActionResult Find([FromQuery] string Categories, [FromQuery] string AuthorId, [FromQuery] string Name)
+        {
+            var catList = Categories == null ? new List<int>() : Categories.Split(',').Select(x => int.Parse(x)).ToList();
+            var authList = AuthorId == null ? new List<int>() : AuthorId.Split(',').Select(x => int.Parse(x)).ToList();
+
+            var results = _context.Book
+                .Include(a => a.Categories)
+                .Include(b => b.Author)
+                .AsEnumerable()
+                .Where(b => ((catList.Count == 0 || catList.All(c=>b.Categories.Any(cat=>cat.Id==c)))
+                          && (authList.Count == 0 || authList.IndexOf(b.AuthorId) != -1)
+                          && (string.IsNullOrEmpty(Name) || b.Name.Contains(Name, StringComparison.OrdinalIgnoreCase))))
+                .ToList();
+
+            // Prevent JSON conversion recursion
+            results.ForEach(b =>
+            {
+                b.Categories.ForEach(c => c.Books = null);
+                b.Author.Books = null;
+            });
+
+            return Json(results);
+
+            //return Json(new List<Book>()); //TODO
         }
 
         // POST: Books/Create
