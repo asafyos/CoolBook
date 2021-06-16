@@ -69,17 +69,24 @@ a {
 
     .btn-primary:focus {
         box-shadow: 0 0 0 0.2rem #de245466;
+        background-color: #c31d47;
+        border-color: #b41b43;
     }
 
     .btn-primary:not(:disabled):not(.disabled):active:focus {
         box-shadow: 0 0 0 0.2rem #de245499;
     }
 
-    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-        color: #fff;
-        background-color: #1b6ec2;
-        border-color: #1861ac;
-    }
+.form-control:focus {
+    border-color: #f35e83;
+    box-shadow: 0 0 0 0.25rem #fd2e6140;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -129,3 +136,37 @@ body {
     white-space: nowrap;
     line-height: 60px; /* Vertically center the text there */
 }
+
+.cb-book-card {
+    transition-duration: 0.2s;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    box-shadow: 0px 5px 10px #00000050;
+}
+
+    .cb-book-card:hover {
+        transform: scale(1.05);
+        transition-duration: 0.2s;
+    }
+
+    .cb-book-card > div {
+        height: 13em;
+        margin-top: -12em;
+        background: linear-gradient( 0deg, white 20%, transparent 66%);
+        padding-top: 7em;
+    }
+
+    .cb-book-card > img {
+        height: 22em;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .cb-book-card > span {
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        text-shadow: 0 0 2px white, 0 0 2px white, 0 0 3px white, 0 0 4px white, 0 0 5px white;
+        font-weight: 600;
+    }

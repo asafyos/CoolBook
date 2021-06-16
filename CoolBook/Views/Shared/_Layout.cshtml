@@ -13,7 +13,7 @@
     @await RenderSectionAsync("Styles", required: false)
 </head>
 
-@{var colored = (bool)(ViewData["colored"] ?? false);}
+@{var colored = true; }@*(bool)(ViewData["colored"] ?? false);}*@
 @{var textColor = colored ? "text-light" : "text-dark";}
 
 <body>
@@ -36,8 +36,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @textColor" asp-controller="Books" asp-action="Index">
+                            <a class="nav-link @textColor" asp-controller="Books" asp-action="Search">
                                 Books
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @textColor" asp-controller="Categories" asp-action="Search">
+                                Categories
                             </a>
                         </li>
                         <li class="nav-item">

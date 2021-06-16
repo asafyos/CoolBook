@@ -77,10 +77,12 @@ const setBooks = (data) => {
         let temp = template;
 
         temp = temp
-            .replaceAll('{id}', book.id)
+            .replaceAll('{link}', `/Books/Details/${book.id}`)
             .replaceAll('{image}', book.imageUrl)
+            .replaceAll('{price}', `&#8362;${book.price.toFixed(2)}`)
             .replaceAll('{title}', book.name)
-            .replaceAll('{desc}', `${book.author.name}<br/>${book.categories.map(c=>c.name).join(', ')}`);
+            .replaceAll('{text1}', `<i>${book.author.name}</i>`)
+            .replaceAll('{text2}', book.categories.map(c => c.name).join(', '));
 
         newHtml += temp;
     });
