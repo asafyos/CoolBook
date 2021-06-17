@@ -153,8 +153,8 @@ body {
 
     .cb-book-card > div {
         height: 15rem;
-        margin-top: -13rem;
-        background: linear-gradient( 0deg, white 16%, transparent 66%);
+        margin-top: -14rem;
+        background: linear-gradient( 0deg, white 10%, transparent 50%);
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -164,6 +164,9 @@ body {
         height: 22rem;
         object-fit: cover;
         object-position: center;
+        background-image: URL("/popcornreelcoolbook.jpg");
+        background-position: center;
+        background-size: cover;
     }
 
     .cb-book-card > span {
