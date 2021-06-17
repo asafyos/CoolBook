@@ -7,7 +7,14 @@ $(() => {
     intializePage();
     getData();
     //TODO show & hide loader
+})
 
+const onChangeInput = (id) => () => {
+    const value = $(`#${id}`).val();
+    reloadBooks();
+}
+
+const initializeListeners = () => {
     PARAMETERS.forEach(p => {
         switch (p) {
             case NAME:
@@ -21,11 +28,6 @@ $(() => {
                 break;
         }
     })
-})
-
-const onChangeInput = (id) => () => {
-    const value = $(`#${id}`).val();
-    reloadBooks();
 }
 
 const intializePage = () => {
@@ -68,9 +70,10 @@ const getData = () => {
 }
 
 const setBooks = (data) => {
-    $('#cb-book-list').html('');
+    const element = $('#cb-search-container');
 
     const template = $('#cb-card-template').html();
+
     let newHtml = '';
 
     data.forEach(book => {
@@ -87,7 +90,10 @@ const setBooks = (data) => {
         newHtml += temp;
     });
 
-    $('#cb-book-list').html(newHtml);
+    $(".cb-book-card").remove();
+    element.append(newHtml);
+
+    initializeListeners();
 }
 
 const prepareParam = p => {

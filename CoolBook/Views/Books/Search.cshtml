@@ -12,40 +12,22 @@
     Find
 </div>
 
-<div class="cb-search-container">
-    <div>
-        @*<a class="btn btn-primary" data-toggle="collapse" href="#searchFilter" role="button" aria-expanded="false" aria-controls="searchFilter">
-                Filter...
-            </a>
+<div id="cb-search-container">
+    <div class="card card-body cb-search-books">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input id="Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="AuthorId" class="control-label">Author</label>
+            <select multiple="multiple" asp-for="AuthorId" class="form-control" asp-items="ViewBag.authors"></select>
+        </div>
 
-            <div class="collapse" id="searchFilter">*@
-
-        <div class="card card-body">
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input id="Name" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="AuthorId" class="control-label">Author</label>
-                <select multiple="multiple" asp-for="AuthorId" class="form-control" asp-items="ViewBag.authors"></select>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Categories" class="control-label"></label>
-                <select asp-for="Categories" class="form-control" asp-items="ViewBag.categories"></select>
-            </div>
-            @*</div>*@
+        <div class="form-group">
+            <label asp-for="Categories" class="control-label"></label>
+            <select asp-for="Categories" class="form-control" asp-items="ViewBag.categories"></select>
         </div>
     </div>
-    <div>
-        <div id="cb-book-list">
-
-        </div>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
