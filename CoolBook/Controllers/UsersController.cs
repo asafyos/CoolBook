@@ -201,7 +201,7 @@ namespace CoolBook.Controllers
                             && u.Password == user.Password
                          select u;
 
-            if (result.Count() == 0)
+            if (result.Any())
             {
                 //show error
                 return null;

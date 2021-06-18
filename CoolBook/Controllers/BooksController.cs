@@ -22,7 +22,9 @@ namespace CoolBook.Controllers
         // GET: Books
         public async Task<IActionResult> Index()
         {
-            var coolBookContext = _context.Book.Include(b => b.Author);
+            var coolBookContext = _context.Book.Include(b => b.Author)
+                .Include(a => a.Categories)
+                .Include(b => b.Reviews);
             return View(await coolBookContext.ToListAsync());
         }
 
@@ -52,8 +54,44 @@ namespace CoolBook.Controllers
         {
             ViewData["authors"] = new SelectList(_context.Author, "Id", "Name");
             ViewData["categories"] = new SelectList(_context.Category, "Id", "Name");
-            
+
             return View();
+        }
+
+        public IActionResult Search()
+        {
+            ViewData["authors"] = new SelectList(_context.Author, "Id", "Name");
+            ViewData["categories"] = new SelectList(_context.Category, "Id", "Name");
+
+            ViewData["books"] = _context.Book.Include(b => b.Author)
+                .Include(a => a.Categories)
+                .Include(b => b.Reviews);
+
+            return View();
+        }
+
+        public IActionResult Find([FromQuery] string Categories, [FromQuery] string AuthorId, [FromQuery] string Name)
+        {
+            var catList = Categories == null ? new List<int>() : Categories.Split(',').Select(x => int.Parse(x)).ToList();
+            var authList = AuthorId == null ? new List<int>() : AuthorId.Split(',').Select(x => int.Parse(x)).ToList();
+
+            var results = _context.Book
+                .Include(a => a.Categories)
+                .Include(b => b.Author)
+                .AsEnumerable()
+                .Where(b => ((catList.Count == 0 || catList.All(c=>b.Categories.Any(cat=>cat.Id==c)))
+                          && (authList.Count == 0 || authList.IndexOf(b.AuthorId) != -1)
+                          && (string.IsNullOrEmpty(Name) || b.Name.Contains(Name, StringComparison.OrdinalIgnoreCase))))
+                .ToList();
+
+            // Prevent JSON conversion recursion
+            results.ForEach(b =>
+            {
+                b.Categories.ForEach(c => c.Books = null);
+                b.Author.Books = null;
+            });
+
+            return Json(results);
         }
 
         // POST: Books/Create
@@ -61,7 +99,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,AuthorId,Price,PublishDate,ImageUrl, Categories")] Book book, List<int>? categories)
+        public async Task<IActionResult> Create([Bind("Id,Name,AuthorId,Price,PublishDate,ImageUrl,Categories")] Book book, List<int>? categories)
         {
             if (ModelState.IsValid)
             {

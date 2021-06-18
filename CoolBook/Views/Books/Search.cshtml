@@ -1,0 +1,39 @@
+﻿@model CoolBook.Models.Book
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+@section Styles {
+    <link href="@Url.Content("~/css/Books/Search.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="cb-search-title">
+    Find
+</div>
+
+<div id="cb-search-container">
+    <div class="card card-body cb-search-books">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input id="Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="AuthorId" class="control-label">Author</label>
+            <select multiple="multiple" asp-for="AuthorId" class="form-control" asp-items="ViewBag.authors"></select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Categories" class="control-label"></label>
+            <select asp-for="Categories" class="form-control" asp-items="ViewBag.categories"></select>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/search.js"></script>
+
+    <script type="text/html" id="cb-card-template">
+        @await Html.PartialAsync("Card")
+    </script>
+}
