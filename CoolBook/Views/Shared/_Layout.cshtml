@@ -17,74 +17,73 @@
 @{var textColor = colored ? "text-light" : "text-dark";}
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light .sticky-top @(colored?"cb-colored-nav":"bg-white border-bottom box-shadow")">
-            <div class="container-md">
-                <a asp-controller="Home" asp-action="Index"><img class="cb-logo" src="~/book.png" /></a>
-                <a class=" navbar-brand @textColor" asp-area="" asp-controller="Home" asp-action="Index">
-                    CoolBook
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+    <header class="navbar navbar-expand-sm sticky-top navbar-dark @(colored?"cb-colored-nav":"bg-white border-bottom box-shadow")">
+
+        <div class="container-fluid">
+            <a class="navbar-brand @textColor" asp-controller="Home" asp-action="Index">
+                <img class="cb-logo d-block d-md-block d-sm-none" src="~/book.png" />
+                CoolBook
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link @textColor" asp-controller="Home" asp-action="Index">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @textColor" asp-controller="Books" asp-action="Search">
+                            Books
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @textColor" asp-controller="Categories" asp-action="Search">
+                            Categories
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @textColor" asp-controller="Authors" asp-action="Index">
+                            Authors
+                        </a>
+                    </li>
+                    <li class="nav-item cb-last-link">
+                        <a class="nav-link @textColor" asp-controller="Reviews" asp-action="Index">
+                            Reviews
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @textColor" asp-controller="Home" asp-action="About">
+                            About us
+                        </a>
+                    </li>
+
+                    <li class="nav-item cb-cart">
+                        <a class="nav-link @textColor" asp-controller="Users" asp-action="Cart">
+                            <i class="bi bi-bag"></i>
+                        </a>
+                    </li>
+                    @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
+                    {
                         <li class="nav-item">
-                            <a class="nav-link @textColor" asp-controller="Home" asp-action="Index">
-                                Home
+                            <a class="nav-link @textColor" asp-controller="Users" asp-action="Logout">
+                                Logout
                             </a>
                         </li>
+                    }
+                    else
+                    {
                         <li class="nav-item">
-                            <a class="nav-link @textColor" asp-controller="Books" asp-action="Search">
-                                Books
+                            <a class="nav-link @textColor" asp-controller="Users" asp-action="Login">
+                                Login
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link @textColor" asp-controller="Categories" asp-action="Search">
-                                Categories
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link @textColor" asp-controller="Authors" asp-action="Index">
-                                Authors
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link @textColor" asp-controller="Reviews" asp-action="Index">
-                                Reviews
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link @textColor" asp-controller="Home" asp-action="About">
-                                About us
-                            </a>
-                        </li>
-                        <li class="nav-item cb-cart">
-                            <a class="nav-link @textColor" asp-controller="Users" asp-action="Cart">
-                                <i class="bi bi-bag"></i>
-                            </a>
-                        </li>
-                        @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link @textColor" asp-controller="Users" asp-action="Logout">
-                                    Logout
-                                </a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link @textColor" asp-controller="Users" asp-action="Login">
-                                    Login
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </div>
+                    }
+                </ul>
             </div>
-        </nav>
+        </div>
     </header>
 
     @RenderBody()

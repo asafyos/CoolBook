@@ -76,19 +76,23 @@ const setBooks = (data) => {
 
     let newHtml = '';
 
-    data.forEach(book => {
-        let temp = template;
+    if (data.length > 0) {
+        data.forEach(book => {
+            let temp = template;
 
-        temp = temp
-            .replaceAll('{link}', `/Books/Details/${book.id}`)
-            .replaceAll('{image}', book.imageUrl)
-            .replaceAll('{price}', `&#8362;${book.price.toFixed(2)}`)
-            .replaceAll('{title}', book.name)
-            .replaceAll('{text1}', `<i>${book.author.name}</i>`)
-            .replaceAll('{text2}', book.categories.map(c => c.name).join(', '));
+            temp = temp
+                .replaceAll('{link}', `/Books/Details/${book.id}`)
+                .replaceAll('{image}', book.imageUrl)
+                .replaceAll('{price}', `&#8362;${book.price.toFixed(2)}`)
+                .replaceAll('{title}', book.name)
+                .replaceAll('{text1}', `<i>${book.author.name}</i>`)
+                .replaceAll('{text2}', book.categories.map(c => c.name).join(', '));
 
-        newHtml += temp;
-    });
+            newHtml += temp;
+        });
+    } else {
+        newHtml = '<h2 class="cb-no-books">No Results</h2>';
+    }
 
     $(".cb-book-card").remove();
     element.append(newHtml);
