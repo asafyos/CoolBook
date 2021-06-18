@@ -161,7 +161,7 @@ namespace CoolBook.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("UserName,Password,FullName,Email,Gender")] User user)
+        public async Task<IActionResult> Register([Bind("UserName,Password,Email")] User user)
         {
             if (!ModelState.IsValid)
             {
@@ -169,13 +169,17 @@ namespace CoolBook.Controllers
                 return null;
             }
 
-            var result = await _context.User.FirstOrDefaultAsync(u => u.UserName == user.UserName);
+            var result = await _context.User.FirstOrDefaultAsync(u => (u.UserName == user.UserName || u.Email == user.Email));
 
             if (result != null)
             {
                 //TODO: handle error
                 return null;
             }
+
+            // Defualt values
+            user.Role = UserRole.Client;
+            user.UserInfo = new UserInfo{FullName = user.UserName };
 
             _context.Add(user);
             await _context.SaveChangesAsync();
@@ -188,17 +192,11 @@ namespace CoolBook.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("UserName,Password")] User user, [FromQuery] string redirect)
+        public async Task<IActionResult> Login(String UserName, String Password, [FromQuery] string redirect)
         {
-            if (!ModelState.IsValid)
-            {
-                //show error
-                return null;
-            }
-
             var result = from u in _context.User
-                         where u.UserName == user.UserName
-                            && u.Password == user.Password
+                         where u.UserName == UserName
+                            && u.Password == Password
                          select u;
 
             if (result.Any())

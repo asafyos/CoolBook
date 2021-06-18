@@ -44,9 +44,12 @@ namespace CoolBook.Controllers
         }
 
         // GET: UserInfoes/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "UserName");
+            var user = _context.User.Where(u => u.Id == id);
+            ViewData["userSelect"] = new SelectList(user, "Id", "UserName");
+            ViewData["userName"] = user.FirstOrDefault().UserName;
+
             return View();
         }
 
@@ -55,7 +58,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,FullName,Gender,BirthDate,Address,PhoneNumber")] UserInfo userInfo)
+        public async Task<IActionResult> Create([Bind("UserId,FullName,Gender,BirthDate,Address,PhoneNumber")] UserInfo userInfo)
         {
             if (ModelState.IsValid)
             {
