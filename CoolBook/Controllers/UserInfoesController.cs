@@ -78,12 +78,15 @@ namespace CoolBook.Controllers
                 return NotFound();
             }
 
-            var userInfo = await _context.UserInfo.FindAsync(id);
+            var userInfo = await _context.UserInfo.Include(u => u.User).FirstOrDefaultAsync(u => u.Id == id);
             if (userInfo == null)
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.User.Where(u => u.Id == id), "Id", "UserName", userInfo.UserId);
+
+            var user = _context.User.Where(u => u.Id == userInfo.UserId);
+            ViewData["userSelect"] = new SelectList(user, "Id", "UserName");
+            ViewData["userName"] = user.FirstOrDefault().UserName;
             return View(userInfo);
         }
 
@@ -117,7 +120,7 @@ namespace CoolBook.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Profile", "Users");
             }
             return View(userInfo);
         }

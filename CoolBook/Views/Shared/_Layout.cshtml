@@ -59,26 +59,24 @@
                             About us
                         </a>
                     </li>
-
-                    <li class="nav-item cb-cart">
-                        <a class="nav-link @textColor" asp-controller="Users" asp-action="Cart">
-                            <i class="bi bi-bag"></i>
-                        </a>
-                    </li>
                     @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
                     {
                         <li class="nav-item">
-                            <a class="nav-link @textColor" asp-controller="Users" asp-action="Logout">
-                                Logout
+                            <h6>Hello, @Context.User.Identity.Name</h6>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @textColor" asp-controller="Users" asp-action="Profile">
+                                <i class="bi bi-person-circle"></i>
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @textColor" asp-controller="Users" asp-action="Logout">Logout</a>
                         </li>
                     }
                     else
                     {
                         <li class="nav-item">
-                            <a class="nav-link @textColor" asp-controller="Users" asp-action="Login">
-                                Login
-                            </a>
+                            <a class="nav-link @textColor" asp-controller="Users" asp-action="Login">Login</a>
                         </li>
                     }
                 </ul>

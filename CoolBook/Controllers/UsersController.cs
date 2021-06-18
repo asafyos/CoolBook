@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -21,10 +22,29 @@ namespace CoolBook.Controllers
             _context = context;
         }
 
+        public class FullUser
+        {
+            public User User { get; set; }
+            public UserInfo UserInfo { get; set; }
+        }
+
         // GET: Users
         public async Task<IActionResult> Index()
         {
             return View(await _context.User.ToListAsync());
+        }
+
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _context.User
+                .Include(u => u.UserInfo)
+                .FirstOrDefaultAsync(m => m.UserName == HttpContext.User.Identity.Name);
+
+            return View(new FullUser
+            {
+                User = user,
+                UserInfo = user.UserInfo
+            });
         }
 
         // GET: Users/Details/5
@@ -118,6 +138,45 @@ namespace CoolBook.Controllers
             return View(user);
         }
 
+        // GET: Users/Update/5
+        public async Task<IActionResult> Update(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _context.User.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+        
+        // POST: Users/Update/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(int id, string Email, string Password )
+        {
+            var user = _context.User.Find(id);
+
+            // Update fields
+            user.Email = Email;
+            user.Password = Password;
+            try
+            {
+                _context.Update(user);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+            
+            return RedirectToAction(nameof(Profile));
+        }
+
         // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -176,10 +235,10 @@ namespace CoolBook.Controllers
                 //TODO: handle error
                 return null;
             }
-
+            
             // Defualt values
             user.Role = UserRole.Client;
-            user.UserInfo = new UserInfo{FullName = user.UserName };
+            user.UserInfo = new UserInfo { FullName = user.UserName, BirthDate = DateTime.Now };
 
             _context.Add(user);
             await _context.SaveChangesAsync();
