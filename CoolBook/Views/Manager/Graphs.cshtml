@@ -16,4 +16,10 @@
     }
 
     <h3>Highest Rated Books</h3>
+    
+    @foreach (var book in ViewData["BestBooks"] as IEnumerable<CoolBook.Models.Book>)
+    {
+        <div class="col-sm-5" style="width: 100%"> @book.Name, @book.Rate </div>
+    }
+
 </div>

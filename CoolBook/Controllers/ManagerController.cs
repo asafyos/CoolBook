@@ -28,6 +28,7 @@ namespace CoolBook.Controllers
         public ActionResult Graphs()
         {
             ViewData["WatchedBooks"] = GetWatchedBooks(3);
+            ViewData["BestBooks"] = GetBestBooks(3);
 
             return View();
         }
@@ -35,6 +36,11 @@ namespace CoolBook.Controllers
         public List<Book> GetWatchedBooks(int amount)
         {
             return _context.Book.OrderByDescending(b => b.Views).Take(amount).ToList();
+        }
+
+        public List<Book> GetBestBooks(int amount)
+        {
+            return _context.Book.OrderByDescending(b => b.Rate).Take(amount).ToList();
         }
     }
 }
