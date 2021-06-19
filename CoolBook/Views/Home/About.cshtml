@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "About Page";
+    ViewData["colored"] = true;
+}
+
+@section Styles {
+    <!-- <link href="@Url.Content("~/css/Home/About.css")" rel="stylesheet" type="text/css" /> -->
+}
+
+@section Scripts {
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=getMap&setLang=he-IL&key=Ap0AObt84NcDaUThCeWOj52ZqUHv6k4TJhjLibR-DghC-semgoj-0uPbIi8r0E4j' async defer></script>
+    <script type="text/html" id="store-template">
+        <div>{name} {phone} {temp}</div>
+    </script>
+}
+
+<div id="map-wrapper">
+    <div id="storesList"></div>
+    <div id="map"></div>
+</div>
