@@ -258,7 +258,7 @@ namespace CoolBook.Controllers
                             && u.Password == Password
                          select u;
 
-            if (result.Any())
+            if (!result.Any())
             {
                 //show error
                 return null;
@@ -294,6 +294,7 @@ namespace CoolBook.Controllers
         private async Task Signin(User account)
         {
             var claims = new List<Claim> {
+                new Claim("UserId", account.Id.ToString()),
                 new Claim(ClaimTypes.Name, account.UserName),
                 new Claim(ClaimTypes.Role, account.Role.ToString())
             };
