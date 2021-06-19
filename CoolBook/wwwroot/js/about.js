@@ -34,9 +34,9 @@ function showStores(stores) {
         console.log(store);
 
         $.each(store, (key, value) => {
-            currStore.replaceAll(`{${key}}`, value);
+            currStore = currStore.replaceAll(`{${key}}`, value);
         });
-        currStore.replaceAll("{temp}", temp);
+        currStore = currStore.replaceAll("{temp}", temp);
 
         return currStore;
     });
