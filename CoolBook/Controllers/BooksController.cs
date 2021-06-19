@@ -40,6 +40,7 @@ namespace CoolBook.Controllers
                 .Include(b => b.Author)
                 .Include(a => a.Categories)
                 .Include(b => b.Reviews)
+                .ThenInclude(r => r.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (book == null)
             {
@@ -99,12 +100,12 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,AuthorId,Price,PublishDate,ImageUrl,Categories")] Book book, List<int>? categories)
+        public async Task<IActionResult> Create([Bind("Id,Name,AuthorId,Price,PublishDate,ImageUrl")] Book book, List<int>? categories)
         {
             if (ModelState.IsValid)
             {
-                // Update the categories that this book is in
-                UpdateCategories(book, categories);
+                // Add categories to book
+                AddCategories(book, categories);
 
                 _context.Add(book);
                 await _context.SaveChangesAsync();
@@ -148,8 +149,7 @@ namespace CoolBook.Controllers
             {
                 try
                 {
-                    UpdateCategories(book, categories);
-                    _context.Update(book);
+                    UpdateBook(book, categories);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -203,24 +203,36 @@ namespace CoolBook.Controllers
             return _context.Book.Any(e => e.Id == id);
         }
 
-        public void UpdateCategories(Book book, List<int>? categories)
+        // Adds the actual category instances to the book
+        public void AddCategories(Book book, List<int>? categories)
         {
-            if (categories == null)
-                return;
+            if (book.Categories == null)
+                book.Categories = new List<Category>();
 
             // Make the matching between categories and books, delete previous
             foreach (var CategoryId in categories)
             {
-                var category = _context.Category.Find(CategoryId);
-                if (category.Books == null)
-                    category.Books = new List<Book>();
-
-                if (book.Categories == null)
-                    book.Categories = new List<Category>();
-
-                category.Books.Add(book);
-                book.Categories.Add(category);
+                book.Categories.Add(_context.Category.Find(CategoryId));
             }
+        }
+
+        // This is used to update safetly the many many connection with categories
+        // Update the original book instance with the new information
+        public void UpdateBook(Book newBook, List<int>? categories)
+        {
+            var originalBook = _context.Book.Include("Categories").FirstOrDefault(b => b.Id == newBook.Id);
+            originalBook.Name = newBook.Name;
+            originalBook.AuthorId = newBook.AuthorId;
+            originalBook.ImageUrl = newBook.ImageUrl;
+            originalBook.Price = newBook.Price;
+            originalBook.PublishDate = newBook.PublishDate;
+            originalBook.Categories.Clear();
+            foreach (var catId in categories)
+            {
+                originalBook.Categories.Add(_context.Category.Find(catId));
+            }
+
+            _context.Update(originalBook);
         }
     }
 }
