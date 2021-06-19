@@ -7,6 +7,11 @@
     <h1>Graphs Page</h1>
 
     <h3>Books by Categories</h3>
+    
+    @foreach (var catAmount in ViewData["CatAmounts"] as IEnumerable<CoolBook.Controllers.ManagerController.CategoryAmount>)
+    {
+        <div class="col-sm-5" style="width: 100%"> @catAmount.Category.Name, @catAmount.BookAmount</div>
+    }
 
     <h3>Most Watched Books</h3>
 
@@ -16,7 +21,7 @@
     }
 
     <h3>Highest Rated Books</h3>
-    
+
     @foreach (var book in ViewData["BestBooks"] as IEnumerable<CoolBook.Models.Book>)
     {
         <div class="col-sm-5" style="width: 100%"> @book.Name, @book.Rate </div>
