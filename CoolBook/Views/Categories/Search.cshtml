@@ -1,0 +1,29 @@
+﻿@model IEnumerable<CoolBook.Models.Category>
+
+@{
+    ViewData["Title"] = "Search";
+    const string EMPTY_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+}
+
+@section Styles {
+    <link href="@Url.Content("~/css/Categories/Search.css")" rel="stylesheet" type="text/css" />
+}
+
+<br />
+<div class="container">
+    <h1>Categories</h1>
+</div>
+
+<div class="container cb-cat-container">
+    @foreach (var c in Model)
+    {
+        var imageUrl = string.IsNullOrEmpty(c.ImageUrl) ? EMPTY_IMAGE : c.ImageUrl;
+        <a class="card cb-book-card" href="/Books/Search?Categories=@c.Id">
+            <img class="card-img-top" src="@imageUrl" alt="@c.Name">
+            <div class="card-body">
+                <h5 class="card-title cb-book-title">@c.Name</h5>
+            </div>
+        </a>
+    }
+
+</div>

@@ -14,7 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Shared\Card.cshtml" />
     <None Include="wwwroot\css\Home\Index.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\html\" />
   </ItemGroup>
 
 </Project>

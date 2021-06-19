@@ -5,35 +5,40 @@ for details on configuring this project to bundle and minify static web assets. 
 :root {
     --cb-primary: #de2454;
     --cb-primary-dark: #b41b43;
+    --cb-primary-darker: #851432;
     --cb-secondary: #573ba3;
     --cb-secondary-dark: #2b0f42;
 }
 
-header {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-}
 
 .cb-colored-nav {
     background-color: var(--cb-secondary);
 }
 
 a.navbar-brand {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
+    display: flex;
+    gap: 1rem;
+}
+
+header > div {
+    max-width: 1200px;
+}
+
+.navbar-nav {
+    width: 100%;
+}
+
+.cb-last-link {
+    margin-right: auto;
 }
 
 .cb-cart {
-    margin-left: auto;
-    margin-right: 1em;
 }
 
 .cb-logo {
-    width: 2em;
-    height: 2em;
-    margin-right: 1em
+    width: 2rem;
+    height: 2rem;
+    margin-left: 1rem;
 }
 
 .cb-colored-nav .cb-logo {
@@ -59,6 +64,27 @@ a {
         background-color: var(--cb-primary-dark);
         border-color: var(--cb-primary-dark);
     }
+
+    .btn-primary:not(:disabled):not(.disabled):active {
+        color: #fff;
+        background-color: var(--cb-primary-darker);
+        border-color: var(--cb-primary-dark);
+    }
+
+    .btn-primary:focus {
+        box-shadow: 0 0 0 0.2rem #de245466;
+        background-color: #c31d47;
+        border-color: #b41b43;
+    }
+
+    .btn-primary:not(:disabled):not(.disabled):active:focus {
+        box-shadow: 0 0 0 0.2rem #de245499;
+    }
+
+.form-control:focus {
+    border-color: #f35e83;
+    box-shadow: 0 0 0 0.25rem #fd2e6140;
+}
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
@@ -113,4 +139,48 @@ body {
     width: 100%;
     white-space: nowrap;
     line-height: 60px; /* Vertically center the text there */
+}
+
+.cb-book-card {
+    transition-duration: 0.2s;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    box-shadow: 0px 5px 10px #00000050;
+    margin: 1rem;
+}
+
+    .cb-book-card:hover {
+        transform: scale(1.05);
+        transition-duration: 0.2s;
+    }
+
+    .cb-book-card > div {
+        height: 15rem;
+        margin-top: -14rem;
+        background: linear-gradient( 0deg, white 10%, transparent 50%);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .cb-book-card > img {
+        height: 22rem;
+        object-fit: cover;
+        object-position: center;
+        background-image: URL("/popcornreelcoolbook.jpg");
+        background-position: center;
+        background-size: cover;
+    }
+
+    .cb-book-card > span {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        text-shadow: 0 0 2px white, 0 0 2px white, 0 0 3px white, 0 0 4px white, 0 0 5px white;
+        font-weight: 600;
+    }
+
+.cb-book-title {
+    text-shadow: 0 0 3px white, 0 0 4px white, 0 0 5px white, 0 0 5px white;
 }
