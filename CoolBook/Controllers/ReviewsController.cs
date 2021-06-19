@@ -54,9 +54,7 @@ namespace CoolBook.Controllers
         public async Task<IActionResult> Add([Bind("Title,Body,Rate,BookId")] Review review)
         {
             // insert from session
-            // review.UserId = HttpContext.Session.GetString("ConnectedUserId") ??
-            //string.Empty;
-            review.UserId = 1;
+            review.UserId = int.Parse(HttpContext.User.FindFirst("UserId").Value);
 
             if (ModelState.IsValid)
             {
