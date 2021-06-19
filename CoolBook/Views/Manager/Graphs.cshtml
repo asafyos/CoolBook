@@ -10,5 +10,10 @@
 
     <h3>Most Watched Books</h3>
 
+    @foreach (var book in ViewData["WatchedBooks"] as IEnumerable<CoolBook.Models.Book>)
+    {
+        <div class="col-sm-5" style="width: 100%"> @book.Name, @book.Views</div>
+    }
+
     <h3>Highest Rated Books</h3>
 </div>

@@ -47,6 +47,11 @@ namespace CoolBook.Controllers
                 return NotFound();
             }
 
+            // Increment the views counter of the book
+            book.Views++;
+            _context.Update(book);
+            await _context.SaveChangesAsync();
+
             return View(book);
         }
 
@@ -106,6 +111,8 @@ namespace CoolBook.Controllers
             {
                 // Add categories to book
                 AddCategories(book, categories);
+
+                book.Views = 0;
 
                 _context.Add(book);
                 await _context.SaveChangesAsync();
