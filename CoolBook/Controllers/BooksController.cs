@@ -113,6 +113,7 @@ namespace CoolBook.Controllers
                 AddCategories(book, categories);
 
                 book.Views = 0;
+                book.Rate = 0.0;
 
                 _context.Add(book);
                 await _context.SaveChangesAsync();

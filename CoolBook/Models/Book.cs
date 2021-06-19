@@ -32,5 +32,7 @@ namespace CoolBook.Models
         public List<Review> Reviews { get; set; }
 
         public UInt64 Views { get; set; }
+
+        public double Rate { get; set; }
     }
 }
