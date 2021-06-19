@@ -31,7 +31,9 @@ namespace CoolBook.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.User.ToListAsync());
+            var users = _context.User.ToList();
+            users.ForEach(u => u.Password = "");
+            return View(users);
         }
 
         public async Task<IActionResult> Profile()
