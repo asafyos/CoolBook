@@ -32,39 +32,47 @@ namespace CoolBook.Data
 
         private void InitData()
         {
+            var store1 = new Store { 
+                //ID = 1, 
+                Latitude = 32.07499510784019, 
+                Lontitude = 34.77478929428127, 
+                Name = "Dizengoff center", 
+                Phone = "03-1564315" 
+            };
+
             var cat1 = new Category
             {
-                Id = 1,
+                //Id = 1,
                 Name = "Fantasy"
             };
 
             var cat2 = new Category
             {
-                Id = 2,
+                //Id = 2,
                 Name = "Young adult literature"
             };
 
             var cat3 = new Category
             {
-                Id = 3,
+                //Id = 3,
                 Name = "Horror literature"
             };
 
             var cat4 = new Category
             {
-                Id = 4,
+                //Id = 4,
                 Name = "Dark fantasy"
             };
 
             var cat5 = new Category
             {
-                Id = 5,
+                //Id = 5,
                 Name = "Fiction"
             };
 
             var author1 = new Author
             {
-                Id = 1,
+                //Id = 1,
                 Name = "Ransom Riggs",
                 Country = "America",
                 Gender = Gender.Male,
@@ -73,7 +81,7 @@ namespace CoolBook.Data
 
             var author2 = new Author
             {
-                Id = 2,
+                //Id = 2,
                 Name = "Gregg Hurwitz",
                 Country = "America",
                 Gender = Gender.Male,
@@ -82,7 +90,7 @@ namespace CoolBook.Data
 
             var book1 = new Book
             {
-                Id = 1,
+                //Id = 1,
                 Name = "Miss Peregrine's Home for Peculiar Children",
                 PublishDate = new DateTime(2011, 6, 7),
                 Price = 89.9,
@@ -93,7 +101,7 @@ namespace CoolBook.Data
 
             var book2 = new Book
             {
-                Id = 2,
+                //Id = 2,
                 Name = "Hollow City",
                 PublishDate = new DateTime(2014, 1, 4),
                 Price = 99.9,
@@ -104,7 +112,7 @@ namespace CoolBook.Data
 
             var book3 = new Book
             {
-                Id = 3,
+                //Id = 3,
                 Name = "Library of Souls",
                 PublishDate = new DateTime(2015, 9, 22),
                 Price = 99.9,
@@ -115,7 +123,7 @@ namespace CoolBook.Data
 
             var book4 = new Book
             {
-                Id = 4,
+                //Id = 4,
                 Name = "Orphan X",
                 PublishDate = new DateTime(2016, 1, 19),
                 Price = 85.9,
@@ -126,7 +134,7 @@ namespace CoolBook.Data
 
             var user1 = new User
             {
-                Id = 1,
+                //Id = 1,
                 UserName = "Asaf",
                 Email = "a@b.c",
                 Role = UserRole.Admin,
@@ -135,7 +143,7 @@ namespace CoolBook.Data
 
             var userInfo1 = new UserInfo
             {
-                Id = 1,
+                //Id = 1,
                 Gender = Gender.Male,
                 FullName = "Asaf Yosef",
                 BirthDate = new DateTime(1998, 3, 3),
@@ -144,6 +152,7 @@ namespace CoolBook.Data
                 Address = "Rosh HaAyin"
             };
 
+            this.Store.AddRange(store1);
             this.Author.AddRange(author1, author2);
             this.Category.AddRange(cat1, cat2, cat3, cat4, cat5);
             this.Book.AddRange(book1, book2, book3, book4);
@@ -153,5 +162,7 @@ namespace CoolBook.Data
             this.SaveChanges();
 
         }
+
+        public DbSet<CoolBook.Models.Store> Store { get; set; }
     }
 }
