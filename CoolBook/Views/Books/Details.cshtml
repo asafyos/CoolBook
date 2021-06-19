@@ -35,6 +35,12 @@
             @Html.DisplayFor(model => model.PublishDate)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Rate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Rate)
+        </dd>
+        <dt class="col-sm-2">
             Image:
         </dt>
         <dd class="col-sm-10">
@@ -61,19 +67,19 @@
         <div style="margin: 10px">
             @using (Html.BeginForm("Add", "Reviews", FormMethod.Post))
             {
-            <div class="input-group">
-                @Html.Hidden("BookId", Model.Id)
-                <input type="text" name="Title" class="form-control" placeholder="Title">
-                <textarea name="Body" class="form-control" aria-label="With textarea"></textarea>
-                <span>Product Rating:</span>
-                <input type="range" name="Rate" class="form-range" min="0" max="5" id="rateRange">
-                <input  type="submit" value="Add Review" class="btn btn-default" style='margin-top:1%' />
-                <br />
-            </div>
+                <div class="input-group">
+                    @Html.Hidden("BookId", Model.Id)
+                    <input type="text" name="Title" class="form-control" placeholder="Title">
+                    <textarea name="Body" class="form-control" aria-label="With textarea"></textarea>
+                    <span>Product Rating:</span>
+                    <input type="range" name="Rate" class="form-range" min="0" max="5" id="rateRange">
+                    <input type="submit" value="Add Review" class="btn btn-default" style='margin-top:1%' />
+                    <br />
+                </div>
             }
         </div>
 
-<dd class="col-sm-10">
+        <dd class="col-sm-10">
             <div class="list-group">
                 @if (Model.Reviews != null && Model.Reviews.Any())
                 {

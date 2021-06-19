@@ -44,9 +44,12 @@ namespace CoolBook.Controllers
         }
 
         // GET: UserInfoes/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "UserName");
+            var user = _context.User.Where(u => u.Id == id);
+            ViewData["userSelect"] = new SelectList(user, "Id", "UserName");
+            ViewData["userName"] = user.FirstOrDefault().UserName;
+
             return View();
         }
 
@@ -55,7 +58,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,FullName,Gender,BirthDate,Address,PhoneNumber")] UserInfo userInfo)
+        public async Task<IActionResult> Create([Bind("UserId,FullName,Gender,BirthDate,Address,PhoneNumber")] UserInfo userInfo)
         {
             if (ModelState.IsValid)
             {
@@ -75,12 +78,15 @@ namespace CoolBook.Controllers
                 return NotFound();
             }
 
-            var userInfo = await _context.UserInfo.FindAsync(id);
+            var userInfo = await _context.UserInfo.Include(u => u.User).FirstOrDefaultAsync(u => u.Id == id);
             if (userInfo == null)
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.User.Where(u => u.Id == id), "Id", "UserName", userInfo.UserId);
+
+            var user = _context.User.Where(u => u.Id == userInfo.UserId);
+            ViewData["userSelect"] = new SelectList(user, "Id", "UserName");
+            ViewData["userName"] = user.FirstOrDefault().UserName;
             return View(userInfo);
         }
 
@@ -114,7 +120,7 @@ namespace CoolBook.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Profile", "Users");
             }
             return View(userInfo);
         }
