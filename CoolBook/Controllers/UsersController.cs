@@ -155,6 +155,12 @@ namespace CoolBook.Controllers
                 return NotFound();
             }
 
+            // Validate this is the logged in user
+            if (id != int.Parse(HttpContext.User.FindFirst("UserId").Value))
+            {
+                return NotFound();
+            }
+
             var user = await _context.User.FindAsync(id);
             if (user == null)
             {
@@ -168,6 +174,12 @@ namespace CoolBook.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int id, string Email, string Password )
         {
+            // Validate this is the logged in user
+            if (id != int.Parse(HttpContext.User.FindFirst("UserId").Value))
+            {
+                return NotFound();
+            }
+
             var user = _context.User.Find(id);
 
             // Update fields
