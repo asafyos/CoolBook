@@ -1,5 +1,6 @@
 ﻿using CoolBook.Data;
 using CoolBook.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -126,6 +127,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: UserInfoes/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,6 +149,7 @@ namespace CoolBook.Controllers
         // POST: UserInfoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var userInfo = await _context.UserInfo.FindAsync(id);

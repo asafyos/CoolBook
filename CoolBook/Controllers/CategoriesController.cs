@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CoolBook.Data;
 using CoolBook.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoolBook.Controllers
 {
@@ -50,6 +51,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: Categories/Create
+        [Authorize(Roles = "Manager,Admin")]
         public IActionResult Create()
         {
             return View();
@@ -60,6 +62,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Create([Bind("Id,Name,ImageUrl")] Category category)
         {
             if (ModelState.IsValid)
@@ -72,6 +75,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: Categories/Edit/5
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -92,6 +96,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ImageUrl")] Category category)
         {
             if (id != category.Id)
@@ -123,6 +128,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: Categories/Delete/5
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -143,6 +149,7 @@ namespace CoolBook.Controllers
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var category = await _context.Category.FindAsync(id);

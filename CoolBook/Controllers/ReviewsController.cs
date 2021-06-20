@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CoolBook.Data;
 using CoolBook.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoolBook.Controllers
 {
@@ -127,6 +128,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: Reviews/Delete/5
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -149,6 +151,7 @@ namespace CoolBook.Controllers
         // POST: Reviews/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var review = await _context.Review.FindAsync(id);
