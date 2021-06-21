@@ -172,7 +172,7 @@ namespace CoolBook.Controllers
         // POST: Users/Update/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int id, string Email, string Password )
+        public async Task<IActionResult> Update(int id, string Email, string PasswordConfirmation, string Password)
         {
             // Validate this is the logged in user
             if (id != int.Parse(HttpContext.User.FindFirst("UserId").Value))
@@ -181,6 +181,12 @@ namespace CoolBook.Controllers
             }
 
             var user = _context.User.Find(id);
+
+            // Validate the password entered
+            if (user.Password != PasswordConfirmation)
+            {
+                return RedirectToAction(nameof(WrongPassword));
+            }
 
             // Update fields
             user.Email = Email;
@@ -334,6 +340,12 @@ namespace CoolBook.Controllers
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties
             );
+        }
+
+        // Wrong password page
+        public ActionResult WrongPassword()
+        {
+            return View();
         }
     }
 }
