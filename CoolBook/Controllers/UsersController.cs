@@ -289,8 +289,7 @@ namespace CoolBook.Controllers
 
             if (!result.Any())
             {
-                //show error
-                return null;
+                return RedirectToAction(nameof(WrongLogin));
             }
 
             await Signin(result.First());
@@ -342,10 +341,17 @@ namespace CoolBook.Controllers
             );
         }
 
+        // Bad login page
+        public ActionResult WrongLogin()
+        {
+            return View();
+        }
+
         // Wrong password page
         public ActionResult WrongPassword()
         {
             return View();
         }
+
     }
 }
