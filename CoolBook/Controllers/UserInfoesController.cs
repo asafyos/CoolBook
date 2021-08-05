@@ -19,6 +19,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: UserInfoes
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Index()
         {
             var coolBookContext = _context.UserInfo.Include(u => u.User);
@@ -41,10 +42,18 @@ namespace CoolBook.Controllers
                 return NotFound();
             }
 
+            // Admins can see all user infoes, others can only see their own
+            if ((!HttpContext.User.IsInRole("Admin")) &&
+                (userInfo.UserId != int.Parse(HttpContext.User.FindFirst("UserId").Value)))
+            {
+                return NotFound();
+            }
+
             return View(userInfo);
         }
 
         // GET: UserInfoes/Create
+        [Authorize(Roles = "Manager,Admin")]
         public IActionResult Create(int id)
         {
             var user = _context.User.Where(u => u.Id == id);
@@ -81,6 +90,13 @@ namespace CoolBook.Controllers
 
             var userInfo = await _context.UserInfo.Include(u => u.User).FirstOrDefaultAsync(u => u.Id == id);
             if (userInfo == null)
+            {
+                return NotFound();
+            }
+
+            // Admins can see all user infoes, others can only see their own
+            if ((!HttpContext.User.IsInRole("Admin")) &&
+                (userInfo.UserId != int.Parse(HttpContext.User.FindFirst("UserId").Value)))
             {
                 return NotFound();
             }

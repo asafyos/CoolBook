@@ -85,6 +85,14 @@ namespace CoolBook.Controllers
             {
                 return NotFound();
             }
+
+            // Admins can edit all reviews, others can only edit their own
+            if ((!HttpContext.User.IsInRole("Admin")) &&
+                (review.UserId != int.Parse(HttpContext.User.FindFirst("UserId").Value)))
+            {
+                return NotFound();
+            }
+
             ViewData["BookId"] = new SelectList(_context.Book, "Id", "Name", review.BookId);
             ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "UserName", review.UserId);
             return View(review);
@@ -98,6 +106,13 @@ namespace CoolBook.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Body,Rate,UserId,BookId")] Review review)
         {
             if (id != review.Id)
+            {
+                return NotFound();
+            }
+
+            // Admins can edit all reviews, others can only edit their own
+            if ((!HttpContext.User.IsInRole("Admin")) &&
+                (review.UserId != int.Parse(HttpContext.User.FindFirst("UserId").Value)))
             {
                 return NotFound();
             }

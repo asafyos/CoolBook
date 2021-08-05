@@ -21,6 +21,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: Books
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Index()
         {
             var coolBookContext = _context.Book.Include(b => b.Author)
