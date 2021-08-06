@@ -90,7 +90,7 @@ namespace CoolBook.Controllers
             if ((!HttpContext.User.IsInRole("Admin")) &&
                 (review.UserId != int.Parse(HttpContext.User.FindFirst("UserId").Value)))
             {
-                return NotFound();
+                return RedirectToAction("AccessDenied", "Users");
             }
 
             ViewData["BookId"] = new SelectList(_context.Book, "Id", "Name", review.BookId);
@@ -114,7 +114,7 @@ namespace CoolBook.Controllers
             if ((!HttpContext.User.IsInRole("Admin")) &&
                 (review.UserId != int.Parse(HttpContext.User.FindFirst("UserId").Value)))
             {
-                return NotFound();
+                return RedirectToAction("AccessDenied", "Users");
             }
 
             if (ModelState.IsValid)

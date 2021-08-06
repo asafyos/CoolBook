@@ -46,7 +46,7 @@ namespace CoolBook.Controllers
             if ((!HttpContext.User.IsInRole("Admin")) &&
                 (userInfo.UserId != int.Parse(HttpContext.User.FindFirst("UserId").Value)))
             {
-                return NotFound();
+                return RedirectToAction("AccessDenied", "Users");
             }
 
             return View(userInfo);
@@ -98,7 +98,7 @@ namespace CoolBook.Controllers
             if ((!HttpContext.User.IsInRole("Admin")) &&
                 (userInfo.UserId != int.Parse(HttpContext.User.FindFirst("UserId").Value)))
             {
-                return NotFound();
+                return RedirectToAction("AccessDenied", "Users");
             }
 
             var user = _context.User.Where(u => u.Id == userInfo.UserId);

@@ -158,7 +158,7 @@ namespace CoolBook.Controllers
             // Validate this is the logged in user
             if (id != int.Parse(HttpContext.User.FindFirst("UserId").Value))
             {
-                return NotFound();
+                return AccessDenied();
             }
 
             var user = await _context.User.FindAsync(id);
@@ -177,7 +177,7 @@ namespace CoolBook.Controllers
             // Validate this is the logged in user
             if (id != int.Parse(HttpContext.User.FindFirst("UserId").Value))
             {
-                return NotFound();
+                return AccessDenied();
             }
 
             var user = _context.User.Find(id);
@@ -353,5 +353,10 @@ namespace CoolBook.Controllers
             return View();
         }
 
+        // Access Denied page
+        public ActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
