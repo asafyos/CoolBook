@@ -1,5 +1,6 @@
 ﻿using CoolBook.Data;
 using CoolBook.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,11 +21,13 @@ namespace CoolBook.Controllers
         }
 
         // GET: ManagerController
+        [Authorize(Roles = "Manager,Admin")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "Manager,Admin")]
         public ActionResult Graphs()
         {
             ViewData["WatchedBooks"] = GetWatchedBooks(3);

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CoolBook.Data;
 using CoolBook.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoolBook.Controllers
 {
@@ -45,6 +46,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: Authors/Create
+        [Authorize(Roles = "Manager,Admin")]
         public IActionResult Create()
         {
             return View();
@@ -55,6 +57,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Create([Bind("Id,Name,BirthDate,Gender,Country")] Author author)
         {
             if (ModelState.IsValid)
@@ -67,6 +70,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: Authors/Edit/5
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -87,6 +91,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,BirthDate,Gender,Country")] Author author)
         {
             if (id != author.Id)
@@ -118,6 +123,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: Authors/Delete/5
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,6 +144,7 @@ namespace CoolBook.Controllers
         // POST: Authors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var author = await _context.Author.FindAsync(id);

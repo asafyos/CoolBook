@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CoolBook.Data;
 using CoolBook.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoolBook.Controllers
 {
@@ -20,6 +21,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: Books
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Index()
         {
             var coolBookContext = _context.Book.Include(b => b.Author)
@@ -53,15 +55,6 @@ namespace CoolBook.Controllers
             await _context.SaveChangesAsync();
 
             return View(book);
-        }
-
-        // GET: Books/Create
-        public IActionResult Create()
-        {
-            ViewData["authors"] = new SelectList(_context.Author, "Id", "Name");
-            ViewData["categories"] = new SelectList(_context.Category, "Id", "Name");
-
-            return View();
         }
 
         public IActionResult Search()
@@ -100,11 +93,22 @@ namespace CoolBook.Controllers
             return Json(results);
         }
 
+        // GET: Books/Create
+        [Authorize(Roles = "Manager,Admin")]
+        public IActionResult Create()
+        {
+            ViewData["authors"] = new SelectList(_context.Author, "Id", "Name");
+            ViewData["categories"] = new SelectList(_context.Category, "Id", "Name");
+
+            return View();
+        }
+
         // POST: Books/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Create([Bind("Id,Name,AuthorId,Price,PublishDate,ImageUrl")] Book book, List<int>? categories)
         {
             if (ModelState.IsValid)
@@ -123,6 +127,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: Books/Edit/5
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -146,6 +151,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AuthorId,Price,PublishDate,ImageUrl")] Book book, List<int>? categories)
         {
             if (id != book.Id)
@@ -177,6 +183,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: Books/Delete/5
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -198,6 +205,7 @@ namespace CoolBook.Controllers
         // POST: Books/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var book = await _context.Book.FindAsync(id);
