@@ -8,12 +8,6 @@
     <link href="@Url.Content("~/css/Books/Details.css")" rel="stylesheet" type="text/css" />
 }
 
-<div class="container">
-    <h4 class="cb-margin-title">
-        Book details
-    </h4>
-</div>
-
 <div class="container-fluid">
     <div class="cb-book-details">
         <img src="@Html.DisplayFor(model => model.ImageUrl)" alt="@Html.DisplayFor(model => model.Name)" />
@@ -33,7 +27,7 @@
                        step="0.1"
                        disabled
                        value="@Html.DisplayFor(model => model.Rate)">
-                @Html.DisplayFor(model => model.Rate) (TODO: add number of ratings here)
+                @Model.Rate.ToString(".0") &nbsp; (@(Model.Reviews.Count) reviews)
             </div>
 
             <div class="cb-book-details-price">@Html.DisplayFor(model => model.Price)</div>
@@ -57,119 +51,57 @@
                     }
                 }
             </div>
+            <h4>
+                <a asp-controller="Reviews" asp-action="Create" asp-route-book="@Model.Id">
+                    Submit a review
+                </a>
+            </h4>
         </div>
 
     </div>
-</div>
-@*
-    <div>
-        <hr />
-        <dl class="row">
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Author)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Author.Name)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Price)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Price)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.PublishDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.PublishDate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Rate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Rate)
-            </dd>
-            <dt class="col-sm-2">
-                Image:
-            </dt>
-            <dd class="col-sm-10">
-                <img src="@Html.DisplayFor(model => model.ImageUrl)" alt="Book Image" style="height:150px;width:150px" />
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Categories)
-            </dt>
-            <dd class="col-sm-10">
-                <div class="list-group">
-                    @if (Model.Categories != null && Model.Categories.Any())
-                    {
-                        foreach (var category in Model.Categories)
-                        {
-                            <div class="col-sm-5" style="width: 100%"> @category.Name </div>
-                        }
-                    }
-                </div>
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Reviews)
-            </dt>
 
-            <div style="margin: 10px">
-                @using (Html.BeginForm("Add", "Reviews", FormMethod.Post))
-                {
-                    <div class="input-group">
-                        @Html.Hidden("BookId", Model.Id)
-                        <input type="text" name="Title" class="form-control" placeholder="Title">
-                        <textarea name="Body" class="form-control" aria-label="With textarea"></textarea>
-                        <span>Product Rating:</span>
+    <div class="container">
+        <h2 class="cb-margin-title text-center">
+            @Html.DisplayNameFor(model => model.Reviews)
+        </h2>
+    </div>
 
-                        <label class="rating-label">
-                            <strong>No JS, using <code>box-shadow</code></strong>
-                            <input name="Rate"
-                                   class="cb-rating"
-                                   id="rateRange"
+    <div class="cb-book-reviews">
+
+        @if (Model.Reviews != null && Model.Reviews.Any())
+        {
+            foreach (var review in Model.Reviews)
+            {
+                <div class="toast cb-book-review show">
+                    <div class="toast-header">
+                        <i class="bi bi-person-circle me-2"></i>
+                        <strong class="me-auto">@review.User.UserName</strong>
+                        <small class="text-muted">@review.Date.ToShortDateString()</small>
+                    </div>
+                    <div class="toast-body">
+                        <h5>
+                            @review.Title
+                            <input class="cb-rating"
+                                   type="range"
                                    min="0"
                                    max="5"
-                                   step="0.5"
-                                   type="range">
-                        </label>
-                        <input type="submit" value="Add Review" class="btn btn-default" style='margin-top:1%' />
-                        <br />
+                                   step="0.1"
+                                   disabled
+                                   value="@review.Rate">
+                        </h5>
+                        @review.Body
                     </div>
-                }
-            </div>
-
-            <dd class="col-sm-10">
-                <div class="list-group">
-                    @if (Model.Reviews != null && Model.Reviews.Any())
-                    {
-                        foreach (var review in Model.Reviews)
-                        {
-                            <div class="col-sm-5" style="width: 100%">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="col-sm-8">@review.Title </h4>
-                                        <div class="col-sm-4">
-                                            <strong>@review.User.UserName</strong>
-                                            <strong>Rating : @review.Rate</strong>
-                                            <span class="text-muted">@review.Date</span>
-                                        </div>
-                                    </div>
-                                    <div class="panel-body">
-                                        @review.Body
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    }
                 </div>
-            </dd>
-        </dl>
+            }
+        }
+        else
+        {
+            @Html.DisplayText("No reviews yet.")
+        }
     </div>
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-        <a asp-action="Index">Back to List</a>
-    </div>
-*@
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Search">Back to search</a>
+</div>

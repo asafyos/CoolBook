@@ -47,7 +47,6 @@
     display: flex;
     margin-top: 1rem;
     align-items: center;
-    font-size: 0.9rem;
 }
 
     .cb-book-rating .cb-rating {
@@ -63,5 +62,28 @@
 
 .cb-book-details-categories {
     font-style: italic;
-    margin-top: 0.5rem;
+    margin: 0.5rem 0 4rem;
 }
+
+.cb-book-reviews{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem;
+}
+
+.cb-book-review {
+    width: 30rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+    .cb-book-review h5 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .cb-book-review .cb-rating {
+        --starsize: 2rem;
+    }
