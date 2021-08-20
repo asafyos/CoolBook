@@ -95,6 +95,7 @@ const setBooks = (data) => {
     }
 
     $(".cb-book-card").remove();
+    $(".cb-no-books").remove();
     element.append(newHtml);
 
     initializeListeners();
