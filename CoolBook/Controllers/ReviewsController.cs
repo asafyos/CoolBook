@@ -63,6 +63,9 @@ namespace CoolBook.Controllers
             // insert from session
             review.UserId = int.Parse(HttpContext.User.FindFirst("UserId").Value);
 
+            // Update the date
+            review.Date = DateTime.Now;
+
             // Update the rate
             var book = await _context.Book.Include(b => b.Reviews).FirstOrDefaultAsync(b => b.Id == review.BookId);
             var reviewsAmount = book.Reviews.Count();
