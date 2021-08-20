@@ -54,6 +54,12 @@ namespace CoolBook.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add([Bind("Title,Body,Rate,BookId")] Review review)
         {
+            // Validate a user is logged in
+            if (HttpContext.User.FindFirst("UserId") == null)
+            {
+                return RedirectToAction("Login", "Users");
+            }
+
             // insert from session
             review.UserId = int.Parse(HttpContext.User.FindFirst("UserId").Value);
 
