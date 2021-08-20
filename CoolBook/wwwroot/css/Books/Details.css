@@ -1,0 +1,57 @@
+﻿.cb-book-details {
+    display: grid;
+    justify-content: center;
+    gap: 5rem;
+    margin: 3rem 0;
+}
+
+@media (min-width: 576px) {
+    .cb-book-details {
+        grid-template-columns: 0.9fr 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .cb-book-details {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cb-book-details > img {
+    width: 15rem;
+    height: 23rem;
+    object-fit: cover;
+    object-position: center;
+    box-shadow: 0px 5px 10px #00000050;
+    border-radius: 0.2rem;
+    justify-self: end;
+    background-image: URL("/popcornreelcoolbook.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+.cb-book-details-content {
+}
+
+.cb-book-rating {
+    display: flex;
+    margin-top: 1rem;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+    .cb-book-rating .cb-rating {
+        --starsize: 1.5rem;
+        margin-right: 0.5rem;
+    }
+
+.cb-book-details-price {
+    font-size: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.cb-book-details-categories {
+    font-style: italic;
+    margin-top: 0.5rem;
+}
