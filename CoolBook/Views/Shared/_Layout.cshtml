@@ -22,24 +22,6 @@
         <div class="container-fluid">
             <a class="navbar-brand @textColor" asp-controller="Home" asp-action="Index">
                 <canvas id="canvas" class="cb-logo" width="70" height="75"></canvas>
-                <script type="text/javascript">
-                    var canvas, context, canvaso, contexto;
-                    canvaso = document.getElementById('canvas');
-                    context = canvaso.getContext('2d');
-                    context.lineWidth = 2;
-
-                    context.fillStyle = 'rgba(200, 0, 102, 0.5)';
-                    context.fillRect(10, 10, 50, 50);
-
-                    context.fillStyle = 'rgba(0, 0, 102, 0.5)';
-                    context.fillRect(40, 40, 25, 25);
-
-                    context.beginPath();
-                    context.lineWidth = 5;
-                    context.strokeStyle = '#330033'
-                    context.arc(40, 35, 15, Math.PI * 0.4, Math.PI * 1.6, false);
-                    context.stroke();
-                </script>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
