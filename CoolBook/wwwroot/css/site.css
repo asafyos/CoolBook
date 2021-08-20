@@ -92,6 +92,9 @@ a {
     border-color: #1861ac;
 }
 
+.cb-margin-title {
+    margin: 2rem 1rem;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

@@ -5,29 +5,39 @@
     margin: 3rem 0;
 }
 
+    .cb-book-details > img {
+        object-fit: cover;
+        object-position: center;
+        box-shadow: 0px 5px 10px #00000050;
+        border-radius: 0.2rem;
+        background-image: URL("/popcornreelcoolbook.jpg");
+        background-position: center;
+        background-size: cover;
+    }
+
 @media (min-width: 576px) {
     .cb-book-details {
         grid-template-columns: 0.9fr 1fr;
     }
+
+        .cb-book-details > img {
+            width: 15rem;
+            height: 23rem;
+            justify-self: end;
+        }
 }
 
 @media (max-width: 576px) {
     .cb-book-details {
         grid-template-columns: 1fr;
+        margin: 0 2rem;
     }
-}
 
-.cb-book-details > img {
-    width: 15rem;
-    height: 23rem;
-    object-fit: cover;
-    object-position: center;
-    box-shadow: 0px 5px 10px #00000050;
-    border-radius: 0.2rem;
-    justify-self: end;
-    background-image: URL("/popcornreelcoolbook.jpg");
-    background-position: center;
-    background-size: cover;
+        .cb-book-details > img {
+            width: 70vw;
+            height: 106vw;
+            justify-self: center;
+        }
 }
 
 .cb-book-details-content {
