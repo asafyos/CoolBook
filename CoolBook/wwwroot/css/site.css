@@ -42,7 +42,7 @@ header > div {
 }
 
 .cb-colored-nav .cb-logo {
-    filter: contrast(0.1) brightness(2);
+    /*filter: contrast(0.1) brightness(2);*/
 }
 
 a {
