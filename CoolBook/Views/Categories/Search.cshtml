@@ -20,17 +20,25 @@
 </form>
 
 <div class="container cb-cat-container">
-    @foreach (var c in Model)
+    @if (!Model.Any())
     {
-        var imageUrl = string.IsNullOrEmpty(c.ImageUrl) ? EMPTY_IMAGE : c.ImageUrl;
-        <a class="card cb-book-card" href="/Books/Search?Categories=@c.Id">
-            <img class="card-img-top" src="@imageUrl" alt="@c.Name">
-            <div class="card-body">
-                <h5 class="card-title cb-book-title">@c.Name</h5>
-            </div>
-        </a>
+        <div class="text-center">
+            <h4>No results.</h4>
+        </div>
     }
-
+    else
+    {
+        foreach (var c in Model)
+        {
+            var imageUrl = string.IsNullOrEmpty(c.ImageUrl) ? EMPTY_IMAGE : c.ImageUrl;
+            <a class="card cb-book-card" href="/Books/Search?Categories=@c.Id">
+                <img class="card-img-top" src="@imageUrl" alt="@c.Name">
+                <div class="card-body">
+                    <h5 class="card-title cb-book-title">@c.Name</h5>
+                </div>
+            </a>
+        }
+    }
 </div>
 
 @section Scripts {

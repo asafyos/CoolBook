@@ -1,6 +1,9 @@
 ﻿$(() => {
-    const search = getUrlParameter("search");
-    $("input#search").val(search).focus();
+    if (search) {
+        const search = getUrlParameter("search");
+        const input = $("input#search");
+        input.val(search).focus()
+    }
 })
 
 const getUrlParameter = (sParam) => {
@@ -17,5 +20,5 @@ const getUrlParameter = (sParam) => {
         }
     }
 
-    return false;
+    return "";
 };

@@ -26,7 +26,6 @@ namespace CoolBook.Controllers
             return View(await _context.Category.ToListAsync());
         }
 
-        [HttpGet]
         public async Task<IActionResult> Search([FromQuery] string search)
         {
             if (string.IsNullOrWhiteSpace(search))
