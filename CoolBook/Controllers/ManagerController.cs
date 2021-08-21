@@ -30,41 +30,34 @@ namespace CoolBook.Controllers
         [Authorize(Roles = "Manager,Admin")]
         public ActionResult Graphs()
         {
-            ViewData["WatchedBooks"] = GetWatchedBooks(3);
-            ViewData["BestBooks"] = GetBestBooks(3);
-            ViewData["CatAmounts"] = GetCatAmounts();
-
             return View();
         }
 
-        public List<Book> GetWatchedBooks(int amount)
+        public JsonResult GetWatchedBooks()
         {
-            return _context.Book.OrderByDescending(b => b.Views).Take(amount).ToList();
+            var AMOUNT_OF_MOST_WATCHED = 8;
+            return new JsonResult(_context.Book.OrderByDescending(b => b.Views)
+                                               .Take(AMOUNT_OF_MOST_WATCHED)
+                                               .Select(b => new { b.Name, b.Views })
+                                               .ToList());
         }
 
-        public List<Book> GetBestBooks(int amount)
+        public JsonResult GetBestBooks()
         {
-            return _context.Book.OrderByDescending(b => b.Rate).Take(amount).ToList();
+            var AMOUNT_OF_BEST_BOOKS = 8;
+            return new JsonResult(_context.Book.OrderByDescending(b => b.Rate)
+                                               .Take(AMOUNT_OF_BEST_BOOKS)
+                                               .Select(b => new { b.Name, b.Rate })
+                                               .ToList());
         }
 
-        public class CategoryAmount
+        public JsonResult GetCatAmounts()
         {
-            public Category Category { get; set; }
-            public int BookAmount { get; set; }
-        }
+            return new JsonResult(_context.Category.Include(c => c.Books)
+                                                   .Select(c => new { c.Name, c.Books.Count })
+                                                   .ToList()
+                                                   .OrderByDescending(c => c.Count));                            
 
-        public List<CategoryAmount> GetCatAmounts()
-        {
-            List<CategoryAmount> result = new List<CategoryAmount>(_context.Category.Count());
-            _context.Category.Include(c => c.Books)
-                            .ToList() 
-                            .ForEach(c => result.Add(new CategoryAmount { 
-                                                            Category = c, 
-                                                            BookAmount = c.Books.Count() }));
-
-            result.Sort((ca1, ca2) => ca2.BookAmount.CompareTo(ca1.BookAmount));
-
-            return result;
         }
     }
 }
