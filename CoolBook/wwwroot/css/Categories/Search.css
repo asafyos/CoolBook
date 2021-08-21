@@ -3,3 +3,21 @@
     grid-template-columns: repeat(auto-fit, 17rem);
     justify-content: center;
 }
+
+.cb-category-search {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+@media (min-width: 576px) {
+    .cb-category-search {
+        width: 20rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .cb-category-search {
+        padding: 1rem 2rem;
+    }
+}
