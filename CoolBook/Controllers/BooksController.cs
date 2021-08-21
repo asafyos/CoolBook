@@ -49,6 +49,8 @@ namespace CoolBook.Controllers
                 return NotFound();
             }
 
+            book.Rate = book.Reviews.Average(r => r.Rate);
+
             // Increment the views counter of the book
             book.Views++;
             _context.Update(book);
@@ -78,7 +80,7 @@ namespace CoolBook.Controllers
                 .Include(a => a.Categories)
                 .Include(b => b.Author)
                 .AsEnumerable()
-                .Where(b => ((catList.Count == 0 || catList.All(c=>b.Categories.Any(cat=>cat.Id==c)))
+                .Where(b => ((catList.Count == 0 || catList.All(c => b.Categories.Any(cat => cat.Id == c)))
                           && (authList.Count == 0 || authList.IndexOf(b.AuthorId) != -1)
                           && (string.IsNullOrEmpty(Name) || b.Name.Contains(Name, StringComparison.OrdinalIgnoreCase))))
                 .ToList();
