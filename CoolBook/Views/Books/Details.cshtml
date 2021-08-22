@@ -4,73 +4,104 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+@section Styles {
+    <link href="@Url.Content("~/css/Books/Details.css")" rel="stylesheet" type="text/css" />
+}
 
-<div>
-    <h4>Book</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Author.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PublishDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PublishDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Categories)
-        </dt>
-        <dd class="col-sm-10">
-            <div class="list-group">
+<div class="container-fluid">
+    <div class="cb-book-details">
+        <img src="@Html.DisplayFor(model => model.ImageUrl)" alt="@Html.DisplayFor(model => model.Name)" />
+        <div class="cb-book-details-content">
+            <h1>
+                @Html.DisplayFor(model => model.Name)
+            </h1>
+            <h5>
+                by @Html.DisplayFor(model => model.Author.Name)
+            </h5>
+
+            <div class="cb-book-rating">
+                <input class="cb-rating"
+                       type="range"
+                       min="0"
+                       max="5"
+                       step="0.1"
+                       disabled
+                       value="@Html.DisplayFor(model => model.Rate)">
+                @Model.Rate.ToString(".0") &nbsp; (@(Model.Reviews.Count) reviews)
+            </div>
+
+            <div class="cb-book-details-price">@Html.DisplayFor(model => model.Price)</div>
+            <div>
+
+                Published at @Html.DisplayFor(model => model.PublishDate)
+            </div>
+            <div class="cb-book-details-categories">
                 @if (Model.Categories != null && Model.Categories.Any())
                 {
                     foreach (var category in Model.Categories)
                     {
-                        <div class="col-sm-5" style="width: 100%"> @category.Name </div>
+                        if (Model.Categories.Last() == category)
+                        {
+                            @category.Name
+                        }
+                        else
+                        {
+                            @(category.Name + ", ")
+                        }
                     }
                 }
             </div>
-        </dd>
-        <dt class="col-sm-2">
+            <h4>
+                <a asp-controller="Reviews" asp-action="Create" asp-route-book="@Model.Id">
+                    Submit a review
+                </a>
+            </h4>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <h2 class="cb-margin-title text-center">
             @Html.DisplayNameFor(model => model.Reviews)
-        </dt>
-        <dd class="col-sm-10">
-            <div class="list-group">
-                @if (Model.Reviews != null && Model.Reviews.Any())
-                {
-                    foreach (var review in Model.Reviews)
-                    {
-                        <div class="col-sm-5" style="width: 100%"> @review.Title, @review.Body</div>
-                    }
-                }
-            </div>
-        </dd>
-    </dl>
+        </h2>
+    </div>
+
+    <div class="cb-book-reviews">
+
+        @if (Model.Reviews != null && Model.Reviews.Any())
+        {
+            foreach (var review in Model.Reviews)
+            {
+                <div class="toast cb-book-review show">
+                    <div class="toast-header">
+                        <i class="bi bi-person-circle me-2"></i>
+                        <strong class="me-auto">@review.User.UserName</strong>
+                        <small class="text-muted">@review.Date.ToShortDateString()</small>
+                    </div>
+                    <div class="toast-body">
+                        <h5>
+                            @review.Title
+                            <input class="cb-rating"
+                                   type="range"
+                                   min="0"
+                                   max="5"
+                                   step="0.1"
+                                   disabled
+                                   value="@review.Rate">
+                        </h5>
+                        @review.Body
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            @Html.DisplayText("No reviews yet.")
+        }
+    </div>
 </div>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Search">Back to search</a>
 </div>

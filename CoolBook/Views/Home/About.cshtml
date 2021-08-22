@@ -1,31 +1,16 @@
 ﻿@{
-    ViewData["Title"] = "About Page";
-    ViewData["colored"] = true;
+    ViewData["Title"] = "About us";
 }
 
 @section Styles {
-    <!-- <link href="@Url.Content("~/css/Home/About.css")" rel="stylesheet" type="text/css" /> -->
+    <link href="@Url.Content("~/css/Home/About.css")" rel="stylesheet" type="text/css" />
 }
 
-@section Scripts {
-    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=getMap&setLang=he-IL&key=Ap0AObt84NcDaUThCeWOj52ZqUHv6k4TJhjLibR-DghC-semgoj-0uPbIi8r0E4j' async defer></script>
-    <script type="text/html" id="store-template">
-        <div>
-            <p>
-                {name}
-            </p>
-            <p>
-                Phone: {phone}
-            </p>
-            <p>
-                Current temprature: {temp}
-            </p>
-            <p>---------------------------------</p>
-        </div>
-    </script>
-}
+<h1>@ViewData["Title"]</h1>
 
-<div id="map-wrapper">
-    <div id="storesList"></div>
-    <div id="map"></div>
+<div class="cb-video">
+    <video autoplay loop muted>
+        <source src="~/video.mp4">
+        <p>Your browser does not support HTML5 video.</p>
+    </video>
 </div>

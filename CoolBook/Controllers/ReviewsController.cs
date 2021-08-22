@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CoolBook.Data;
 using CoolBook.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoolBook.Controllers
 {
@@ -46,30 +47,38 @@ namespace CoolBook.Controllers
             return View(review);
         }
 
-        // GET: Reviews/Create
-        public IActionResult Create()
-        {
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Name");
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "UserName");
-            return View();
-        }
-
         // POST: Reviews/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Body,Rate,UserId,BookId")] Review review)
+        public async Task<IActionResult> Add([Bind("Title,Body,Rate,BookId")] Review review)
         {
+            // Validate a user is logged in
+            if (HttpContext.User.FindFirst("UserId") == null)
+            {
+                return RedirectToAction("Login", "Users");
+            }
+
+            // insert from session
+            review.UserId = int.Parse(HttpContext.User.FindFirst("UserId").Value);
+
+            // Update the date
+            review.Date = DateTime.Now;
+
+            // Update the rate
+            var book = await _context.Book.Include(b => b.Reviews).FirstOrDefaultAsync(b => b.Id == review.BookId);
+            var reviewsAmount = book.Reviews.Count();
+            book.Rate = (book.Rate * reviewsAmount + review.Rate) / (reviewsAmount + 1);
+            _context.Update(book);
+
             if (ModelState.IsValid)
             {
                 _context.Add(review);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Name", review.BookId);
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "UserName", review.UserId);
-            return View(review);
+
+            return RedirectToAction("Details", "Books", new { id = review.BookId });
         }
 
         // GET: Reviews/Edit/5
@@ -85,6 +94,14 @@ namespace CoolBook.Controllers
             {
                 return NotFound();
             }
+
+            // Admins can edit all reviews, others can only edit their own
+            if ((!HttpContext.User.IsInRole("Admin")) &&
+                (review.UserId != int.Parse(HttpContext.User.FindFirst("UserId").Value)))
+            {
+                return RedirectToAction("AccessDenied", "Users");
+            }
+
             ViewData["BookId"] = new SelectList(_context.Book, "Id", "Name", review.BookId);
             ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "UserName", review.UserId);
             return View(review);
@@ -100,6 +117,13 @@ namespace CoolBook.Controllers
             if (id != review.Id)
             {
                 return NotFound();
+            }
+
+            // Admins can edit all reviews, others can only edit their own
+            if ((!HttpContext.User.IsInRole("Admin")) &&
+                (review.UserId != int.Parse(HttpContext.User.FindFirst("UserId").Value)))
+            {
+                return RedirectToAction("AccessDenied", "Users");
             }
 
             if (ModelState.IsValid)
@@ -128,6 +152,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: Reviews/Delete/5
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -150,6 +175,7 @@ namespace CoolBook.Controllers
         // POST: Reviews/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var review = await _context.Review.FindAsync(id);

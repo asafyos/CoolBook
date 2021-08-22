@@ -1,4 +1,16 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿let canvas, context, canvaso, contexto;
+canvaso = $('#canvas')[0];
+context = canvaso.getContext('2d');
+context.lineWidth = 2;
 
-// Write your JavaScript code.
+context.fillStyle = 'rgba(200, 0, 102, 0.5)';
+context.fillRect(10, 10, 50, 50);
+
+context.fillStyle = 'rgba(0, 0, 102, 0.5)';
+context.fillRect(40, 40, 25, 25);
+
+context.beginPath();
+context.lineWidth = 5;
+context.strokeStyle = '#330033'
+context.arc(40, 35, 15, Math.PI * 0.4, Math.PI * 1.6, false);
+context.stroke();

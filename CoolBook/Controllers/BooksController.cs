@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CoolBook.Data;
 using CoolBook.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoolBook.Controllers
 {
@@ -20,6 +21,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: Books
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Index()
         {
             var coolBookContext = _context.Book.Include(b => b.Author)
@@ -40,22 +42,21 @@ namespace CoolBook.Controllers
                 .Include(b => b.Author)
                 .Include(a => a.Categories)
                 .Include(b => b.Reviews)
+                .ThenInclude(r => r.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (book == null)
             {
                 return NotFound();
             }
 
+            book.Rate = book.Reviews.Average(r => r.Rate);
+
+            // Increment the views counter of the book
+            book.Views++;
+            _context.Update(book);
+            await _context.SaveChangesAsync();
+
             return View(book);
-        }
-
-        // GET: Books/Create
-        public IActionResult Create()
-        {
-            ViewData["authors"] = new SelectList(_context.Author, "Id", "Name");
-            ViewData["categories"] = new SelectList(_context.Category, "Id", "Name");
-
-            return View();
         }
 
         public IActionResult Search()
@@ -79,7 +80,7 @@ namespace CoolBook.Controllers
                 .Include(a => a.Categories)
                 .Include(b => b.Author)
                 .AsEnumerable()
-                .Where(b => ((catList.Count == 0 || catList.All(c=>b.Categories.Any(cat=>cat.Id==c)))
+                .Where(b => ((catList.Count == 0 || catList.All(c => b.Categories.Any(cat => cat.Id == c)))
                           && (authList.Count == 0 || authList.IndexOf(b.AuthorId) != -1)
                           && (string.IsNullOrEmpty(Name) || b.Name.Contains(Name, StringComparison.OrdinalIgnoreCase))))
                 .ToList();
@@ -94,17 +95,31 @@ namespace CoolBook.Controllers
             return Json(results);
         }
 
+        // GET: Books/Create
+        [Authorize(Roles = "Manager,Admin")]
+        public IActionResult Create()
+        {
+            ViewData["authors"] = new SelectList(_context.Author, "Id", "Name");
+            ViewData["categories"] = new SelectList(_context.Category, "Id", "Name");
+
+            return View();
+        }
+
         // POST: Books/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,AuthorId,Price,PublishDate,ImageUrl,Categories")] Book book, List<int>? categories)
+        [Authorize(Roles = "Manager,Admin")]
+        public async Task<IActionResult> Create([Bind("Id,Name,AuthorId,Price,PublishDate,ImageUrl")] Book book, List<int>? categories)
         {
             if (ModelState.IsValid)
             {
-                // Update the categories that this book is in
-                UpdateCategories(book, categories);
+                // Add categories to book
+                AddCategories(book, categories);
+
+                book.Views = 0;
+                book.Rate = 0.0;
 
                 _context.Add(book);
                 await _context.SaveChangesAsync();
@@ -114,6 +129,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: Books/Edit/5
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -137,6 +153,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AuthorId,Price,PublishDate,ImageUrl")] Book book, List<int>? categories)
         {
             if (id != book.Id)
@@ -148,8 +165,7 @@ namespace CoolBook.Controllers
             {
                 try
                 {
-                    UpdateCategories(book, categories);
-                    _context.Update(book);
+                    UpdateBook(book, categories);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -169,6 +185,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: Books/Delete/5
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -190,6 +207,7 @@ namespace CoolBook.Controllers
         // POST: Books/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var book = await _context.Book.FindAsync(id);
@@ -203,24 +221,36 @@ namespace CoolBook.Controllers
             return _context.Book.Any(e => e.Id == id);
         }
 
-        public void UpdateCategories(Book book, List<int>? categories)
+        // Adds the actual category instances to the book
+        public void AddCategories(Book book, List<int>? categories)
         {
-            if (categories == null)
-                return;
+            if (book.Categories == null)
+                book.Categories = new List<Category>();
 
             // Make the matching between categories and books, delete previous
             foreach (var CategoryId in categories)
             {
-                var category = _context.Category.Find(CategoryId);
-                if (category.Books == null)
-                    category.Books = new List<Book>();
-
-                if (book.Categories == null)
-                    book.Categories = new List<Category>();
-
-                category.Books.Add(book);
-                book.Categories.Add(category);
+                book.Categories.Add(_context.Category.Find(CategoryId));
             }
+        }
+
+        // This is used to update safetly the many many connection with categories
+        // Update the original book instance with the new information
+        public void UpdateBook(Book newBook, List<int>? categories)
+        {
+            var originalBook = _context.Book.Include("Categories").FirstOrDefault(b => b.Id == newBook.Id);
+            originalBook.Name = newBook.Name;
+            originalBook.AuthorId = newBook.AuthorId;
+            originalBook.ImageUrl = newBook.ImageUrl;
+            originalBook.Price = newBook.Price;
+            originalBook.PublishDate = newBook.PublishDate;
+            originalBook.Categories.Clear();
+            foreach (var catId in categories)
+            {
+                originalBook.Categories.Add(_context.Category.Find(catId));
+            }
+
+            _context.Update(originalBook);
         }
     }
 }

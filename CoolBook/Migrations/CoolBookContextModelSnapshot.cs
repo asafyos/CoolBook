@@ -85,6 +85,12 @@ namespace CoolBook.Migrations
                     b.Property<DateTime>("PublishDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<double>("Rate")
+                        .HasColumnType("float");
+
+                    b.Property<decimal>("Views")
+                        .HasColumnType("decimal(20,0)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
@@ -209,7 +215,6 @@ namespace CoolBook.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("BirthDate")
@@ -224,7 +229,6 @@ namespace CoolBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")

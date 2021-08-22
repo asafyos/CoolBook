@@ -1,5 +1,6 @@
 ﻿using CoolBook.Data;
 using CoolBook.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace CoolBook.Controllers
         }
 
         // GET: UserInfoes
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IActionResult> Index()
         {
             var coolBookContext = _context.UserInfo.Include(u => u.User);
@@ -40,13 +42,24 @@ namespace CoolBook.Controllers
                 return NotFound();
             }
 
+            // Admins can see all user infoes, others can only see their own
+            if ((!HttpContext.User.IsInRole("Admin")) &&
+                (userInfo.UserId != int.Parse(HttpContext.User.FindFirst("UserId").Value)))
+            {
+                return RedirectToAction("AccessDenied", "Users");
+            }
+
             return View(userInfo);
         }
 
         // GET: UserInfoes/Create
-        public IActionResult Create()
+        [Authorize(Roles = "Manager,Admin")]
+        public IActionResult Create(int id)
         {
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "UserName");
+            var user = _context.User.Where(u => u.Id == id);
+            ViewData["userSelect"] = new SelectList(user, "Id", "UserName");
+            ViewData["userName"] = user.FirstOrDefault().UserName;
+
             return View();
         }
 
@@ -55,7 +68,7 @@ namespace CoolBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,FullName,Gender,BirthDate,Address,PhoneNumber")] UserInfo userInfo)
+        public async Task<IActionResult> Create([Bind("UserId,FullName,Gender,BirthDate,Address,PhoneNumber")] UserInfo userInfo)
         {
             if (ModelState.IsValid)
             {
@@ -75,12 +88,22 @@ namespace CoolBook.Controllers
                 return NotFound();
             }
 
-            var userInfo = await _context.UserInfo.FindAsync(id);
+            var userInfo = await _context.UserInfo.Include(u => u.User).FirstOrDefaultAsync(u => u.Id == id);
             if (userInfo == null)
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.User.Where(u => u.Id == id), "Id", "UserName", userInfo.UserId);
+
+            // Admins can see all user infoes, others can only see their own
+            if ((!HttpContext.User.IsInRole("Admin")) &&
+                (userInfo.UserId != int.Parse(HttpContext.User.FindFirst("UserId").Value)))
+            {
+                return RedirectToAction("AccessDenied", "Users");
+            }
+
+            var user = _context.User.Where(u => u.Id == userInfo.UserId);
+            ViewData["userSelect"] = new SelectList(user, "Id", "UserName");
+            ViewData["userName"] = user.FirstOrDefault().UserName;
             return View(userInfo);
         }
 
@@ -114,12 +137,13 @@ namespace CoolBook.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Profile", "Users");
             }
             return View(userInfo);
         }
 
         // GET: UserInfoes/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,6 +165,7 @@ namespace CoolBook.Controllers
         // POST: UserInfoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var userInfo = await _context.UserInfo.FindAsync(id);

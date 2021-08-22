@@ -22,8 +22,7 @@
 
         <div class="container-fluid">
             <a class="navbar-brand @textColor" asp-controller="Home" asp-action="Index">
-                <img class="cb-logo d-block d-md-block d-sm-none" src="~/book.png" />
-                CoolBook
+                <canvas id="canvas" class="cb-logo" width="70" height="75"></canvas>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -55,31 +54,34 @@
                             Reviews
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link @textColor" asp-controller="Manager" asp-action="Index">
+                            Manage
+                        </a>
+                    </li>
                     <li class="nav-item cb-last-link">
                         <a class="nav-link @textColor" asp-controller="Home" asp-action="About">
                             About us
                         </a>
                     </li>
-
-                    <li class="nav-item cb-cart">
-                        <a class="nav-link @textColor" asp-controller="Users" asp-action="Cart">
-                            <i class="bi bi-bag"></i>
-                        </a>
-                    </li>
                     @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
                     {
                         <li class="nav-item">
-                            <a class="nav-link @textColor" asp-controller="Users" asp-action="Logout">
-                                Logout
+                            <h6>Hello, @Context.User.Identity.Name</h6>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @textColor" asp-controller="Users" asp-action="Profile">
+                                <i class="bi bi-person-circle"></i>
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @textColor" asp-controller="Users" asp-action="Logout">Logout</a>
                         </li>
                     }
                     else
                     {
                         <li class="nav-item">
-                            <a class="nav-link @textColor" asp-controller="Users" asp-action="Login">
-                                Login
-                            </a>
+                            <a class="nav-link @textColor" asp-controller="Users" asp-action="Login">Login</a>
                         </li>
                     }
                 </ul>
