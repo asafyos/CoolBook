@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CoolBook.Data;
 using CoolBook.Models;
 using Microsoft.AspNetCore.Authorization;
+using Tweetinvi;
 
 namespace CoolBook.Controllers
 {
@@ -49,7 +50,7 @@ namespace CoolBook.Controllers
                 return NotFound();
             }
 
-            book.Rate = book.Reviews.Average(r => r.Rate);
+            if (book.Reviews.Count > 0) book.Rate = book.Reviews.Average(r => r.Rate);
 
             // Increment the views counter of the book
             book.Views++;
@@ -120,6 +121,22 @@ namespace CoolBook.Controllers
 
                 book.Views = 0;
                 book.Rate = 0.0;
+
+                #region twitter
+                Auth.SetUserCredentials("38IYVriBTJgTcMI2UQCup3zxr", "rhfJctlWrjrEnP5noNylLXDzhQU6PteUI5gOK93pYT9PPXxb2f", "1406236393832132608-EYHUJN2yINoThAmFDMZdem7qk0AEUN", "eiakjJ6lSQpDT3BB5gkn5v4qF9a61pIS4hogOpnOOzlOr");
+
+                //var user = Tweetinvi.User.GetAuthenticatedUser();
+                try
+                {
+                    string twitterText = "We just added a new book: \"" + book.Name + "\". Go check it out in our website now!";
+
+                    Tweet.PublishTweet(twitterText);
+                }
+                catch (Exception ex)
+                {
+                    // I Dont Care - I like it!
+                }
+                #endregion
 
                 _context.Add(book);
                 await _context.SaveChangesAsync();
