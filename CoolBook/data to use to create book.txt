@@ -1,0 +1,6 @@
+author: 
+11	 Orson Scott Card	24/08/1951 00:00:00	0	Richland, Washington, U.S.
+
+books: 
+32	Ender's Game	11	43	15/08/1985 00:00:00	https://upload.wikimedia.org/wikipedia/en/e/e4/Ender%27s_game_cover_ISBN_0312932081.jpg	0	0
+33	Speaker for the Dead	11	65	12/04/1985 00:00:00	https://upload.wikimedia.org/wikipedia/en/0/05/Speaker_dead_cover.jpg	0	0

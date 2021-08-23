@@ -123,7 +123,7 @@ namespace CoolBook.Controllers
                 book.Rate = 0.0;
 
                 #region twitter
-                Auth.SetUserCredentials("38IYVriBTJgTcMI2UQCup3zxr", "rhfJctlWrjrEnP5noNylLXDzhQU6PteUI5gOK93pYT9PPXxb2f", "1406236393832132608-EYHUJN2yINoThAmFDMZdem7qk0AEUN", "eiakjJ6lSQpDT3BB5gkn5v4qF9a61pIS4hogOpnOOzlOr");
+                Auth.SetUserCredentials("2lTXghGOf3hSo5ZaYnz5uzqyS", "R3oh78xLCJpcqEIOYX1S6VsW4sQjAjlIwbYWYgWgzZwWkt6CVl", "1429846071749058563-w9Tl96uGmaqalJ57Lx5HkIJ88hAuHk", "nfJmRKHNP7d292EZXecF4bvRCIMkUCz9ETj6d9writSBS");
 
                 //var user = Tweetinvi.User.GetAuthenticatedUser();
                 try
