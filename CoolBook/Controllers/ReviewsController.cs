@@ -95,6 +95,12 @@ namespace CoolBook.Controllers
                 return NotFound();
             }
 
+            // Validate a user is logged in
+            if (HttpContext.User.FindFirst("UserId") == null)
+            {
+                return RedirectToAction("Login", "Users");
+            }
+            
             // Admins can edit all reviews, others can only edit their own
             if ((!HttpContext.User.IsInRole("Admin")) &&
                 (review.UserId != int.Parse(HttpContext.User.FindFirst("UserId").Value)))
@@ -117,6 +123,12 @@ namespace CoolBook.Controllers
             if (id != review.Id)
             {
                 return NotFound();
+            }
+
+            // Validate a user is logged in
+            if (HttpContext.User.FindFirst("UserId") == null)
+            {
+                return RedirectToAction("Login", "Users");
             }
 
             // Admins can edit all reviews, others can only edit their own
