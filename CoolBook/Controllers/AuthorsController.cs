@@ -23,6 +23,37 @@ namespace CoolBook.Controllers
         // GET: Authors
         public async Task<IActionResult> Index()
         {
+            return View(await _context.Author.Join(
+                _context.Book,
+                author => author.Id,
+                book => book.AuthorId,
+                (author, book) => new
+                {
+                    Id = author.Id,
+                    Name = author.Name,
+                    BirthDate = author.BirthDate,
+                    Gender = author.Gender,
+                    Country = author.Country,
+                    BookId = book.Id
+                })
+                .GroupBy(x => new
+                {
+                    x.Id,
+                    x.Name,
+                    x.BirthDate,
+                    x.Gender,
+                    x.Country
+                })
+                .Select(x => new AuthorView
+                {
+                    Id = x.Key.Id,
+                    Name = x.Key.Name,
+                    BirthDate = x.Key.BirthDate,
+                    Gender = x.Key.Gender,
+                    Country = x.Key.Country,
+                    BookCount = x.Select(a => a.BookId).Distinct().Count()
+                }).ToListAsync());
+
             return View(await _context.Author.ToListAsync());
         }
 
