@@ -20,7 +20,10 @@ namespace CoolBook.Models
 
         public string Address { get; set; }
 
-        [Display(Name = "Phone Number"), DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone Number"), 
+            DataType(DataType.PhoneNumber), 
+            RegularExpression(@"^\(?([0-9]{2,3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", 
+                              ErrorMessage = "Not a valid phone number")]
         public string PhoneNumber { get; set; }
     }
 }
