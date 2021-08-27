@@ -9,6 +9,12 @@
 
 <div class="cb-main-color text-light">
     <h1>Enjoy the best books at CoolBook.</h1>
-    @*TODO: Add search*@
-    <form asp-action="Search"><input class="form-control-lg" placeholder="Search" /><button type="submit"><i class="bi bi-search"></i></button></form>
+    <form asp-controller="Books" asp-action="Search">
+        <input name="Name" class="form-control-lg" placeholder="Search" />
+        <button type="submit" formmethod="get">
+            <i class="bi bi-search"></i>
+        </button>
+    </form>
 </div>
+
+@* TODO: Add most viewed books here *@

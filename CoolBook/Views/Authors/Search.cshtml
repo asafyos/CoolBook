@@ -1,0 +1,46 @@
+﻿@model IEnumerable<CoolBook.Models.Author>
+
+@{
+    ViewData["Title"] = "Search";
+    const string EMPTY_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+}
+
+@section Styles {
+    <link href="@Url.Content("~/css/Authors/Search.css")" rel="stylesheet" type="text/css" />
+}
+
+<br />
+<div class="container">
+    <h1>Authors</h1>
+</div>
+
+<form class="container-fluid cb-author-search" asp-action="Search">
+    <input id="search" name="search" class="form-control" />
+    <input type="submit" formmethod="get" value="Search" class="btn btn-primary" />
+</form>
+
+<div class="container cb-author-container">
+    @if (!Model.Any())
+    {
+        <div class="text-center">
+            <h4>No results.</h4>
+        </div>
+    }
+    else
+    {
+        foreach (var a in Model)
+        {
+            <a class="card cb-book-card" href="/Books/Search?AuthorId=@a.Id">
+                <img class="card-img-top" src="@EMPTY_IMAGE">
+                <div class="card-body">
+                    <h5 class="card-title cb-book-title">@a.Name</h5>
+                </div>
+            </a>
+        }
+    }
+
+</div>
+
+@section Scripts {
+    <script src="@Url.Content("~/js/Authors/Search.js")"></script>
+}

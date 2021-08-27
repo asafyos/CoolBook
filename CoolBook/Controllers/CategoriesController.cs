@@ -26,9 +26,14 @@ namespace CoolBook.Controllers
             return View(await _context.Category.ToListAsync());
         }
 
-        public async Task<IActionResult> Search()
+        public async Task<IActionResult> Search([FromQuery] string search)
         {
-            return View(await _context.Category.ToListAsync());
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return View(await _context.Category.ToListAsync());
+            }
+
+            return View(_context.Category.AsEnumerable().Where(c => c.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase)));
         }
 
         // GET: Categories/Details/5
