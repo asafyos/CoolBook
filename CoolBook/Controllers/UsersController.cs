@@ -33,8 +33,17 @@ namespace CoolBook.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            var users = _context.User.ToList();
-            users.ForEach(u => u.Password = "");
+            var users = _context.User.Join(
+                _context.UserInfo,
+                user => user.Id,
+                userInfo => userInfo.UserId,
+                (user, userInfo) => new FullUser
+                {
+                    User = user,
+                    UserInfo = userInfo
+                }
+                ).ToList();
+            users.ForEach(u => u.User.Password = "");
             return View(users);
         }
 
