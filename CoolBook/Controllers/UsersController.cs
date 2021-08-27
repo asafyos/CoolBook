@@ -23,7 +23,7 @@ namespace CoolBook.Controllers
             _context = context;
         }
 
-        public class FullUser
+        public class AuthorExtand
         {
             public User User { get; set; }
             public UserInfo UserInfo { get; set; }
@@ -37,7 +37,7 @@ namespace CoolBook.Controllers
                 _context.UserInfo,
                 user => user.Id,
                 userInfo => userInfo.UserId,
-                (user, userInfo) => new FullUser
+                (user, userInfo) => new AuthorExtand
                 {
                     User = user,
                     UserInfo = userInfo

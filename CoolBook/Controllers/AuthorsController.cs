@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CoolBook.Data;
 using CoolBook.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.DataAnnotations;
 
 namespace CoolBook.Controllers
 {
@@ -18,6 +19,20 @@ namespace CoolBook.Controllers
         public AuthorsController(CoolBookContext context)
         {
             _context = context;
+        }
+
+        public class FullAuthor
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+
+            [Required, Display(Name = "Birth Date"), DataType(DataType.Date)]
+            public DateTime BirthDate { get; set; }
+            public Gender Gender { get; set; }
+            public string Country { get; set; }
+
+            [Display(Name = "Books Count")]
+            public int BookCount { get; set; }
         }
 
         // GET: Authors
@@ -44,7 +59,7 @@ namespace CoolBook.Controllers
                     x.Gender,
                     x.Country
                 })
-                .Select(x => new AuthorView
+                .Select(x => new FullAuthor
                 {
                     Id = x.Key.Id,
                     Name = x.Key.Name,
