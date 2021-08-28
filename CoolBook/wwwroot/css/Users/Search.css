@@ -1,0 +1,17 @@
+﻿.cb-user-search {
+	display: flex;
+	gap: 1rem;
+	padding: 1rem;
+}
+
+@media (min-width: 576px) {
+	.cb-user-search {
+		width: 20rem;
+	}
+}
+
+@media (max-width: 576px) {
+	.cb-user-search {
+		padding: 1rem 2rem;
+	}
+}

@@ -20,5 +20,7 @@ namespace CoolBook.Data
         public DbSet<CoolBook.Models.User> User { get; set; }
 
         public DbSet<CoolBook.Models.UserInfo> UserInfo { get; set; }
+
+        public DbSet<CoolBook.Models.Store> Store { get; set; }
     }
 }

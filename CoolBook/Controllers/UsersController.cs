@@ -31,19 +31,27 @@ namespace CoolBook.Controllers
 
         // GET: Users
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] string search)
         {
-            var users = _context.User.Join(
-                _context.UserInfo,
-                user => user.Id,
-                userInfo => userInfo.UserId,
-                (user, userInfo) => new AuthorExtand
-                {
-                    User = user,
-                    UserInfo = userInfo
-                }
-                ).ToList();
-            users.ForEach(u => u.User.Password = "");
+            List<User> users;
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                users = _context.User.Include(u => u.UserInfo).ToList();
+            }
+            else
+            {
+                users = _context.User.Include(u => u.UserInfo).AsEnumerable()
+                    .Where(u => u.UserName.Contains(search, StringComparison.InvariantCultureIgnoreCase)
+                             || u.Email.Contains(search, StringComparison.InvariantCultureIgnoreCase)
+                             || u.UserInfo != null ? (
+                                    u.UserInfo.FullName.Contains(search, StringComparison.InvariantCultureIgnoreCase)
+                                 || u.UserInfo.PhoneNumber.Contains(search, StringComparison.InvariantCultureIgnoreCase)
+                                 || u.UserInfo.Address.Contains(search, StringComparison.InvariantCultureIgnoreCase)
+                             ) : false)
+                    .ToList();
+            }
+
+            users.ForEach(u => u.Password = "");
             return View(users);
         }
 
@@ -71,6 +79,7 @@ namespace CoolBook.Controllers
 
             var user = await _context.User
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (user == null)
             {
                 return NotFound();
@@ -177,7 +186,7 @@ namespace CoolBook.Controllers
             }
             return View(user);
         }
-        
+
         // POST: Users/Update/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -209,7 +218,7 @@ namespace CoolBook.Controllers
             {
                 throw;
             }
-            
+
             return RedirectToAction(nameof(Profile));
         }
 
@@ -273,7 +282,7 @@ namespace CoolBook.Controllers
                 //TODO: handle error
                 return null;
             }
-            
+
             // Defualt values
             user.Role = UserRole.Client;
             user.UserInfo = new UserInfo { FullName = user.UserName, BirthDate = DateTime.Now };

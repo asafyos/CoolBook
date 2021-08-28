@@ -4,11 +4,21 @@
     ViewData["Title"] = "Index";
 }
 
+@section Styles {
+    <link href="@Url.Content("~/css/Users/Search.css")" rel="stylesheet" type="text/css" />
+}
+
 <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form class="container-fluid cb-user-search" asp-action="Index">
+    <input id="search" name="search" class="form-control" />
+    <input type="submit" formmethod="get" value="Search" class="btn btn-primary" />
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -62,3 +72,7 @@
 }
     </tbody>
 </table>
+
+@section Scripts {
+    <script src="@Url.Content("~/js/Users/Search.js")"></script>
+}

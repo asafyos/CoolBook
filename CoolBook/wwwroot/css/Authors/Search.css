@@ -1,23 +1,23 @@
-﻿.cb-cat-container {
+﻿.cb-author-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, 17rem);
     justify-content: center;
 }
 
-.cb-category-search {
+.cb-author-search {
     display: flex;
     gap: 1rem;
     padding: 1rem;
 }
 
 @media (min-width: 576px) {
-    .cb-category-search {
+    .cb-author-search {
         width: 20rem;
     }
 }
 
 @media (max-width: 576px) {
-    .cb-category-search {
+    .cb-author-search {
         padding: 1rem 2rem;
     }
 }
