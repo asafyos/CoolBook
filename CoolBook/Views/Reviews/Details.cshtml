@@ -21,7 +21,7 @@
         <div class="toast-header">
             <i class="bi bi-person-circle me-2"></i>
             <strong class="me-auto">
-                <a asp-controller="Users" asp-action="Details" asp-route-id="@Model.UserId">
+                <a asp-controller="Users" asp-action="Profile" asp-route-id="@Model.UserId">
                     @username
                 </a>
                 &nbsp;-&nbsp;
@@ -33,9 +33,7 @@
         </div>
         <div class="toast-body">
             <h4>
-                <a asp-action="Details" asp-route-id="@Model.Id">
-                    @Model.Title
-                </a>
+                @Model.Title
                 <input class="cb-rating"
                        type="range"
                        min="0"

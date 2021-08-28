@@ -93,7 +93,7 @@
                     </div>
                     <div class="toast-body">
                         <h5>
-                            @review.Title
+                            <a asp-controller="Reviews" asp-action="Details" asp-route-id="@review.Id">@review.Title</a>
                             <input class="cb-rating"
                                    type="range"
                                    min="0"
