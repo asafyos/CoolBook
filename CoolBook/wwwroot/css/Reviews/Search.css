@@ -1,0 +1,38 @@
+﻿.cb-review-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 30rem);
+    justify-content: center;
+    gap: 2rem;
+}
+
+.cb-review-search {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+@media (min-width: 576px) {
+    .cb-review-search {
+        width: 20rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .cb-review-search {
+        padding: 2rem;
+    }
+}
+
+.cb-review {
+    width: 30rem;
+}
+
+    .cb-review h5 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .cb-review .cb-rating {
+        --starsize: 2rem;
+    }

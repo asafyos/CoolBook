@@ -65,12 +65,14 @@
     margin: 0.5rem 0 4rem;
 }
 
-.cb-book-reviews{
+
+.cb-book-reviews {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 2rem;
 }
+
 
 .cb-book-review {
     width: 30rem;

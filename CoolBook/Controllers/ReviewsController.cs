@@ -27,6 +27,19 @@ namespace CoolBook.Controllers
             return View(await coolBookContext.ToListAsync());
         }
 
+        public async Task<IActionResult> Search([FromQuery] string search)
+        {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return View(await _context.Review.Include(r => r.Book).Include(r => r.User).ToListAsync());
+            }
+
+            return View(_context.Review.Include(r => r.Book).Include(r => r.User).AsEnumerable()
+                .Where(r => r.Body.Contains(search, StringComparison.InvariantCultureIgnoreCase)
+                         || r.Book.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase)
+                         || r.Title.Contains(search, StringComparison.InvariantCultureIgnoreCase)));
+        }
+
         // GET: Reviews/Details/5
         public async Task<IActionResult> Details(int? id)
         {

@@ -16,7 +16,9 @@
                 @Html.DisplayFor(model => model.Name)
             </h1>
             <h5>
-                by @Html.DisplayFor(model => model.Author.Name)
+                <a asp-controller="Authors" asp-action="Details" asp-route-id="@Model.AuthorId">
+                    by @Html.DisplayFor(model => model.Author.Name)
+                </a>
             </h5>
 
             <div class="cb-book-rating">
@@ -27,7 +29,7 @@
                        step="0.1"
                        disabled
                        value="@Html.DisplayFor(model => model.Rate)">
-                @Model.Rate.ToString(".0") &nbsp; (@(Model.Reviews.Count) reviews)
+                @Model.Rate.ToString("0.0") &nbsp; (@(Model.Reviews.Count) reviews)
             </div>
 
             <div class="cb-book-details-price">@Html.DisplayFor(model => model.Price)</div>
@@ -40,14 +42,16 @@
                 {
                     foreach (var category in Model.Categories)
                     {
-                        if (Model.Categories.Last() == category)
-                        {
-                            @category.Name
-                        }
-                        else
-                        {
-                            @(category.Name + ", ")
-                        }
+                        <a asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id">
+                            @if (Model.Categories.Last() == category)
+                            {
+                                @category.Name
+                            }
+                            else
+                            {
+                                @(category.Name + ", ")
+                            }
+                        </a>
                     }
                 }
             </div>
@@ -57,7 +61,6 @@
                 </a>
             </h4>
         </div>
-
     </div>
 
     <div class="container">
@@ -96,7 +99,7 @@
         }
         else
         {
-            @Html.DisplayText("No reviews yet.")
+            <p>No reviews yet.</p>
         }
     </div>
 </div>
