@@ -24,6 +24,13 @@ namespace CoolBook.Controllers
 
         public IActionResult Index()
         {
+            // Get most viewed books
+            ViewData["MostViewedBooks"] = _context.Book.OrderByDescending(b => b.Views).Take(12).ToList();
+
+            // Get random books for marquee
+            Random r = new Random();
+            ViewData["RandomBooks"] = _context.Book.Take(20).AsEnumerable().OrderBy(b => r.Next()).ToList();
+
             return View();
         }
 

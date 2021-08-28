@@ -175,6 +175,7 @@ body {
         background-image: URL("/popcornreelcoolbook.jpg");
         background-position: center;
         background-size: cover;
+        overflow: hidden;
     }
 
     .cb-book-card > span {
