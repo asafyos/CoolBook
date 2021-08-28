@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Reviews";
-    const string EMPTY_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 }
 
 @section Styles {
@@ -15,7 +14,18 @@
 </div>
 
 <form class="container-fluid cb-review-search" asp-action="Search">
-    <input id="search" name="search" class="form-control" />
+    <label class="control-label">Book name</label>
+    <input name="book" class="form-control" />
+    <label class="control-label">Review</label>
+    <input name="review" class="form-control" />
+    <label class="control-label">Rating</label>
+    <input class="cb-rating"
+           name="rate"
+           type="range"
+           min="0"
+           max="5"
+           step="1"
+           value="0" /> 
     <input type="submit" formmethod="get" value="Search" class="btn btn-primary" />
 </form>
 
@@ -55,7 +65,7 @@
                                max="5"
                                step="0.1"
                                disabled
-                               value="@review.Rate">
+                               value="@review.Rate" />
                     </h5>
                     @review.Body
                 </div>

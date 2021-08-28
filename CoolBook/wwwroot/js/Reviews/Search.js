@@ -1,9 +1,15 @@
-﻿$(() => {
-    if (search) {
-        const search = getUrlParameter("search");
-        const input = $("input#search");
-        input.val(search).focus()
+﻿const SEARCH_PARAMS = ["book", "rate", "review"];
+
+const getSetParam = p => {
+    const value = getUrlParameter(p);
+
+    if (value) {
+        $(`input[name=${p}]`).val(value);
     }
+}
+
+$(() => {
+    SEARCH_PARAMS.forEach(getSetParam);
 })
 
 const getUrlParameter = (sParam) => {
@@ -16,9 +22,9 @@ const getUrlParameter = (sParam) => {
         sParameterName = sURLVariables[i].split('=');
 
         if (sParameterName[0] === sParam) {
-            return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]).split("+").join(" ");
         }
     }
 
-    return "";
+    return false;
 };
