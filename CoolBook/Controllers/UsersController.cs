@@ -23,7 +23,7 @@ namespace CoolBook.Controllers
             _context = context;
         }
 
-        public class AuthorExtand
+        public class FullUser
         {
             public User User { get; set; }
             public UserInfo UserInfo { get; set; }
@@ -33,25 +33,40 @@ namespace CoolBook.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index([FromQuery] string search)
         {
-            List<User> users;
+            List<FullUser> users;
             if (string.IsNullOrWhiteSpace(search))
             {
-                users = _context.User.Include(u => u.UserInfo).ToList();
+                users = _context.User.Join(
+                    _context.UserInfo,
+                    user => user.Id,
+                    userInfo => userInfo.UserId,
+                    (user, userInfo) => new FullUser
+                    {
+                        User = user,
+                        UserInfo = userInfo
+                    }
+                    ).ToList();
             }
             else
             {
-                users = _context.User.Include(u => u.UserInfo).AsEnumerable()
-                    .Where(u => u.UserName.Contains(search, StringComparison.InvariantCultureIgnoreCase)
-                             || u.Email.Contains(search, StringComparison.InvariantCultureIgnoreCase)
-                             || u.UserInfo != null ? (
-                                    u.UserInfo.FullName.Contains(search, StringComparison.InvariantCultureIgnoreCase)
-                                 || u.UserInfo.PhoneNumber.Contains(search, StringComparison.InvariantCultureIgnoreCase)
-                                 || u.UserInfo.Address.Contains(search, StringComparison.InvariantCultureIgnoreCase)
-                             ) : false)
+                users = _context.User.Join(
+                    _context.UserInfo,
+                    user => user.Id,
+                    userInfo => userInfo.UserId,
+                    (user, userInfo) => new FullUser
+                    {
+                        User = user,
+                        UserInfo = userInfo
+                    }).Where(u => u.User.UserName.ToLower().Contains(search.ToLower())
+                         || u.User.Email.ToLower().Contains(search.ToLower())
+                         || u.UserInfo.FullName.ToLower().Contains(search.ToLower())
+                         || u.UserInfo.PhoneNumber.ToLower().Contains(search.ToLower())
+                         || u.UserInfo.Address.ToLower().Contains(search.ToLower())
+                    )
                     .ToList();
             }
 
-            users.ForEach(u => u.Password = "");
+            users.ForEach(u => u.User.Password = "");
             return View(users);
         }
 

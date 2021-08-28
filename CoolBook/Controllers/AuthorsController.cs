@@ -21,7 +21,7 @@ namespace CoolBook.Controllers
             _context = context;
         }
 
-        public class FullAuthor
+        public class AuthorExtand
         {
             public int Id { get; set; }
             public string Name { get; set; }
@@ -59,7 +59,7 @@ namespace CoolBook.Controllers
                     x.Gender,
                     x.Country
                 })
-                .Select(x => new FullAuthor
+                .Select(x => new AuthorExtand
                 {
                     Id = x.Key.Id,
                     Name = x.Key.Name,
