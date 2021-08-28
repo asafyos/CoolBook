@@ -25,7 +25,7 @@
            min="0"
            max="5"
            step="1"
-           value="0" /> 
+           value="0" />
     <input type="submit" formmethod="get" value="Search" class="btn btn-primary" />
 </form>
 
@@ -52,7 +52,7 @@
                             @review.Book.Name
                         </a>
                     </strong>
-                    <small class="text-muted">@review.Date.ToShortDateString()</small>
+                    <aside class="text-muted">@review.Date.ToShortDateString()</aside>
                 </div>
                 <div class="toast-body">
                     <h5>
@@ -67,7 +67,9 @@
                                disabled
                                value="@review.Rate" />
                     </h5>
-                    @review.Body
+                    <div>
+                        @review.Body
+                    </div>
                 </div>
             </div>
         }

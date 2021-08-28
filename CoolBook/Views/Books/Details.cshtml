@@ -11,7 +11,7 @@
 <div class="container-fluid">
     <div class="cb-book-details">
         <img src="@Html.DisplayFor(model => model.ImageUrl)" alt="@Html.DisplayFor(model => model.Name)" />
-        <div class="cb-book-details-content">
+        <section class="cb-book-details-content">
             <h1>
                 @Html.DisplayFor(model => model.Name)
             </h1>
@@ -70,7 +70,7 @@
                 }
 
             </h4>
-        </div>
+        </section>
     </div>
 
     <div class="container">
@@ -134,7 +134,7 @@
 
                     <div class="toast cb-book-review show">
                         <div class="toast-header">
-                            <input placeholder="Title" type="text" name="Title" required class="form-control" />
+                            <input placeholder="Title" type="text" name="Title" required class="form-control" maxlength="40" />
                         </div>
                         <div class="toast-body">
                             <span id="review-rating" class="text-danger" hidden>Please enter your rating:</span>
@@ -149,7 +149,7 @@
 
                             </h5>
                             <label class="control-label">Review</label>
-                            <textarea name="Body" required class="form-control"></textarea>
+                            <textarea name="Body" required class="form-control" maxlength="1000"></textarea>
                         </div>
                     </div>
 

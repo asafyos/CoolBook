@@ -21,10 +21,12 @@
 
 .cb-review h4 {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
+    word-break: break-word;
 }
 
 .cb-review .cb-rating {
     --starsize: 3rem;
+    flex: 0 0 auto;
 }
