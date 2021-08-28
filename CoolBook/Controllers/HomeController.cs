@@ -28,8 +28,8 @@ namespace CoolBook.Controllers
             ViewData["MostViewedBooks"] = _context.Book.OrderByDescending(b => b.Views).Take(12).ToList();
 
             // Get random books for marquee
-            Random r = new Random();
-            ViewData["RandomBooks"] = _context.Book.Take(20).AsEnumerable().OrderBy(b => r.Next()).ToList();
+            Random r = new();
+            ViewData["RandomBooks"] = _context.Book.AsEnumerable().OrderBy(b => r.Next()).Take(20).ToList();
 
             return View();
         }
