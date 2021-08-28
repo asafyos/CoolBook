@@ -45,7 +45,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @textColor" asp-controller="Authors" asp-action="Index">
+                        <a class="nav-link @textColor" asp-controller="Authors" asp-action="Search">
                             Authors
                         </a>
                     </li>
@@ -66,8 +66,8 @@
                     </li>
                     @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
                     {
-                        <li class="nav-item">
-                            <h6>Hello, @Context.User.Identity.Name</h6>
+                        <li class="nav-item nav-link">
+                            Hello, @Context.User.Identity.Name
                         </li>
                         <li class="nav-item">
                             <a class="nav-link @textColor" asp-controller="Users" asp-action="Profile">

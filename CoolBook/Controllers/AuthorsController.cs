@@ -26,6 +26,16 @@ namespace CoolBook.Controllers
             return View(await _context.Author.ToListAsync());
         }
 
+        public async Task<IActionResult> Search([FromQuery] string search)
+        {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return View(await _context.Author.ToListAsync());
+            }
+
+            return View(_context.Author.AsEnumerable().Where(a => a.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase)));
+        }
+
         // GET: Authors/Details/5
         public async Task<IActionResult> Details(int? id)
         {
