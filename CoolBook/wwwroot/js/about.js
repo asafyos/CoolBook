@@ -35,6 +35,7 @@ function showStores(stores) {
 
         $.each(store, (key, value) => {
             currStore = currStore.replaceAll(`{${key}}`, value);
+            currStore = currStore.replaceAll(`%7B${key}%7D`, value)
         });
         currStore = currStore.replaceAll("{temp}", temp);
 
