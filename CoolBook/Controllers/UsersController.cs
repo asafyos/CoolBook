@@ -254,8 +254,9 @@ namespace CoolBook.Controllers
         }
 
         // GET: Users/Login
-        public IActionResult Login()
+        public IActionResult Login([FromQuery] string LoginRedirect)
         {
+            ViewData["LoginRedirect"] = LoginRedirect;
             return View();
         }
 
@@ -298,7 +299,7 @@ namespace CoolBook.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(String UserName, String Password, [FromQuery] string redirect)
+        public async Task<IActionResult> Login(String UserName, String Password, string LoginRedirect)
         {
             var result = from u in _context.User
                          where u.UserName == UserName
@@ -312,9 +313,9 @@ namespace CoolBook.Controllers
 
             await Signin(result.First());
 
-            if (redirect != null)
+            if (LoginRedirect != null)
             {
-                return Redirect(redirect);
+                return Redirect(LoginRedirect);
             }
 
             return RedirectToAction(nameof(Index), "Home");

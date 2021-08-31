@@ -22,6 +22,9 @@
                     <input asp-for="Password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
+                <div class="form-group">
+                    <input type="text" name="LoginRedirect" value="@ViewData["LoginRedirect"]" hidden="hidden" class="form-control" />
+                </div>
                 <div class="form-group form-group justify-content-center row">
                     <input type="submit" value="Login" class="btn btn-primary" />
                 </div>
