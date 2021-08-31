@@ -27,7 +27,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <nav class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link @textColor" asp-controller="Home" asp-action="Index">
@@ -50,7 +50,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @textColor" asp-controller="Reviews" asp-action="Index">
+                        <a class="nav-link @textColor" asp-controller="Reviews" asp-action="Search">
                             Reviews
                         </a>
                     </li>
@@ -85,7 +85,7 @@
                         </li>
                     }
                 </ul>
-            </div>
+            </nav>
         </div>
     </header>
 
