@@ -50,7 +50,10 @@ namespace CoolBook.Controllers
                 return NotFound();
             }
 
-            if (book.Reviews.Count > 0) book.Rate = book.Reviews.Average(r => r.Rate);
+            if (book.Reviews.Any())
+            {
+                book.Rate = book.Reviews.Average(r => r.Rate);
+            }
 
             // Increment the views counter of the book
             book.Views++;

@@ -14,3 +14,8 @@ context.lineWidth = 5;
 context.strokeStyle = '#330033'
 context.arc(40, 35, 15, Math.PI * 0.4, Math.PI * 1.6, false);
 context.stroke();
+
+let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+})

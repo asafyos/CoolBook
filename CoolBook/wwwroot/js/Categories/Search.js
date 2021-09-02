@@ -16,7 +16,7 @@ const getUrlParameter = (sParam) => {
         sParameterName = sURLVariables[i].split('=');
 
         if (sParameterName[0] === sParam) {
-            return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]).split("+").join(" ");
         }
     }
 
