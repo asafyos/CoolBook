@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CoolBook.Data;
 using CoolBook.Models;
 using Microsoft.AspNetCore.Authorization;
+using Tweetinvi;
 
 namespace CoolBook.Controllers
 {
@@ -123,6 +124,22 @@ namespace CoolBook.Controllers
 
                 book.Views = 0;
                 book.Rate = 0.0;
+
+                #region twitter
+                Auth.SetUserCredentials("2lTXghGOf3hSo5ZaYnz5uzqyS", "R3oh78xLCJpcqEIOYX1S6VsW4sQjAjlIwbYWYgWgzZwWkt6CVl", "1429846071749058563-w9Tl96uGmaqalJ57Lx5HkIJ88hAuHk", "nfJmRKHNP7d292EZXecF4bvRCIMkUCz9ETj6d9writSBS");
+
+                //var user = Tweetinvi.User.GetAuthenticatedUser();
+                try
+                {
+                    string twitterText = "We just added a new book: \"" + book.Name + "\". Go check it out in our website now!";
+
+                    Tweet.PublishTweet(twitterText);
+                }
+                catch (Exception ex)
+                {
+                    // I Dont Care - I like it!
+                }
+                #endregion
 
                 _context.Add(book);
                 await _context.SaveChangesAsync();
