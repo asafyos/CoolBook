@@ -1,11 +1,11 @@
 ﻿.cb-main-color {
     background-color: var(--cb-secondary);
     text-align: center;
-    padding: 15vh 0 40vh;
-    font-family: 'Roboto Slab', serif;
+    padding: 15vh 0 15vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 3rem;
 }
 
     .cb-main-color h1 {
@@ -25,3 +25,66 @@
         padding: 0;
         position: absolute;
     }
+
+.cb-book-carousel {
+    width: min(70rem, 100%);
+    margin: 1rem auto 8rem;
+}
+
+    .cb-book-carousel .cb-carousel-item {
+        display: grid;
+        justify-content: center;
+        margin-bottom: 3rem;
+    }
+
+@media (min-width: 860px) {
+    .cb-book-carousel .cb-carousel-item {
+        grid-template-columns: repeat(3, 17rem);
+        grid-template-rows: 25rem;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 860px) {
+    .cb-book-carousel .cb-carousel-item {
+        grid-template-columns: repeat(3, 10rem);
+        grid-template-rows: 24rem;
+    }
+}
+
+
+.cb-marquee {
+    margin-top: 5rem;
+    position: relative;
+    width: 100vw;
+    max-width: 100%;
+    height: 14rem;
+    overflow-x: hidden;
+}
+
+.cb-track {
+    position: absolute;
+    white-space: nowrap;
+    will-change: transform;
+    animation: marquee 50s linear infinite;
+    display: flex;
+}
+
+    .cb-track .cb-book-card {
+        height: 12rem;
+        width: 8rem
+    }
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.cb-track:hover {
+    animation-play-state: paused;
+}

@@ -1,0 +1,32 @@
+﻿
+@media (min-width: 576px) {
+    .cb-review {
+        width: 40rem;
+        margin: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .cb-review {
+        width: -webkit-fill-available;
+        margin: 1rem 2rem;
+    }
+}
+
+.cb-review-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cb-review h4 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    word-break: break-word;
+}
+
+.cb-review .cb-rating {
+    --starsize: 3rem;
+    flex: 0 0 auto;
+}

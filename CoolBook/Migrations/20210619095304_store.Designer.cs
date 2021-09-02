@@ -4,14 +4,16 @@ using CoolBook.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CoolBook.Migrations
 {
     [DbContext(typeof(CoolBookContext))]
-    partial class CoolBookContextModelSnapshot : ModelSnapshot
+    [Migration("20210619095304_store")]
+    partial class store
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,12 +87,6 @@ namespace CoolBook.Migrations
                     b.Property<DateTime>("PublishDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Rate")
-                        .HasColumnType("float");
-
-                    b.Property<decimal>("Views")
-                        .HasColumnType("decimal(20,0)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
@@ -155,6 +151,30 @@ namespace CoolBook.Migrations
                     b.ToTable("Review");
                 });
 
+            modelBuilder.Entity("CoolBook.Models.Store", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Lontitude")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Store");
+                });
+
             modelBuilder.Entity("CoolBook.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -191,6 +211,7 @@ namespace CoolBook.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("BirthDate")
@@ -205,6 +226,7 @@ namespace CoolBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")

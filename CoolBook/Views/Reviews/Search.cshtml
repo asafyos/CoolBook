@@ -1,0 +1,81 @@
+﻿@model IEnumerable<CoolBook.Models.Review>
+
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+@section Styles {
+    <link href="@Url.Content("~/css/Reviews/Search.css")" rel="stylesheet" type="text/css" />
+}
+
+<br />
+<div class="container">
+    <h1>Reviews</h1>
+</div>
+
+<form class="container-fluid cb-review-search" asp-action="Search">
+    <label class="control-label">Book name</label>
+    <input name="book" class="form-control" />
+    <label class="control-label">Review</label>
+    <input name="review" class="form-control" />
+    <label class="control-label">Rating</label>
+    <input class="cb-rating"
+           name="rate"
+           type="range"
+           min="0"
+           max="5"
+           step="1"
+           value="0" />
+    <input type="submit" formmethod="get" value="Search" class="btn btn-primary" />
+</form>
+
+<div class="container cb-review-container">
+    @if (!Model.Any())
+    {
+        <div class="text-center">
+            <h4>No results.</h4>
+        </div>
+    }
+    else
+    {
+        foreach (var review in Model)
+        {
+            <div class="toast cb-review show">
+                <div class="toast-header">
+                    <i class="bi bi-person-circle me-2"></i>
+                    <strong class="me-auto">
+                        <a asp-controller="Users" asp-action="Details" asp-route-id="@review.UserId">
+                            @(review.User.UserInfo != null ? review.User.UserInfo.FullName : review.User.UserName)
+                        </a>
+                        &nbsp;-&nbsp;
+                        <a asp-controller="Books" asp-action="Details" asp-route-id="@review.BookId">
+                            @review.Book.Name
+                        </a>
+                    </strong>
+                    <aside class="text-muted">@review.Date.ToShortDateString()</aside>
+                </div>
+                <div class="toast-body">
+                    <h5>
+                        <a asp-action="Details" asp-route-id="@review.Id">
+                            @review.Title
+                        </a>
+                        <input class="cb-rating"
+                               type="range"
+                               min="0"
+                               max="5"
+                               step="0.1"
+                               disabled
+                               value="@review.Rate" />
+                    </h5>
+                    <div>
+                        @review.Body
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@section Scripts {
+    <script src="@Url.Content("~/js/Reviews/Search.js")"></script>
+}

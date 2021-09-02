@@ -1,0 +1,41 @@
+﻿.cb-review-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, min(25rem, 100%));
+    justify-content: center;
+    gap: 2rem;
+}
+
+.cb-review-search {
+    display: flex;
+    flex-direction: column;
+    width: min(17rem, 100%);
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+    .cb-review-search input {
+        margin-bottom: 1rem;
+    }
+
+.cb-review {
+    width: 30rem;
+    height: 12rem;
+    display: flex;
+    flex-direction: column;
+}
+
+    .cb-review h5 {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        word-break: break-word;
+    }
+
+    .cb-review .cb-rating {
+        --starsize: 2rem;
+        flex: 0 0 auto;
+    }
+
+    .cb-review .toast-body {
+        overflow-x: auto;
+    }
