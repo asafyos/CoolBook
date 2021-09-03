@@ -52,7 +52,7 @@ namespace CoolBook.Controllers
 
             if (book.Reviews.Any())
             {
-                book.Rate = book.Reviews.Average(r => r.Rate);
+                book.Rate = Math.Round(book.Reviews.Average(r => r.Rate), 2);
             }
 
             // Increment the views counter of the book

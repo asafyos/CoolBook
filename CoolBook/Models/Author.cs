@@ -19,7 +19,10 @@ namespace CoolBook.Models
 
         [StringLength(40)]
         public string Country { get; set; }
-        
+
+        [DataType(DataType.ImageUrl), Display(Name = "Image Url")]
+        public string ImageUrl { get; set; }
+
         public List<Book> Books { get; set; }
     }
 }

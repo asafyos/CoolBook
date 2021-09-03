@@ -35,6 +35,7 @@ namespace CoolBook
             {
                 options.LoginPath = "/Users/Login";
                 options.AccessDeniedPath = "/Users/AccessDenied";
+                options.ReturnUrlParameter = "LoginRedirect";
             });
         }
 

@@ -30,8 +30,9 @@
     {
         foreach (var a in Model)
         {
+            var imageUrl = string.IsNullOrEmpty(a.ImageUrl) ? EMPTY_IMAGE : a.ImageUrl;
             <a class="card cb-book-card" href="/Books/Search?AuthorId=@a.Id">
-                <img class="card-img-top" src="@EMPTY_IMAGE">
+                <img class="card-img-top" src="@imageUrl" alt="@a.Name">
                 <div class="card-body">
                     <h5 class="card-title cb-book-title">@a.Name</h5>
                 </div>

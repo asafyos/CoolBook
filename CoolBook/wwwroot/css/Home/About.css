@@ -47,3 +47,19 @@
 .cb-video video {
   width: 100%;
 }
+
+
+.cb-about-color {
+    background-color: var(--cb-secondary);
+    text-align: center;
+    padding: 5vh 0 5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.stores-title {
+    text-align: center;
+    display: flex;
+}
