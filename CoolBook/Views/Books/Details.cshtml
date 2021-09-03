@@ -64,7 +64,7 @@
                 }
                 else
                 {
-                    <a asp-controller="Users" asp-action="Login" asp-route-ReturnUrl="/Books/@Model.Id">
+                    <a asp-controller="Users" asp-action="Login" asp-route-LoginRedirect="/Books/Details/@Model.Id">
                         Login to submit a review
                     </a>
                 }
