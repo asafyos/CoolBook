@@ -1,8 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using CoolBook.Models;
+using System.IO;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
 using System;
 
 namespace CoolBook.Data
 {
+    public class BookCategories
+    {
+        public int Id { get; set; }
+        public int[] Categories { get; set; }
+    }
+
     public class CoolBookContext : DbContext
     {
         public CoolBookContext(DbContextOptions<CoolBookContext> options)
@@ -13,28 +24,80 @@ namespace CoolBook.Data
 
         private void InitData(CoolBookContext coolBookContext)
         {
-            var adminInfo = new CoolBook.Models.UserInfo
+            var storeJson = File.ReadAllText("./DbData\\" + typeof(Store).Name + ".json");
+            var storesFromJson = JsonConvert.DeserializeObject<IEnumerable<Store>>(storeJson);
+            var stores = storesFromJson.Select(x => new Store
             {
-                PhoneNumber = "050-5555555",
-                BirthDate = new DateTime(0001, 1, 1,0, 0, 0),
-                Address = "here",
-                FullName = "Admin",
-                Gender = Models.Gender.Female
-            };
+                Name = x.Name,
+                Lontitude = x.Lontitude,
+                Latitude = x.Latitude,
+                Phone = x.Phone
+            });
+            Store.AddRange(stores);
 
-            var admin = new CoolBook.Models.User
+            var userJson = File.ReadAllText("./DbData\\" + typeof(User).Name + ".json");
+            var usersFromJson = JsonConvert.DeserializeObject<IEnumerable<User>>(userJson);
+            var users = usersFromJson.Select(x => new User
             {
-                UserName = "admin",
-                Email = "admin@admin",
-                Password = "admin",
-                Role = 0,
-                UserInfo = adminInfo
-            };
+                UserName = x.UserName,
+                Email = x.Email,
+                Password = x.Password,
+                Role = x.Role,
+                UserInfo = new UserInfo
+                {
+                    FullName = x.UserInfo.FullName,
+                    BirthDate = x.UserInfo.BirthDate,
+                    Address = x.UserInfo.Address,
+                    PhoneNumber = x.UserInfo.PhoneNumber,
+                    Gender = x.UserInfo.Gender
+                }
+            });
+            User.AddRange(users);
 
-            adminInfo.User = admin;
+            var authorJson = File.ReadAllText("./DbData\\" + typeof(Author).Name + ".json");
+            var authorsFromJson = JsonConvert.DeserializeObject<IEnumerable<Author>>(authorJson);
+            var authors = authorsFromJson.OrderBy(x => x.Id).Select(x => new Author
+            {
+                Name = x.Name,
+                BirthDate = x.BirthDate,
+                Gender = x.Gender,
+                Country = x.Country
+            });
+            Author.AddRange(authors);
 
-            coolBookContext.User.AddRange(admin);
-            coolBookContext.UserInfo.AddRange(adminInfo);
+            var categoryJson = File.ReadAllText("./DbData\\" + typeof(Category).Name + ".json");
+            var categoriesFromJson = JsonConvert.DeserializeObject<IEnumerable<Category>>(categoryJson);
+            var categories = categoriesFromJson.OrderBy(x => x.Id).Select(x => new Category
+            {
+                Name = x.Name,
+                ImageUrl = x.ImageUrl
+            });
+            Category.AddRange(categories);
+
+            var bookCategoryJson = File.ReadAllText("./DbData\\" + typeof(BookCategories).Name + ".json");
+            var bookCategoriesFromJson = JsonConvert.DeserializeObject<IEnumerable<BookCategories>>(bookCategoryJson);
+            var bookCategories = bookCategoriesFromJson.OrderBy(x => x.Id).Select(x => new BookCategories
+            {
+                Id = x.Id,
+                Categories = x.Categories
+            });
+
+            coolBookContext.SaveChanges();
+
+            var bookJson = File.ReadAllText("./DbData\\" + typeof(Book).Name + ".json");
+            var booksFromJson = JsonConvert.DeserializeObject<IEnumerable<Book>>(bookJson);
+            var books = booksFromJson.Select(x => new Book
+            {
+                Name = x.Name,
+                Author = this.Author.FirstOrDefault(a => a.Id == x.AuthorId),
+                Price = x.Price,
+                PublishDate = x.PublishDate,
+                ImageUrl = x.ImageUrl,
+                Views = x.Views,
+                Rate = x.Rate,
+                Categories = bookCategories.FirstOrDefault(b => b.Id == x.Id).Categories.Select(c => this.Category.FirstOrDefault(cat => cat.Id == c)).ToList<Category>()
+            });
+            Book.AddRange(books);
 
             coolBookContext.SaveChanges();
         }

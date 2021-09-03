@@ -1,0 +1,122 @@
+[
+  {
+    "Id": 1,
+    "Categories": [ 2, 5 ]
+  },
+  {
+    "Id": 2,
+    "Categories": [ 4, 11 ]
+  },
+  {
+    "Id": 3,
+    "Categories": [ 2, 11 ]
+  },
+  {
+    "Id": 4,
+    "Categories": [ 7 ]
+  },
+  {
+    "Id": 5,
+    "Categories": [ 6, 12 ]
+  },
+  {
+    "Id": 6,
+    "Categories": [ 4, 10 ]
+  },
+  {
+    "Id": 7,
+    "Categories": [ 11 ]
+  },
+  {
+    "Id": 8,
+    "Categories": [ 5, 9 ]
+  },
+  {
+    "Id": 10,
+    "Categories": [ 5, 9 ]
+  },
+  {
+    "Id": 11,
+    "Categories": [ 11 ]
+  },
+  {
+    "Id": 12,
+    "Categories": [ 6 ]
+  },
+  {
+    "Id": 13,
+    "Categories": [ 4, 10 ]
+  },
+  {
+    "Id": 14,
+    "Categories": [ 5 ]
+  },
+  {
+    "Id": 15,
+    "Categories": [ 1, 8, 11 ]
+  },
+  {
+    "Id": 16,
+    "Categories": [ 1, 2, 6 ]
+  },
+  {
+    "Id": 17,
+    "Categories": [ 1, 2 ]
+  },
+  {
+    "Id": 18,
+    "Categories": [ 10 ]
+  },
+  {
+    "Id": 19,
+    "Categories": [ 1, 2, 4 ]
+  },
+  {
+    "Id": 20,
+    "Categories": [ 5, 11 ]
+  },
+  {
+    "Id": 21,
+    "Categories": [ 3, 7 ]
+  },
+  {
+    "Id": 22,
+    "Categories": [ 2, 3 ]
+  },
+  {
+    "Id": 23,
+    "Categories": [ 3 ]
+  },
+  {
+    "Id": 24,
+    "Categories": [ 11 ]
+  },
+  {
+    "Id": 25,
+    "Categories": [ 12 ]
+  },
+  {
+    "Id": 26,
+    "Categories": [ 4 ]
+  },
+  {
+    "Id": 27,
+    "Categories": [ 9 ]
+  },
+  {
+    "Id": 28,
+    "Categories": [ 1, 7 ]
+  },
+  {
+    "Id": 29,
+    "Categories": [ 10 ]
+  },
+  {
+    "Id": 30,
+    "Categories": [ 2, 5 ]
+  },
+  {
+    "Id": 31,
+    "Categories": [ 7 ]
+  }
+]

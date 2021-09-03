@@ -1,0 +1,67 @@
+[
+  {
+    "UserName": "admin",
+    "Email": "admin@admin",
+    "Password": "admin",
+    "Role": 0,
+    "UserInfo": {
+      "FullName": "Admin",
+      "BirthDate": "0001-01-01 00:00:00",
+      "Address": "here",
+      "PhoneNumber": "050-5555555",
+      "Gender": 1
+    }
+  },
+  {
+    "UserName": "manager",
+    "Email": "man@age",
+    "Password": "manager",
+    "Role": 1,
+    "UserInfo": {
+      "FullName": "Manager",
+      "BirthDate": "0001-01-01 00:00:00",
+      "Address": "here",
+      "PhoneNumber": "050-6666666",
+      "Gender": 1
+    }
+  },
+  {
+    "UserName": "niv",
+    "Email": "niv@gmail.com",
+    "Password": "123",
+    "Role": 0,
+    "UserInfo": {
+      "FullName": "Niv Bruker",
+      "BirthDate": "1998-02-14 00:00:00",
+      "Address": "Israel",
+      "PhoneNumber": "050-1111111",
+      "Gender": 2
+    }
+  },
+  {
+    "UserName": "guy",
+    "Email": "guy@gmail.com",
+    "Password": "123",
+    "Role": 0,
+    "UserInfo": {
+      "FullName": "Admin",
+      "BirthDate": "1993-08-02 00:00:00",
+      "Address": "Israel",
+      "PhoneNumber": "050-2222222",
+      "Gender": 2
+    }
+  },
+  {
+    "UserName": "asaf",
+    "Email": "asaf@gmail.com",
+    "Password": "123",
+    "Role": 2,
+    "UserInfo": {
+      "FullName": "Asaf Yosef",
+      "BirthDate": "2003-08-14 00:00:00",
+      "Address": "Israel",
+      "PhoneNumber": "050-3333333",
+      "Gender": 0
+    }
+  }
+]

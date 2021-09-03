@@ -1,0 +1,72 @@
+[
+  {
+    "Id": 1,
+    "Name": "Niamh Bates",
+    "BirthDate": "1924-01-23 00:00:00",
+    "Gender": 1,
+    "Country": "Malaysia"
+  },
+  {
+    "Id": 2,
+    "Name": "Esha Redmond",
+    "BirthDate": "1972-07-19 00:00:00",
+    "Gender": 1,
+    "Country": "Turkey"
+  },
+  {
+    "Id": 3,
+    "Name": "Inaya Britt",
+    "BirthDate": "1926-11-03 00:00:00",
+    "Gender": 1,
+    "Country": "Lebanon"
+  },
+  {
+    "Id": 4,
+    "Name": "Masuma Knowles",
+    "BirthDate": "1946-02-20 00:00:00",
+    "Gender": 0,
+    "Country": "Uganda"
+  },
+  {
+    "Id": 5,
+    "Name": "Rohan Espinosa",
+    "BirthDate": "1977-02-02 00:00:00",
+    "Gender": 0,
+    "Country": "Turkey"
+  },
+  {
+    "Id": 6,
+    "Name": "Harlan Wallace",
+    "BirthDate": "1956-01-02 00:00:00",
+    "Gender": 0,
+    "Country": "Great Britain"
+  },
+  {
+    "Id": 7,
+    "Name": "Robert Mill",
+    "BirthDate": "1988-03-03 00:00:00",
+    "Gender": 0,
+    "Country": "Canada"
+  },
+  {
+    "Id": 8,
+    "Name": "Moshe Ashley",
+    "BirthDate": "1992-11-28 00:00:00",
+    "Gender": 0,
+    "Country": "USA"
+  },
+  {
+    "Id": 9,
+    "Name": "Jonathon Deleon",
+    "BirthDate": "1985-02-06 00:00:00",
+    "Gender": 0,
+    "Country": "Great Britain"
+  },
+  {
+    "Id": 10,
+    "Name": "Junayd Stanley",
+    "BirthDate": "1971-02-24 00:00:00",
+    "Gender": 1,
+    "Country": "USA"
+  },
+]
