@@ -203,7 +203,7 @@ namespace CoolBook.Controllers
             // Validate the password entered
             if (user.Password != PasswordConfirmation)
             {
-                return RedirectToAction(nameof(WrongPassword));
+                return RedirectToAction(nameof(BadPassword));
             }
 
             // Update fields
@@ -308,7 +308,7 @@ namespace CoolBook.Controllers
 
             if (!result.Any())
             {
-                return RedirectToAction(nameof(WrongLogin));
+                return RedirectToAction(nameof(BadLogin));
             }
 
             await Signin(result.First());
@@ -361,13 +361,13 @@ namespace CoolBook.Controllers
         }
 
         // Bad login page
-        public ActionResult WrongLogin()
+        public ActionResult BadLogin()
         {
             return View();
         }
 
-        // Wrong password page
-        public ActionResult WrongPassword()
+        // Bad password page
+        public ActionResult BadPassword()
         {
             return View();
         }
