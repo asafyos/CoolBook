@@ -1,0 +1,344 @@
+[
+  {
+    "Id": 1,
+    "Title": "Nice",
+    "Body": "good book",
+    "Rate": 4,
+    "UserId": 4,
+    "BookId": 1,
+    "Date": "2020-08-21 19:43:39"
+  },
+  {
+    "Id": 2,
+    "Title": "Boring!",
+    "Body": "He is not that interesting...",
+    "Rate": 1,
+    "UserId": 4,
+    "BookId": 5,
+    "Date": "2020-01-08 23:24:30"
+  },
+  {
+    "Id": 3,
+    "Title": "Cool place",
+    "Body": "Realistic and affordable place.",
+    "Rate": 4,
+    "UserId": 4,
+    "BookId": 17,
+    "Date": "2021-08-13 07:12:23"
+  },
+  {
+    "Id": 4,
+    "Title": "Tasty but boring",
+    "Body": "Nothing new here, but it's good",
+    "Rate": 3,
+    "UserId": 4,
+    "BookId": 8,
+    "Date": "2021-06-01 12:14:43"
+  },
+  {
+    "Id": 5,
+    "Title": "Ooolala",
+    "Body": "זה טעים מאוד",
+    "Rate": 5,
+    "UserId": 5,
+    "BookId": 10,
+    "Date": "2020-08-06 03:39:53"
+  },
+  {
+    "Id": 6,
+    "Title": "מאוהב",
+    "Body": "ספר שנתן לי כמה שעות של אהבה ממליץ לכל אחד שמרגיש לבד",
+    "Rate": 4,
+    "UserId": 5,
+    "BookId": 24,
+    "Date": "2020-02-21 09:20:57"
+  },
+  {
+    "Id": 7,
+    "Title": "AWFUL",
+    "Body": "The book share a fake and unfair view you have to visit the site and don't listen to him",
+    "Rate": 1,
+    "UserId": 7,
+    "BookId": 14,
+    "Date": "2021-05-19 07:49:42"
+  },
+  {
+    "Id": 8,
+    "Title": "מעניין אבל",
+    "Body": "ספר יעיל אבל טיפה יותר מידי תומך בג'נק פוד תזהרו לא להקשיב לכל דבר",
+    "Rate": 3,
+    "UserId": 7,
+    "BookId": 8,
+    "Date": "2020-06-15 00:55:33"
+  },
+  {
+    "Id": 10,
+    "Title": "WOOOOOWWW",
+    "Body": "חייבים לקנות אותו וסיימתם עם ההזמנות אוכל בערב אחרי יום ארוך בעבודה",
+    "Rate": 5,
+    "UserId": 1,
+    "BookId": 27,
+    "Date": "2020-10-10 05:54:21"
+  },
+  {
+    "Id": 11,
+    "Title": "Very bad",
+    "Body": "The end is very predictable and the characters are boring ",
+    "Rate": 1,
+    "UserId": 1,
+    "BookId": 15,
+    "Date": "2020-04-12 22:43:27"
+  },
+  {
+    "Id": 12,
+    "Title": "EXCELLENT",
+    "Body": "A story with action mystery and love you cant stop reading until the end  ",
+    "Rate": 5,
+    "UserId": 2,
+    "BookId": 2,
+    "Date": "2021-01-18 13:29:05"
+  },
+  {
+    "Id": 13,
+    "Title": "בינוני",
+    "Body": "סיפור נחמד, לא מטורף. לא שווה את הכסף",
+    "Rate": 1,
+    "UserId": 2,
+    "BookId": 3,
+    "Date": "2020-09-24 10:17:14"
+  },
+  {
+    "Id": 14,
+    "Title": "טוב מאוד",
+    "Body": "לכל המאוהבים בהיסטוריה ",
+    "Rate": 4,
+    "UserId": 2,
+    "BookId": 12,
+    "Date": "2021-06-09 01:36:45"
+  },
+  {
+    "Id": 15,
+    "Title": "מצחיק",
+    "Body": "מתנה טובה לכל ילד. יש גם השמך",
+    "Rate": 4,
+    "UserId": 3,
+    "BookId": 4,
+    "Date": "2020-07-18 23:22:50"
+  },
+  {
+    "Id": 16,
+    "Title": "מעולה",
+    "Body": "! קלאסי אבל תמיד מעולה. ממליץ ",
+    "Rate": 5,
+    "UserId": 3,
+    "BookId": 22,
+    "Date": "2020-08-20 04:33:04"
+  },
+  {
+    "Id": 17,
+    "Title": "Horrible",
+    "Body": "Il degrade un monument historique quelle honte",
+    "Rate": 1,
+    "UserId": 5,
+    "BookId": 14,
+    "Date": "2021-07-26 09:41:17"
+  },
+  {
+    "Id": 18,
+    "Title": "cute",
+    "Body": "a cute story but you understand the conclusion before you read the end ",
+    "Rate": 2,
+    "UserId": 6,
+    "BookId": 3,
+    "Date": "2021-04-04 01:31:22"
+  },
+  {
+    "Id": 19,
+    "Title": "classic",
+    "Body": "like ' Bridget Jones's diary'",
+    "Rate": 3,
+    "UserId": 5,
+    "BookId": 20,
+    "Date": "2021-03-23 01:35:30"
+  },
+  {
+    "Id": 20,
+    "Title": "טוב",
+    "Body": "אם אתה מעוניין בהיסטוריה צרפתית אתה תהנה מהספר",
+    "Rate": 3,
+    "UserId": 4,
+    "BookId": 5,
+    "Date": "2020-03-31 04:43:37"
+  },
+  {
+    "Id": 21,
+    "Title": "EXCELLENT",
+    "Body": "LOVEEEEE IT",
+    "Rate": 5,
+    "UserId": 2,
+    "BookId": 13,
+    "Date": "2021-05-09 09:32:03"
+  },
+  {
+    "Id": 22,
+    "Title": "Good",
+    "Body": "good read",
+    "Rate": 4,
+    "UserId": 1,
+    "BookId": 4,
+    "Date": "2020-09-20 18:46:07"
+  },
+  {
+    "Id": 23,
+    "Title": "Meh",
+    "Body": "not very interesting",
+    "Rate": 2,
+    "UserId": 6,
+    "BookId": 27,
+    "Date": "2020-03-11 10:38:34"
+  },
+  {
+    "Id": 24,
+    "Title": "What?",
+    "Body": "Very confusing",
+    "Rate": 2,
+    "UserId": 4,
+    "BookId": 13,
+    "Date": "2021-05-30 18:18:37"
+  },
+  {
+    "Id": 25,
+    "Title": "תגובה",
+    "Body": "תגובה",
+    "Rate": 3,
+    "UserId": 2,
+    "BookId": 8,
+    "Date": "2021-05-11 20:38:55"
+  },
+  {
+    "Id": 26,
+    "Title": "זה",
+    "Body": "מצחיק",
+    "Rate": 5,
+    "UserId": 3,
+    "BookId": 22,
+    "Date": "2021-08-15 12:18:58"
+  },
+  {
+    "Id": 27,
+    "Title": "How can anyone read this?",
+    "Body": "awfull",
+    "Rate": 1,
+    "UserId": 7,
+    "BookId": 7,
+    "Date": "2020-10-15 08:34:36"
+  },
+  {
+    "Id": 28,
+    "Title": "Wow",
+    "Body": "Its amazing not just magical!",
+    "Rate": 5,
+    "UserId": 7,
+    "BookId": 12,
+    "Date": "2020-03-03 04:55:39"
+  },
+  {
+    "Id": 29,
+    "Title": "Good",
+    "Body": "I approve this book",
+    "Rate": 4,
+    "UserId": 2,
+    "BookId": 15,
+    "Date": "2021-06-02 21:16:26"
+  },
+  {
+    "Id": 30,
+    "Title": "Nice",
+    "Body": "very engaging",
+    "Rate": 4,
+    "UserId": 1,
+    "BookId": 20,
+    "Date": "2020-02-10 17:54:37"
+  },
+  {
+    "Id": 31,
+    "Title": "כתוב יפה",
+    "Body": "כתוב יפה ומסודר",
+    "Rate": 4,
+    "UserId": 6,
+    "BookId": 2,
+    "Date": "2020-04-26 16:07:08"
+  },
+  {
+    "Id": 32,
+    "Title": "סופר וואו",
+    "Body": "התרגשתי מאוד",
+    "Rate": 5,
+    "UserId": 5,
+    "BookId": 10,
+    "Date": "2021-05-03 22:49:05"
+  },
+  {
+    "Id": 33,
+    "Title": "בסדר כזה",
+    "Body": "שווה רק אם יש לכם זמן",
+    "Rate": 3,
+    "UserId": 6,
+    "BookId": 11,
+    "Date": "2021-01-31 04:58:30"
+  },
+  {
+    "Id": 34,
+    "Title": "לא אהבתי בכלל",
+    "Body": "זה לא כל כך טוב",
+    "Rate": 2,
+    "UserId": 5,
+    "BookId": 4,
+    "Date": "2020-06-29 21:22:33"
+  },
+  {
+    "Id": 35,
+    "Title": "מרגש!",
+    "Body": "בכיתי בסוף",
+    "Rate": 4,
+    "UserId": 4,
+    "BookId": 6,
+    "Date": "2021-06-25 16:01:59"
+  },
+  {
+    "Id": 36,
+    "Title": "סופר מדהים",
+    "Body": "מת על הסופר הזה",
+    "Rate": 4,
+    "UserId": 3,
+    "BookId": 25,
+    "Date": "2020-01-22 17:09:43"
+  },
+  {
+    "Id": 37,
+    "Title": "אל תקראו",
+    "Body": "זה לא טוב",
+    "Rate": 2,
+    "UserId": 2,
+    "BookId": 27,
+    "Date": "2020-03-10 15:09:14"
+  },
+  {
+    "Id": 38,
+    "Title": "נוראיייי",
+    "Body": "איכס",
+    "Rate": 1,
+    "UserId": 7,
+    "BookId": 28,
+    "Date": "2020-07-24 17:29:11"
+  },
+  {
+    "Id": 39,
+    "Title": "לא הבנתי חצי מהמילים",
+    "Body": "מוזר מאוד",
+    "Rate": 2,
+    "UserId": 1,
+    "BookId": 19,
+    "Date": "2021-03-02 05:03:54"
+  }
+]

@@ -61,7 +61,8 @@ namespace CoolBook.Data
                 Name = x.Name,
                 BirthDate = x.BirthDate,
                 Gender = x.Gender,
-                Country = x.Country
+                Country = x.Country,
+                //ImageUrl = x.ImageUrl
             });
             Author.AddRange(authors);
 
@@ -86,7 +87,7 @@ namespace CoolBook.Data
 
             var bookJson = File.ReadAllText("./DbData\\" + typeof(Book).Name + ".json");
             var booksFromJson = JsonConvert.DeserializeObject<IEnumerable<Book>>(bookJson);
-            var books = booksFromJson.Select(x => new Book
+            var books = booksFromJson.OrderBy(x => x.Id).Select(x => new Book
             {
                 Name = x.Name,
                 Author = this.Author.FirstOrDefault(a => a.Id == x.AuthorId),
@@ -98,6 +99,21 @@ namespace CoolBook.Data
                 Categories = bookCategories.FirstOrDefault(b => b.Id == x.Id).Categories.Select(c => this.Category.FirstOrDefault(cat => cat.Id == c)).ToList<Category>()
             });
             Book.AddRange(books);
+
+            coolBookContext.SaveChanges();
+
+            var reviewJson = File.ReadAllText("./DbData\\" + typeof(Review).Name + ".json");
+            var reviewsFromJson = JsonConvert.DeserializeObject<IEnumerable<Review>>(reviewJson);
+            var reviews = reviewsFromJson.Select(x => new Review
+            {
+                Title = x.Title,
+                Body = x.Body,
+                Rate = x.Rate,
+                Date = x.Date,
+                User = this.User.FirstOrDefault(u => u.Id == x.UserId),
+                Book = this.Book.FirstOrDefault(b => b.Id == x.BookId)
+            });
+            Review.AddRange(reviews);
 
             coolBookContext.SaveChanges();
         }

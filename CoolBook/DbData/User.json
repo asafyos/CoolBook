@@ -1,31 +1,5 @@
 [
   {
-    "UserName": "admin",
-    "Email": "admin@admin",
-    "Password": "admin",
-    "Role": 0,
-    "UserInfo": {
-      "FullName": "Admin",
-      "BirthDate": "0001-01-01 00:00:00",
-      "Address": "here",
-      "PhoneNumber": "050-5555555",
-      "Gender": 1
-    }
-  },
-  {
-    "UserName": "manager",
-    "Email": "man@age",
-    "Password": "manager",
-    "Role": 1,
-    "UserInfo": {
-      "FullName": "Manager",
-      "BirthDate": "0001-01-01 00:00:00",
-      "Address": "here",
-      "PhoneNumber": "050-6666666",
-      "Gender": 1
-    }
-  },
-  {
     "UserName": "niv",
     "Email": "niv@gmail.com",
     "Password": "123",
@@ -44,7 +18,7 @@
     "Password": "123",
     "Role": 0,
     "UserInfo": {
-      "FullName": "Admin",
+      "FullName": "Guy Ben David",
       "BirthDate": "1993-08-02 00:00:00",
       "Address": "Israel",
       "PhoneNumber": "050-2222222",
@@ -62,6 +36,84 @@
       "Address": "Israel",
       "PhoneNumber": "050-3333333",
       "Gender": 0
+    }
+  },
+  {
+    "UserName": "bibi",
+    "Email": "primeMinister@gmail.com",
+    "Password": "123",
+    "Role": 0,
+    "UserInfo": {
+      "FullName": "Binyamin Netanyahu",
+      "BirthDate": "1999-01-30 00:00:00",
+      "Address": "LaLaLand",
+      "PhoneNumber": "050-4444444",
+      "Gender": 0
+    }
+  },
+  {
+    "UserName": "gantz",
+    "Email": "gantz4eva@gmail.com",
+    "Password": "123",
+    "Role": 0,
+    "UserInfo": {
+      "FullName": "Benny Gantz",
+      "BirthDate": "1946-01-09 00:00:00",
+      "Address": "Israel",
+      "PhoneNumber": "050-5555555",
+      "Gender": 0
+    }
+  },
+  {
+    "UserName": "bennet",
+    "Email": "2cool4school@gmail.com",
+    "Password": "123",
+    "Role": 2,
+    "UserInfo": {
+      "FullName": "Naftali Bennet",
+      "BirthDate": "1954-10-22 00:00:00",
+      "Address": "Raanana",
+      "PhoneNumber": "050-6666666",
+      "Gender": 0
+    }
+  },
+  {
+    "UserName": "lapid",
+    "Email": "makom2@gmail.com",
+    "Password": "123",
+    "Role": 2,
+    "UserInfo": {
+      "FullName": "Yair Lapid",
+      "BirthDate": "2000-12-03 00:00:00",
+      "Address": "Sri Lanka",
+      "PhoneNumber": "050-7777777",
+      "Gender": 0
+    }
+  },
+  {
+    "UserName": "admin",
+    "Email": "admin@admin",
+    "Password": "admin",
+    "Role": 0,
+    "UserInfo": {
+      "FullName": "Admin",
+      "BirthDate": "0001-01-01 00:00:00",
+      "Address": "here",
+      "PhoneNumber": "050-8888888",
+      "Gender": 1
+    }
+  },
+  {
+    "UserName": "manager",
+    "Email": "man@age",
+    "Password": "manager",
+    "Role": 1,
+    "UserInfo": {
+      "FullName": "Manager",
+      "BirthDate": "0001-01-01 00:00:00",
+      "Address": "here",
+      "PhoneNumber": "050-9999999",
+      "Gender": 1
     }
   }
 ]
