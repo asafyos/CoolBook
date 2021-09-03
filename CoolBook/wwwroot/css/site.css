@@ -235,7 +235,7 @@ body {
 
 .cb-details-cols {
     column-count: 2;
-    column-gap: 1.5rem;
+    column-gap: 2.5rem;
 }
     .cb-details-cols >div{
         height: 22rem;
