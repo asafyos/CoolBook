@@ -1,0 +1,24 @@
+﻿.cb-register {
+    max-width: 18rem;
+    margin: 17vh auto 8rem;
+}
+
+input#user {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: -1px;
+}
+
+input#email {
+    border-radius: 0;
+    margin-bottom: -1px;
+}
+
+input#pass {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.form-floating:focus-within {
+    z-index: 2;
+}

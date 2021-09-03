@@ -8,7 +8,6 @@
     --cb-secondary-dark: #2b0f42;
 }
 
-
 .cb-colored-nav {
     background-color: var(--cb-secondary);
 }
@@ -28,9 +27,6 @@ header > div {
 
 .cb-last-link {
     margin-right: auto;
-}
-
-.cb-cart {
 }
 
 .cb-logo {
@@ -122,26 +118,29 @@ button.accept-policy {
     line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
 html {
     position: relative;
     min-height: 100%;
 }
 
 body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
+    margin-bottom: 9rem;
     font-family: 'Roboto Slab', sans-serif;
 }
 
-.footer {
+.cb-footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
+    line-height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    column-gap: 2rem;
 }
+
 
 /* Card style */
 .cb-book-card {
