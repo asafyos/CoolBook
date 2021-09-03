@@ -68,7 +68,7 @@ namespace CoolBook.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Manager,Admin")]
-        public async Task<IActionResult> Create([Bind("Id,Name,BirthDate,Gender,Country")] Author author)
+        public async Task<IActionResult> Create([Bind("Id,Name,BirthDate,Gender,Country,ImageUrl")] Author author)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +102,7 @@ namespace CoolBook.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Manager,Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,BirthDate,Gender,Country")] Author author)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,BirthDate,Gender,Country,ImageUrl")] Author author)
         {
             if (id != author.Id)
             {

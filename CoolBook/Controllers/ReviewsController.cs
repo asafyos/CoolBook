@@ -81,8 +81,8 @@ namespace CoolBook.Controllers
 
             // Update the rate
             var book = await _context.Book.Include(b => b.Reviews).FirstOrDefaultAsync(b => b.Id == review.BookId);
-            var reviewsAmount = book.Reviews.Count();
-            book.Rate = (book.Rate * reviewsAmount + review.Rate) / (reviewsAmount + 1);
+            book.Rate = Math.Round(book.Reviews.Average(r => r.Rate), 2);
+
             _context.Update(book);
 
             if (ModelState.IsValid)

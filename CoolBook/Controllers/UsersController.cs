@@ -203,7 +203,7 @@ namespace CoolBook.Controllers
             // Validate the password entered
             if (user.Password != PasswordConfirmation)
             {
-                return RedirectToAction(nameof(WrongPassword));
+                return RedirectToAction(nameof(BadPassword));
             }
 
             // Update fields
@@ -254,8 +254,9 @@ namespace CoolBook.Controllers
         }
 
         // GET: Users/Login
-        public IActionResult Login()
+        public IActionResult Login([FromQuery] string LoginRedirect)
         {
+            ViewData["LoginRedirect"] = LoginRedirect;
             return View();
         }
 
@@ -298,7 +299,7 @@ namespace CoolBook.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(String UserName, String Password, [FromQuery] string redirect)
+        public async Task<IActionResult> Login(String UserName, String Password, string LoginRedirect)
         {
             var result = from u in _context.User
                          where u.UserName == UserName
@@ -307,14 +308,14 @@ namespace CoolBook.Controllers
 
             if (!result.Any())
             {
-                return RedirectToAction(nameof(WrongLogin));
+                return RedirectToAction(nameof(BadLogin));
             }
 
             await Signin(result.First());
 
-            if (redirect != null)
+            if (LoginRedirect != null)
             {
-                return Redirect(redirect);
+                return Redirect(LoginRedirect);
             }
 
             return RedirectToAction(nameof(Index), "Home");
@@ -360,13 +361,13 @@ namespace CoolBook.Controllers
         }
 
         // Bad login page
-        public ActionResult WrongLogin()
+        public ActionResult BadLogin()
         {
             return View();
         }
 
-        // Wrong password page
-        public ActionResult WrongPassword()
+        // Bad password page
+        public ActionResult BadPassword()
         {
             return View();
         }
