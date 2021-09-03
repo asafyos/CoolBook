@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CoolBook.Models.User>
+﻿@model IEnumerable<CoolBook.Controllers.UsersController.FullUser>
 
 @{
     ViewData["Title"] = "Index";
@@ -23,36 +23,59 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserName)
+                @Html.DisplayNameFor(model => model.User.UserName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.User.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Role)
+                @Html.DisplayNameFor(model => model.User.Role)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserInfo.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserInfo.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserInfo.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserInfo.Address)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Role)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Role)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserInfo.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserInfo.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserInfo.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserInfo.Address)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.User.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.User.Id">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>
 

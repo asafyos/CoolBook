@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CoolBook.Data;
 using CoolBook.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.DataAnnotations;
 
 namespace CoolBook.Controllers
 {
@@ -20,9 +21,54 @@ namespace CoolBook.Controllers
             _context = context;
         }
 
+        public class AuthorExtand
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+
+            [Required, Display(Name = "Birth Date"), DataType(DataType.Date)]
+            public DateTime BirthDate { get; set; }
+            public Gender Gender { get; set; }
+            public string Country { get; set; }
+
+            [Display(Name = "Books Count")]
+            public int BookCount { get; set; }
+        }
+
         // GET: Authors
         public async Task<IActionResult> Index()
         {
+            return View(await _context.Author.Join(
+                _context.Book,
+                author => author.Id,
+                book => book.AuthorId,
+                (author, book) => new
+                {
+                    Id = author.Id,
+                    Name = author.Name,
+                    BirthDate = author.BirthDate,
+                    Gender = author.Gender,
+                    Country = author.Country,
+                    BookId = book.Id
+                })
+                .GroupBy(x => new
+                {
+                    x.Id,
+                    x.Name,
+                    x.BirthDate,
+                    x.Gender,
+                    x.Country
+                })
+                .Select(x => new AuthorExtand
+                {
+                    Id = x.Key.Id,
+                    Name = x.Key.Name,
+                    BirthDate = x.Key.BirthDate,
+                    Gender = x.Key.Gender,
+                    Country = x.Key.Country,
+                    BookCount = x.Select(a => a.BookId).Distinct().Count()
+                }).ToListAsync());
+
             return View(await _context.Author.ToListAsync());
         }
 
