@@ -62,7 +62,7 @@ namespace CoolBook.Data
                 BirthDate = x.BirthDate,
                 Gender = x.Gender,
                 Country = x.Country,
-                //ImageUrl = x.ImageUrl
+                ImageUrl = x.ImageUrl
             });
             Author.AddRange(authors);
 
