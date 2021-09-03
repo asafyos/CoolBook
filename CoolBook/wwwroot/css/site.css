@@ -10,6 +10,7 @@
 
 .cb-colored-nav {
     background-color: var(--cb-secondary);
+    text-shadow: 2px 2px 2px #000000b0;
 }
 
 a.navbar-brand {
@@ -33,10 +34,6 @@ header > div {
     width: 2rem;
     height: 2rem;
     margin-left: 1rem;
-}
-
-.cb-colored-nav .cb-logo {
-    /*filter: contrast(0.1) brightness(2);*/
 }
 
 a {
@@ -220,4 +217,29 @@ body {
         box-shadow: calc(0rem - var(--w)) 0 0 var(--w) var(--fill);
         opacity: 1;
         width: 1px;
+    }
+
+.cb-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    margin: 1rem 2rem;
+}
+
+    .cb-details > img {
+        height: 15rem;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+.cb-details-cols {
+    column-count: 2;
+    column-gap: 1.5rem;
+}
+    .cb-details-cols >div{
+        height: 22rem;
+    }
+    .cb-details-cols > div:first-of-type {
+        text-align: end;
     }

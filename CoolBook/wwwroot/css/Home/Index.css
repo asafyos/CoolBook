@@ -10,6 +10,7 @@
 
     .cb-main-color h1 {
         margin-bottom: 1.5em;
+        text-shadow: 5px 5px 2px #000000c0;
     }
 
     .cb-main-color i.bi.bi-search {
@@ -24,6 +25,10 @@
         border: none;
         padding: 0;
         position: absolute;
+    }
+
+    .cb-main-color > a > h4 {
+        text-shadow: 2px 2px 3px #000000a0;
     }
 
 .cb-book-carousel {
