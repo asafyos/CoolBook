@@ -1,0 +1,20 @@
+[
+  {
+    "Name": "Colman",
+    "Lontitude": 34.771608,
+    "Latitude": 31.970050,
+    "Phone": "03-1234567"
+  },
+  {
+    "Name": "Dizengoff Center",
+    "Lontitude": 34.774421,
+    "Latitude": 32.075707,
+    "Phone": "03-1234567"
+  },
+  {
+    "Name": "Haifa",
+    "Lontitude": 34.992386,
+    "Latitude": 32.815737,
+    "Phone": "03-1234567"
+  }
+]
