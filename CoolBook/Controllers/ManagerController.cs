@@ -33,6 +33,7 @@ namespace CoolBook.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Manager,Admin")]
         public JsonResult GetWatchedBooks()
         {
             var AMOUNT_OF_MOST_WATCHED = 8;
@@ -42,6 +43,7 @@ namespace CoolBook.Controllers
                                                .ToList());
         }
 
+        [Authorize(Roles = "Manager,Admin")]
         public JsonResult GetBestBooks()
         {
             var AMOUNT_OF_BEST_BOOKS = 8;
@@ -51,6 +53,7 @@ namespace CoolBook.Controllers
                                                .ToList());
         }
 
+        [Authorize(Roles = "Manager,Admin")]
         public JsonResult GetCatAmounts()
         {
             return new JsonResult(_context.Category.Include(c => c.Books)
