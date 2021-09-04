@@ -8,70 +8,65 @@
 
 <div>
     <hr />
-    <div class="row">
-        <dl class="col-sm">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.User.UserName)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.User.UserName)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.User.Email)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.User.Email)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.User.Role)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.User.Role)
-            </dd>
-            <dt class="col-sm-2">
-                Update User
-            </dt>
-            <dd class="col-sm-10">
-                <a asp-action="Update" asp-route-id="@Model.User.Id">Edit Login</a> |
-            </dd>
-        </dl>
-        <dl class="col-sm">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.UserInfo.FullName)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.UserInfo.FullName)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.UserInfo.Gender)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.UserInfo.Gender)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.UserInfo.BirthDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.UserInfo.BirthDate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.UserInfo.Address)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.UserInfo.Address)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.UserInfo.PhoneNumber)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.UserInfo.PhoneNumber)
-            </dd>
-            <dt class="col-sm-2">
-                Update Information
-            </dt>
-            <dd class="col-sm-10">
-                <a asp-controller="UserInfoes" asp-action="Edit" asp-route-id="@Model.User.UserInfo.Id">Edit Info</a> |
-            </dd>
-        </dl>
+
+    <div class="cb-details">
+        <img src="~/Sample_User_Icon.png" alt="@Html.DisplayFor(model => model.User.UserName)" />
+
+        <div class="cb-details-cols">
+            <div>
+                <h4>
+                    @Html.DisplayNameFor(model => model.User.UserName)
+                </h4>
+                <h4>
+                    @Html.DisplayNameFor(model => model.User.Email)
+                </h4>
+                <h4>
+                    @Html.DisplayNameFor(model => model.User.Role)
+                </h4>
+                <h4>
+                    @Html.DisplayNameFor(model => model.UserInfo.FullName)
+                </h4>
+                <h4>
+                    @Html.DisplayNameFor(model => model.UserInfo.Gender)
+                </h4>
+                <h4>
+                    @Html.DisplayNameFor(model => model.UserInfo.BirthDate)
+                </h4>
+                <h4>
+                    @Html.DisplayNameFor(model => model.UserInfo.Address)
+                </h4>
+                <h4>
+                    @Html.DisplayNameFor(model => model.UserInfo.PhoneNumber)
+                </h4>
+            </div>
+            <div>
+                <h4>
+                    @Html.DisplayFor(model => model.User.UserName)
+                </h4>
+                <h4>
+                    @Html.DisplayFor(model => model.User.Email)
+                </h4>
+                <h4>
+                    @Html.DisplayFor(model => model.User.Role)
+                </h4>
+                <h4>
+                    @Html.DisplayFor(model => model.UserInfo.FullName)
+                </h4>
+                <h4>
+                    @Html.DisplayFor(model => model.UserInfo.Gender)
+                </h4>
+                <h4>
+                    @Html.DisplayFor(model => model.UserInfo.BirthDate)
+                </h4>
+                <h4>
+                    @Html.DisplayFor(model => model.UserInfo.Address)
+                </h4>
+                <h4>
+                    @Html.DisplayFor(model => model.UserInfo.PhoneNumber)
+                </h4>
+            </div>
+        </div>
+        <a asp-action="Update" asp-route-id="@Model.User.Id">Edit Login</a>
+        <a asp-controller="UserInfoes" asp-action="Edit" asp-route-id="@Model.User.UserInfo.Id">Edit Info</a>
     </div>
 </div>

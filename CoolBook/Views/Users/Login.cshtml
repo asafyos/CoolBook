@@ -3,37 +3,38 @@
 @{
     ViewData["Title"] = "Login";
 }
+
+@section Styles {
+    <link href="@Url.Content("~/css/Users/Login.css")" rel="stylesheet" type="text/css" />
+}
+
 <div class="container">
     <br />
     <h1>Login</h1>
 
     <hr />
-    <div class="row justify-content-md-center">
-        <div class="col-md-4 col-lg-3">
-            <form asp-action="Login">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="UserName" class="control-label"></label>
-                    <input asp-for="UserName" class="form-control" />
-                    <span asp-validation-for="UserName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="LoginRedirect" value="@ViewData["LoginRedirect"]" hidden="hidden" class="form-control" />
-                </div>
-                <div class="form-group form-group justify-content-center row">
-                    <input type="submit" value="Login" class="btn btn-primary" />
-                </div>
-                <div class="justify-content-center row">
-                    <a asp-action="Register">New to CoolBook? Register here</a>
-                </div>
-            </form>
+    <form asp-action="Login" class="cb-login">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-floating">
+            <input id="user" asp-for="UserName" class="form-control" placeholder="Username" />
+            <label for="user" asp-for="UserName"></label>
+            <span asp-validation-for="UserName" class="text-danger"></span>
         </div>
-    </div>
+        <div class="form-floating">
+            <input id="pass" asp-for="Password" class="form-control" placeholder="Password" />
+            <label for="pass" asp-for="Password"></label>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div>
+            <input type="text" name="LoginRedirect" value="@ViewData["LoginRedirect"]" hidden="hidden" />
+        </div>
+        <div class="mt-4 mb-4">
+            <input type="submit" value="Login" class="btn btn-primary w-100" />
+        </div>
+        <div class="text-center">
+            <a asp-action="Register">New to CoolBook? Register here</a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {

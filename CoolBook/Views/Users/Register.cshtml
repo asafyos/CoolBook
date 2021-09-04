@@ -3,39 +3,40 @@
 @{
     ViewData["Title"] = "Registration";
 }
+
+@section Styles {
+    <link href="@Url.Content("~/css/Users/Register.css")" rel="stylesheet" type="text/css" />
+}
+
 <div class="container">
     <br />
     <h1>Register</h1>
 
     <hr />
-    <div class="row justify-content-md-center">
-        <div class="col-md-4 col-lg-3">
-            <form asp-action="Register">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="UserName" class="control-label"></label>
-                    <input asp-for="UserName" class="form-control" />
-                    <span asp-validation-for="UserName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group form-group justify-content-center row">
-                    <input type="submit" value="Register" class="btn btn-primary" />
-                </div>
-                <div class="justify-content-center row">
-                    <a asp-action="Login">Already have an account? Login here</a>
-                </div>
-            </form>
+    <form asp-action="Register" class="cb-register">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-floating">
+            <input id="user" asp-for="UserName" class="form-control" placeholder="Username" />
+            <label for="user" asp-for="UserName" class="control-label"></label>
+            <span asp-validation-for="UserName" class="text-danger"></span>
         </div>
-    </div>
+        <div class="form-floating">
+            <input id="email" asp-for="Email" class="form-control" placeholder="Email" />
+            <label for="email" asp-for="Email" class="control-label"></label>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-floating">
+            <input id="pass" asp-for="Password" class="form-control" placeholder="Password" />
+            <label for="pass" asp-for="Password" class="control-label"></label>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="mt-4 mb-4">
+            <input type="submit" value="Register" class="btn btn-primary w-100" />
+        </div>
+        <div class="text-center">
+            <a asp-action="Login">Already have an account? Login here</a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
