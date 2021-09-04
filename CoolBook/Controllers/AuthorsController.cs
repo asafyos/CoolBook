@@ -21,7 +21,7 @@ namespace CoolBook.Controllers
             _context = context;
         }
 
-        public class AuthorExtand
+        public class AuthorExtended
         {
             public int Id { get; set; }
             public string Name { get; set; }
@@ -38,20 +38,23 @@ namespace CoolBook.Controllers
         // GET: Authors
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Author.Join(
-                _context.Book,
-                author => author.Id,
-                book => book.AuthorId,
-                (author, book) => new
-                {
-                    Id = author.Id,
-                    Name = author.Name,
-                    BirthDate = author.BirthDate,
-                    Gender = author.Gender,
-                    Country = author.Country,
-                    BookId = book.Id
-                })
-                .GroupBy(x => new
+            return View(await _context.Author.GroupJoin(
+                    _context.Book,
+                    author => author.Id,
+                    book => book.AuthorId,
+                    (author, book) => new { author = author, book = book }
+                ).SelectMany(
+                    x => x.book.DefaultIfEmpty(),
+                    (a, b) => new
+                    {
+                        Id = a.author.Id,
+                        Name = a.author.Name,
+                        BirthDate = a.author.BirthDate,
+                        Gender = a.author.Gender,
+                        Country = a.author.Country,
+                        BookId = b.Id
+                    }
+                ).GroupBy(x => new
                 {
                     x.Id,
                     x.Name,
@@ -59,7 +62,7 @@ namespace CoolBook.Controllers
                     x.Gender,
                     x.Country
                 })
-                .Select(x => new AuthorExtand
+                .Select(x => new AuthorExtended
                 {
                     Id = x.Key.Id,
                     Name = x.Key.Name,
